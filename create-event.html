@@ -174,13 +174,15 @@
     <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="createEventModalLabel">Event Created Successfully</h5>
+          <div class="modal-header" style="background-color: #03C03C;">
+            <h5 class="modal-title" id="createEventModalLabel" style="color: whitesmoke ;">Event Created Successfully</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div id="qrCode" class="text-center mb-3" style="align-items: center;"></div>
-            <h6>Event Details:</h6>
+            <div id="qrCode" class="text-center mb-3" style="max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;"></div>
+            <h6 style="font-weight: bold; font-size: 20px; text-align: center; background-color: gray; padding: 8px; color: white;">Event Details</h6>
             <p><strong>Name:</strong> <span id="modalEventName"></span></p>
             <p><strong>Date:</strong> <span id="modalEventDate"></span></p>
             <p><strong>Venue:</strong> <span id="modalEventVenue"></span></p>
@@ -190,8 +192,7 @@
             <button type="button" id="saveQrBtn" class="btn btn-success">Save QR Code</button>
             <button type="button" id="deleteEventBtn" class="btn btn-danger">Delete Event</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button id="openModalBtn" type="button" class="btm btn-secondary">Open Modal</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
 
 
           </div>
@@ -228,24 +229,6 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="assets/js/create-event.js"></script>
-
-  <script>
-    // Get the modal
-    var modal = document.getElementById("createEventModal");
-  
-    // Get the button that opens the modal
-    var btn = document.getElementById("openModalBtn");
-  
-    // Get the <span> element that closes the modal
-  
-  
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-  </script>
 
 
 </body>
