@@ -67,7 +67,7 @@
 </header><!-- End Header -->
 
 
-  <main id="main" class="main">
+  <main id="main" class="main" style="margin: 10px;">
 
     <div class="pagetitle">
       <h1 style="font-size: 35px;">Create New Event</h1>
@@ -95,6 +95,25 @@
           Please select an event date.
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <label for="id_event_start_time" class="form-label">Start Time</label>
+          <input type="time" class="form-control" id="id_event_start_time" required>
+          <div class="invalid-feedback">
+            Please select an event start time.
+          </div>
+        </div>
+        <div class="col">
+          <label for="id_event_end_time" class="form-label">End Time</label>
+          <input type="time" class="form-control" id="id_event_end_time" required>
+          <div class="invalid-feedback">
+            Please select an event end time.
+          </div>
+        </div>
+      </div>
+
+
+
       <div class="col-12">
         <label for="id_event_venue" class="form-label">Event Venue</label>
         <input type="text" class="form-control" id="id_event_venue" style="text-transform: capitalize" required>
@@ -121,24 +140,26 @@
     <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="createEventModalLabel">Event Created Successfully</h5>
+          <div class="modal-header" style="background-color: #03C03C; color: white;">
+            <h5 class="modal-title" id="createEventModalLabel" style="font-weight: bold;">Event Created Successfully!</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div id="qrCode" class="text-center mb-3" style="align-items: center;"></div>
-            <h6>Event Details:</h6>
+            <div id="qrCode" class="text-center mb-3" style="max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;"></div>
+            <h6 style="text-align: center; font-size: 15px; font-weight: 600;">Event Details:</h6>
             <p><strong>Name:</strong> <span id="modalEventName"></span></p>
             <p><strong>Date:</strong> <span id="modalEventDate"></span></p>
             <p><strong>Venue:</strong> <span id="modalEventVenue"></span></p>
             <p><strong>Speaker/s:</strong> <span id="modalEventSpeaker"></span></p>
+            <p><strong></strong></p>
           </div>
           <div class="modal-footer">
             <button type="button" id="saveQrBtn" class="btn btn-success">Save QR Code</button>
             <button type="button" id="deleteEventBtn" class="btn btn-danger">Delete Event</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button id="openModalBtn" type="button" class="btm btn-secondary">Open Modal</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
 
 
           </div>
@@ -176,7 +197,7 @@
   <script src="assets/js/main.js"></script>
   <script src="assets/js/create-event.js"></script>
 
-  <script>
+  <!-- <script>
     // Get the modal
     var modal = document.getElementById("createEventModal");
   
@@ -192,7 +213,7 @@
         modal.style.display = "none";
       }
     }
-  </script>
+  </script> -->
 
 
 </body>
