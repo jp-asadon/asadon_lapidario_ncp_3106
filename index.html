@@ -92,11 +92,10 @@
         <!-- Right side columns -->
         <div class="col-lg-4">
 
-          <div class="card info-card customers-card">
+          <div class="card info-card customers-card" style="border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); transition: box-shadow 0.3s ease;" onmouseover="this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'" 
+          onmouseout="this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'">
 
             <div class="card-body">  <a href="create-event.html">
-              <h5 class="card-title"></h5>
-
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                   <i class="bi bi-calendar-plus"></i>
@@ -111,7 +110,7 @@
           </div>
 
           <!-- Recent Activity -->
-          <div class="card">
+          <div class="card" style="height: 300px; overflow-x: auto;">
             <div class="filter">
               <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
