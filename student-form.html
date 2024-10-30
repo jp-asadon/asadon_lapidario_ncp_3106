@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +11,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
 
     <div class="container mt-5">
@@ -27,197 +31,632 @@
 
                 <section>
                     <h1 style="text-align: center;">Event Name (SAO Evaluation)</h1>
-                    <p style="text-align: justify;">Thank you for attending the Workshop. We would like to appreciate your feedback  and welcome any additional comments that you may have. Your response will be used to enhance our events and activities and ensure that we meet your future needs. We value your responses on this evaluation.</p>
+                    <p style="text-align: justify;">Thank you for attending the Workshop. We would like to appreciate
+                        your feedback and welcome any additional comments that you may have. Your response will be used
+                        to enhance our events and activities and ensure that we meet your future needs. We value your
+                        responses on this evaluation.</p>
                 </section>
 
 
                 <formid="regForm" action="/action_page.php">
 
-         
-                <!-- One "tab" for each step in the form: -->
-                <!-- <div class="tab">Name:
+
+                    <!-- One "tab" for each step in the form: -->
+                    <!-- <div class="tab">Name:
                   <p><input placeholder="First name..." oninput="this.className = ''" name="fname"></p>
                   <p><input placeholder="Last name..." oninput="this.className = ''" name="lname"></p>
                 </div> -->
 
-                <div class="tab">
-                    <div class="card">
-                        <div class="card-body">
-                            <p style="font-size: 20px; font-weight: bold;">Data Privacy Consent</p>
-                            <p style="text-align: justify;">The collection of data is for the purpose of evaluating your activity. By signing this form, you are certifying that all information provided are true and correct and likewise authorizing this office to process your information. Your accomplished form will be kept in a secure place and will be disposed of within a reasonable time frame.</p>
-                        
+                    <div class="tab">
+                        <div class="card">
+                            <div class="card-body">
+                                <p style="font-size: 20px; font-weight: bold;">Data Privacy Consent</p>
+                                <p style="text-align: justify;">The collection of data is for the purpose of evaluating
+                                    your activity. By signing this form, you are certifying that all information
+                                    provided are true and correct and likewise authorizing this office to process your
+                                    information. Your accomplished form will be kept in a secure place and will be
+                                    disposed of within a reasonable time frame.</p>
 
-                            <div style="overflow:auto;">
-                                <div style="float:right;">
-                                  <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                  <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+
+                                <div style="overflow:auto;">
+                                    <div style="float:right;">
+                                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                    </div>
                                 </div>
-                              </div>
+                            </div>
                         </div>
-                      </div>
-                </div>
+                    </div>
 
-                <div class="tab">
-                    <div class="card">
-                        <div class="card-body">
-                               <p style="text-align: justify;">The Society of Computer Engineering Students would like to hear your feedback on the following event in order to improve our procedures on event management and facilitation to serve you better in future.</p>
-                               <p style="text-align: center; font-weight: bold;">Figma: An Introductory UI Development Workshop for Beginners </p>
-                               <p style="text-align: center; font-weight: bold;">September 20, 2022</p>
+                    <!-- <div class="tab">
+                        <div class="card">
+                            <div class="card-body">
+                                <p style="text-align: justify;">The Society of Computer Engineering Students would like
+                                    to hear your feedback on the following event in order to improve our procedures on
+                                    event management and facilitation to serve you better in future.</p>
+                                <p style="text-align: center; font-weight: bold;">Figma: An Introductory UI Development
+                                    Workshop for Beginners </p>
+                                <p style="text-align: center; font-weight: bold;">September 20, 2022</p>
 
-                                <p style="text-align: justify;">Privacy Consent:  I understand and agree that by filling-out this form, my personal data will be processed only for the purpose of evaluating the event and for contacting me for future initiatives that I may be interested in. 
-                                    Furthermore, I understand that my personal data will be kept confidential and stored in a secure location. 
+                                <p style="text-align: justify;">Privacy Consent: I understand and agree that by
+                                    filling-out this form, my personal data will be processed only for the purpose of
+                                    evaluating the event and for contacting me for future initiatives that I may be
+                                    interested in.
+                                    Furthermore, I understand that my personal data will be kept confidential and stored
+                                    in a secure location.
                                 </p>
                                 <p>For queries and concerns, please contact <b>esteban.dylann@ue.edu.ph</b>.</p>
 
-                                <input type="radio" id="consentAnswer" name="consentRadio" value="Yes" required>
+                                <input type="radio" id="consentAnswer" name="consentRadio" value="Yes" required> I do
                                 <label for="consentAnswer">I do</label>
+
+                                <div style="text-align: center;">
+                                    <label for="i-do">I do</label>
+                                    <input type="radio" id="i-do" name="radio" required>
+                                  </div>
                                 <div style="overflow:auto;">
                                     <div style="float:right;">
-                                      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                                     </div>
-                                  </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-
-
-
-
-
-                <div class="tab">Student Information:
-                    <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p>
-                    <p><input placeholder="Phone..." oninput="this.className = ''" name="phone"></p>
-                  
-                    
-                    <div class="form-group">
-                        <label for="email" style="font-weight: bold;">Email Address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <!-- <section>
-                            <p>This will be shown on your certificate to be sent on your respective UE Email Address.</p>
-                            <p>Format: <b>GIVEN NAME M. SURNAME</b> </p> 
-                            <p>Surname (in UPPERCASE)</p>
-                        </section> -->
-
-                        <label for="surname" style="font-weight: bold;">Surname (in UPPERCASE)</label>
-                        <input type="text" class="form-control" id="surname" placeholder="Enter your surname" required>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="first-name" style="font-weight: bold;">First Name (in UPPERCASE)</label>
-                        <input type="text" class="form-control" id="first-name" placeholder="Enter your first name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="middle-initial" style="font-weight: bold;">Middle Initial</label>
-                        <input type="text" class="form-control" id="middle-initial" placeholder="Enter your middle initial" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="student-number" style="font-weight: bold;">Student Number</label>
-                        <input type="text" class="form-control" id="student-number" placeholder="Enter your student number" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="year-level" style="font-weight: bold;">Year Level</label>
-                        <select class="form-control" id="year-level" required>
-                            <option value="">Select Year Level</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="program" style="font-weight: bold;">Program</label>
-                        <input type="text" class="form-control" id="program" placeholder="Enter your Program" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="college" style="font-weight: bold;">College</label>
-                        <input type="text" class="form-control" id="college" placeholder="Enter your College" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="age" style="font-weight: bold;">Age</label>
-                        <input type="text" class="form-control" id="age" placeholder="Enter your Age" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="sex" style="font-weight: bold;">Sex</label>
-                        <input type="text" class="form-control" id="sex" placeholder="Enter your Sex" required>
-                    </div>
-
-                    <!-- <div class="form-group">
-                        <label for="year-level" style="font-weight: bold;">Yeaar Level</label>
-                        <select class="form-control" id="year-level" required>
-                            <option value="">Select Year Level</option>
-                            <option value="5">Excellent</option>
-                            <option value="4">Very Good</option>
-                            <option value="3">Good</option>
-                            <option value="2">Fair</option>
-                            <option value="1">Poor</option>
-                        </select>
                     </div> -->
 
-                    <div style="overflow:auto;">
-                        <div style="float:right;">
-                          <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                          <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+
+                    <div class="tab">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <p style="text-align: justify;">The Society of Computer Engineering Students would like
+                                    to hear your feedback on the following event in order to improve our procedures on
+                                    event management and facilitation to serve you better in future.</p>
+                                <p style="text-align: center; font-weight: bold;">Figma: An Introductory UI Development
+                                    Workshop for Beginners </p>
+                                <p style="text-align: center; font-weight: bold;">September 20, 2022</p>
+
+                                <p style="text-align: justify;">Privacy Consent: I understand and agree that by
+                                    filling-out this form, my personal data will be processed only for the purpose of
+                                    evaluating the event and for contacting me for future initiatives that I may be
+                                    interested in.
+                                    Furthermore, I understand that my personal data will be kept confidential and stored
+                                    in a secure location.
+                                </p>
+                                <p>For queries and concerns, please contact <b>esteban.dylann@ue.edu.ph</b>.</p><br>
+                    
+                                <form id="consentForm">
+                                    <label>
+                                        <input type="radio" name="consent" value="Yes" required> I consent
+                                    </label>
+
+                                    <div style="overflow:auto;">
+                                        <div style="float:right;">
+                                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                        </div>
+                                    </div>
+                                </form>
+                    
+
+                            </div>
                         </div>
-                      </div>
-
-   
-
-                </div> 
-
-                <!-- <div style="overflow:auto;">
-                    <div style="float:right;">
-                      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                     </div>
-                  </div> -->
-
-                  <!-- Circles which indicates the steps of the form: -->
-  <div style="text-align:center;margin-top:40px;">
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-  </div>
-</form>
-
-  
+                    
 
 
-                </formid=>
+                    <div class="tab"> 
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <!-- <section>
+                                    <p>This will be shown on your certificate to be sent on your respective UE Email Address.</p>
+                                    <p>Format: <b>GIVEN NAME M. SURNAME</b> </p> 
+                                    <p>Surname (in UPPERCASE)</p>
+                                </section> -->
+
+                                    <label for="surname" style="font-weight: bold;">Surname (in UPPERCASE)</label>
+                                    <input type="text" class="form-control" id="surname"
+                                        placeholder="Enter your surname" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="first-name" style="font-weight: bold;">First Name (in UPPERCASE)</label>
+                                    <input type="text" class="form-control" id="first-name"
+                                        placeholder="Enter your first name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="middle-initial" style="font-weight: bold;">Middle Initial</label>
+                                    <input type="text" class="form-control" id="middle-initial"
+                                        placeholder="Enter your middle initial" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="student-number" style="font-weight: bold;">Student Number</label>
+                                    <input type="text" class="form-control" id="student-number"
+                                        placeholder="Enter your student number" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="year-level" style="font-weight: bold;">Year Level</label>
+                                    <select class="form-control" id="year-level" required>
+                                        <option value="">Select Year Level</option>
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="1">1</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="program" style="font-weight: bold;">Program</label>
+                                    <input type="text" class="form-control" id="program"
+                                        placeholder="Enter your Program" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="college" style="font-weight: bold;">College</label>
+                                    <input type="text" class="form-control" id="college"
+                                        placeholder="Enter your College" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" style="font-weight: bold;">Age</label>
+                                    <input type="text" class="form-control" id="age" placeholder="Enter your Age"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sex" style="font-weight: bold;">Sex</label>
+                                    <input type="text" class="form-control" id="sex" placeholder="Enter your Sex"
+                                        required>
+                                </div>
+
+                                <!-- <div class="form-group">
+                                <label for="year-level" style="font-weight: bold;">Yeaar Level</label>
+                                <select class="form-control" id="year-level" required>
+                                    <option value="">Select Year Level</option>
+                                    <option value="5">Excellent</option>
+                                    <option value="4">Very Good</option>
+                                    <option value="3">Good</option>
+                                    <option value="2">Fair</option>
+                                    <option value="1">Poor</option>
+                                </select>
+                            </div> -->
+
+                                <div style="overflow:auto;">
+                                    <div style="float:right;">
+                                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- <div style="overflow:auto;">
+                            <div style="float:right;">
+                              <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                              <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                            </div>
+                          </div> -->
+                            </form>
+
+                        </div>
+                    </div>
+
+
+                    <div class="tab">
+                        <div class="card">
+                            <div class="card-body">
+                                <p style="text-align: justify; font-weight: bold;">EVALUATION</p>
+                                <p style="text-align: justify;">In our desire to provide quality student activities, we
+                                    would like you to please rate the following items using the 5-point rating scale
+                                    honestly and objectively: </p>
+                                <p style="text-align: justify; ">
+                                    5 - Excellent<br>
+                                    4 - Very Satisfactory<br>
+                                    3 - Satisfactory<br>
+                                    2 - Poor<br>
+                                    1 - Extremely Poor</p>
+
+                                <div class="card" style="margin: 5px;">
+                                    <div class="card-body">
+                                        <h4>Program Flow</h4>
+                                        <div class="rating">
+                                            <input type="radio" name="program_flow" id="program_flow-star5" checked
+                                                style="background-color: rgb(18, 87, 18);">
+                                            <label for="program_flow-star5">
+                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
+                                                <span>Excellent</span>
+                                            </label>
+                                            <input type="radio" name="program_flow" id="program_flow-star4"
+                                                style="background-color: rgb(146, 185, 88);">
+                                            <label for="program_flow-star4">
+                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
+                                                    height="120">
+                                                <span>Very Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="program_flow" id="program_flow-star3"
+                                                style="background-color: #FFC300;">
+                                            <label for="program_flow-star3">
+                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
+                                                <span>Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="program_flow" id="program_flow-star2"
+                                                style="background-color: rgb(236, 120, 78);">
+                                            <label for="program_flow-star2">
+                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
+                                                <span>Poor</span>
+                                            </label>
+                                            <input type="radio" name="program_flow" id="program_flow-star1"
+                                                style="background-color: rgb(240, 46, 46);">
+                                            <label for="program_flow-star1">
+                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
+                                                    height="120">
+                                                <span>Extremely Poor</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="margin: 5px;">
+                                    <div class="card-body">
+                                        <h4>Time Management</h4>
+                                        <div class="rating">
+                                            <input type="radio" name="time_management" id="time_management-star5" checked
+                                                style="background-color: rgb(84, 95, 84);">
+                                            <label for="time_management-star5">
+                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
+                                                <span>Excellent</span>
+                                            </label>
+                                            <input type="radio" name="time_management" id="time_management-star4"
+                                                style="background-color: rgb(146, 185, 88);">
+                                            <label for="time_management-star4">
+                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
+                                                    height="120">
+                                                <span>Very Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="time_management" id="time_management-star3"
+                                                style="background-color: #FFC300;">
+                                            <label for="time_management-star3">
+                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
+                                                <span>Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="time_management" id="time_management-star2"
+                                                style="background-color: rgb(236, 120, 78);">
+                                            <label for="time_management-star2">
+                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
+                                                <span>Poor</span>
+                                            </label>
+                                            <input type="radio" name="time_management" id="time_management-star1"
+                                                style="background-color: rgb(240, 46, 46);">
+                                            <label for="time_management-star1">
+                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
+                                                    height="120">
+                                                <span>Extremely Poor</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="margin: 5px;">
+                                    <div class="card-body">
+                                        <h4>Venue and Facilities</h4>
+
+                                        <div class="rating">
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star5" checked
+                                                style="background-color: rgb(18, 87, 18);">
+                                            <label for="venue_and_fac-star5">
+                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
+                                                <span>Excellent</span>
+                                            </label>
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star4"
+                                                style="background-color: rgb(146, 185, 88);">
+                                            <label for="venue_and_fac-star4">
+                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
+                                                    height="120">
+                                                <span>Very Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star3"
+                                                style="background-color: #FFC300;">
+                                            <label for="venue_and_fac-star3">
+                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
+                                                <span>Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star2"
+                                                style="background-color: rgb(236, 120, 78);">
+                                            <label for="venue_and_fac-star2">
+                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
+                                                <span>Poor</span>
+                                            </label>
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star1"
+                                                style="background-color: rgb(240, 46, 46);">
+                                            <label for="venue_and_fac-star1">
+                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
+                                                    height="120">
+                                                <span>Extremely Poor</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="margin: 5px;">
+                                    <div class="card-body">
+                                        <h4>Speakers/Performers</h4>
+                                        <div class="rating">
+                                            <input type="radio" name="speakers_performers" id="speakers_performers-star5" checked
+                                                style="background-color: rgb(18, 87, 18);">
+                                            <label for="peakers_performers-star5">
+                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
+                                                <span>Excellent</span>
+                                            </label>
+                                            <input type="radio" name="speakers_performers" id="speakers_performers-star4"
+                                                style="background-color: rgb(146, 185, 88);">
+                                            <label for="peakers_performers-star4">
+                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
+                                                    height="120">
+                                                <span>Very Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="speakers_performers" id="speakers_performers-star3"
+                                                style="background-color: #FFC300;">
+                                            <label for="peakers_performers-star3">
+                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
+                                                <span>Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="speakers_performers" id="speakers_performers-star2"
+                                                style="background-color: rgb(236, 120, 78);">
+                                            <label for="peakers_performers-star2">
+                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
+                                                <span>Poor</span>
+                                            </label>
+                                            <input type="radio" name="speakers_performers" id="speakers_performers-star1"
+                                                style="background-color: rgb(240, 46, 46);">
+                                            <label for="peakers_performers-star1">
+                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
+                                                    height="120">
+                                                <span>Extremely Poor</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="margin: 5px;">
+                                    <div class="card-body">
+                                        <h4> Topics/Quality of Performances</h4>
+                                        <div class="rating">
+                                            <input type="radio" name="topics" id="topics-star5" checked
+                                                style="background-color: rgb(18, 87, 18);">
+                                            <label for="topics-star5">
+                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
+                                                <span>Excellent</span>
+                                            </label>
+                                            <input type="radio" name="topics" id="topics-star4"
+                                                style="background-color: rgb(146, 185, 88);">
+                                            <label for="topics-star4">
+                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
+                                                    height="120">
+                                                <span>Very Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="topics" id="topics-star3"
+                                                style="background-color: #FFC300;">
+                                            <label for="topics-star3">
+                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
+                                                <span>Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="topics" id="topics-star2"
+                                                style="background-color: rgb(236, 120, 78);">
+                                            <label for="topics-star2">
+                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
+                                                <span>Poor</span>
+                                            </label>
+                                            <input type="radio" name="topics" id="topics-star1"
+                                                style="background-color: rgb(240, 46, 46);">
+                                            <label for="topics-star1">
+                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
+                                                    height="120">
+                                                <span>Extremely Poor</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="margin: 5px;">
+                                    <div class="card-body">
+                                        <h4>Facilitators/Event Organizers</h4>
+
+                                        <div class="rating">
+                                            <input type="radio" name="facilitators" id="facilitators-star5" checked
+                                                style="background-color: rgb(18, 87, 18);">
+                                            <label for="facilitators-star5">
+                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
+                                                <span>Excellent</span>
+                                            </label>
+                                            <input type="radio" name="facilitators" id="facilitators-star4"
+                                                style="background-color: rgb(146, 185, 88);">
+                                            <label for="facilitators-star4">
+                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
+                                                    height="120">
+                                                <span>Very Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="facilitators" id="facilitators-star3"
+                                                style="background-color: #FFC300;">
+                                            <label for="facilitators-star3">
+                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
+                                                <span>Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="facilitators" id="facilitators-star2"
+                                                style="background-color: rgb(236, 120, 78);">
+                                            <label for="facilitators-star2">
+                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
+                                                <span>Poor</span>
+                                            </label>
+                                            <input type="radio" name="facilitators" id="facilitators-star1"
+                                                style="background-color: rgb(240, 46, 46);">
+                                            <label for="facilitators-star1">
+                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
+                                                    height="120">
+                                                <span>Extremely Poor</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="margin: 5px;">
+                                    <div class="card-body">
+                                        <h4>Overall Rating for the Activity</h4>
+                                        <div class="rating">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star5" checked
+                                                style="background-color: rgb(18, 87, 18);">
+                                            <label for="overall_rating-star5">
+                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
+                                                <span>Excellent</span>
+                                            </label>
+                                            <input type="radio" name="overall_rating" id="overall_rating-star4"
+                                                style="background-color: rgb(146, 185, 88);">
+                                            <label for="overall_rating-star4">
+                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
+                                                    height="120">
+                                                <span>Very Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="overall_rating" id="overall_rating-star3"
+                                                style="background-color: #FFC300;">
+                                            <label for="overall_rating-star3">
+                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
+                                                <span>Satisfactory</span>
+                                            </label>
+                                            <input type="radio" name="overall_rating" id="overall_rating-star2"
+                                                style="background-color: rgb(236, 120, 78);">
+                                            <label for="overall_rating-star2">
+                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
+                                                <span>Poor</span>
+                                            </label>
+                                            <input type="radio" name="overall_rating" id="overall_rating-star1"
+                                                style="background-color: rgb(240, 46, 46);">
+                                            <label for="overall_rating-star1">
+                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
+                                                    height="120">
+                                                <span>Extremely Poor</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="margin: 5px;">
+                                    <div class="card-body">
+                                        <h4>Comments and Suggestion for the Speakers</h4>
+                                        <textarea name="feedback" rows="4"
+                                            placeholder="Kindly place your comments for our guest speaker here. (Optional)"
+                                            style="width: 100%; padding: 10px;"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="margin: 5px; margin-bottom: 10px;">
+                                    <div class="card-body">
+                                        <h4>Comments and Suggestion for the Organizers (SCpES and DCpE)</h4>
+                                        <textarea name="feedback" rows="4"
+                                            placeholder="Kindly place your comments for our organizers here. (Optional)"
+                                            style="width: 100%; padding: 10px;"></textarea>
+                                    </div>
+                                </div>
+
+
+                                <div style="overflow:auto;">
+                                    <div style="float:right;">
+                                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Submit</button> 
+                                        <!-- i should change this  to submit -->
+                                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="tab"> 
+                        <div class="card">
+                            <div class="card-body">
+                                
+
+
+                                <div class="container1" style="display: flex;
+                                justify-content: center;
+                                align-items: center;">
+                                Thank You for  your participation in the SCpES and DCpE 2023 conference. 
+
+                                We hope you enjoyed the conference and we look forward to seeing you again in the future.
+                                </div>
+
+
+
+                                <div style="overflow:auto;">
+                                    <div style="float:right;">
+                                        <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button> -->
+
+                                        <button type="button" onclick="window.open('', '_self', ''); window.close();">Exit</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- <div style="overflow:auto;">
+                            <div style="float:right;">
+                              <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                              <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                            </div>
+                          </div> -->
+     
+
+                        </div>
+                    </div>
+
+
             </div>
-        </div>
-
-        
 
 
 
-        <div class="mt-3" id="thanksMessage" style="display: none;">
-            <div class="alert alert-success text-center">
-                Thank you for your feedback!
+
+
+
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
             </div>
-        </div>
 
-        <div class="mt-5">
-            <canvas id="ratingChart" width="400" height="400"></canvas>
+
+
+
+
+
+            </formid=>
         </div>
+    </div>
+
+
+
+
+
+    <div class="mt-3" id="thanksMessage" style="display: none;">
+        <div class="alert alert-success text-center">
+            Thank you for your feedback!
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <canvas id="ratingChart" width="400" height="400"></canvas>
+    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <!-- <script src="student-form.js"></script> -->
     <script src="assets/js/student-form.js"></script>
 </body>
-</html>
 
+</html>

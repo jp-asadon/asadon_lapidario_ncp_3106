@@ -1,3 +1,20 @@
+// FOR CUSTON RADIO BUTTON
+
+
+
+// END OF CUSTOM RADIO BUTTONS
+
+
+//next button in consent radio is disabled unless I do is filled
+
+document.getElementById('consentForm').addEventListener('change', function() {
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.style.display = this.querySelector('input[name="consent"]:checked') ? 'inline-block' : 'none';
+});
+
+//end of consent radio js
+
+// ==============================****============================
 // For form transition W3school
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
@@ -39,7 +56,7 @@ function nextPrev(n) {
   // Otherwise, display the correct tab:
   showTab(currentTab);
 }
-
+////ENDDDD
 function validateForm() {
   // This function deals with validation of the form fields
   var x, y, i, valid = true;
