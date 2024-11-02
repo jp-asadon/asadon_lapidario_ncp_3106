@@ -7,11 +7,6 @@
 
 //next button in consent radio is disabled unless I do is filled
 
-document.getElementById('consentForm').addEventListener('change', function() {
-  const nextBtn = document.getElementById('nextBtn');
-  nextBtn.style.display = this.querySelector('input[name="consent"]:checked') ? 'inline-block' : 'none';
-});
-
 //end of consent radio js
 
 // ==============================****============================
