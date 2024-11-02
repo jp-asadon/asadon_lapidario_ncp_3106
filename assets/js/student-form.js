@@ -1,4 +1,4 @@
-// FOR CUSTON RADIO BUTTON
+// FOR CUSTOm RADIO BUTTON
 
 
 
@@ -6,6 +6,7 @@
 
 
 //next button in consent radio is disabled unless I do is filled
+
 
 //end of consent radio js
 
@@ -33,24 +34,72 @@ function showTab(n) {
   fixStepIndicator(n)
 }
 
+function validateYearLevelForThirdTab() {
+  // Check if the third tab is displayed
+  const thirdTab = document.getElementById("third-tab");
+  const yearLevel = document.getElementById("year-level-third-tab").value;
+
+  // Only validate if the third tab is visible
+  if (thirdTab.style.display !== "none" && yearLevel === "") {
+      alert("Please select a Year Level.");
+      return false;
+  }
+  return true;
+}
+
+// function nextPrev(n) {
+//   // This function will figure out which tab to display
+//   var x = document.getElementsByClassName("tab");
+//   // Exit the function if any field in the current tab is invalid:
+//   if (n == 1 && !validateForm()) return false;
+//   // Hide the current tab:
+//   x[currentTab].style.display = "none";
+//   // Increase or decrease the current tab by 1:
+//   currentTab = currentTab + n;
+//   // if you have reached the end of the form...
+//   if (currentTab >= x.length) {
+//     // ... the form gets submitted:
+//     document.getElementById("regForm").submit();
+//     return false;
+//   }
+//   // Otherwise, display the correct tab:
+//   showTab(currentTab);
+// }
+
 function nextPrev(n) {
-  // This function will figure out which tab to display
   var x = document.getElementsByClassName("tab");
-  // Exit the function if any field in the current tab is invalid:
-  if (n == 1 && !validateForm()) return false;
-  // Hide the current tab:
+
+  // Check if the second tab is active and validate the radio input
+  if (n === 1 && x[currentTab].id === "second-tab") {
+    var radioChecked = document.querySelector("#second-tab input[name='consent']:checked");
+    if (!radioChecked) {
+      alert("Please provide your consent by selecting the radio option.");
+      return false;
+    }
+  }
+
+  // Exit the function if any field in the current tab is invalid
+  if (n === 1 && !validateForm()) return false;
+
+  // Hide the current tab
   x[currentTab].style.display = "none";
-  // Increase or decrease the current tab by 1:
+
+  // Increase or decrease the current tab by 1
   currentTab = currentTab + n;
-  // if you have reached the end of the form...
+
+  // If you have reached the end of the form...
   if (currentTab >= x.length) {
-    // ... the form gets submitted:
+    // Submit the form
     document.getElementById("regForm").submit();
     return false;
   }
-  // Otherwise, display the correct tab:
+
+  // Otherwise, display the correct tab
   showTab(currentTab);
 }
+
+
+
 ////ENDDDD
 function validateForm() {
   // This function deals with validation of the form fields
@@ -160,3 +209,27 @@ function updateChart() {
         }
     });
 }
+
+
+// for year level required
+
+
+// function validateYearLevelForThirdTab() {
+//     // Check if the third tab is displayed
+//     const thirdTab = document.getElementById("third-tab");
+//     const yearLevel = document.getElementById("year-level-third-tab").value;
+
+//     // Only validate if the third tab is visible
+//     if (thirdTab.style.display !== "none" && yearLevel === "") {
+//         alert("Please select a Year Level.");
+//         return false;
+//     }
+//     return true;
+// }
+
+// function nextPrev(n) {
+//     if (n === 1 && !validateYearLevelForThirdTab()) {
+//         return false; // Prevent moving to the next tab if Year Level is not selected in the third tab
+//     }
+//     // Your existing logic for moving between tabs
+// }
