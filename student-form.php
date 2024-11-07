@@ -1,3 +1,187 @@
+<?php
+// Include config file
+require_once "config.php";
+
+
+$surname = $first_name = $middle_initial = $student_number = $year_level = $program = $college = $age = $sex = $program_flow = $time_management = $venue = $speaker = $topic = $facilitator = $overall_rating = $comments_speaker = $comments_organizer = "";
+$surname_err = $first_name_err = $middle_initial_err = $student_number_err = $year_level_err = $program_err = $college_err = $age_err = $sex_err = $program_flow_err = $time_management_err = $venue_err = $speaker_err = $topic_err = $facilitator_err = $overall_rating_err = $comments_speaker_err = $comments_organizer_err = "";
+
+
+// Processing form data when form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Validate surname
+    $input_surname = trim($_POST["surname"]);
+    if (empty($input_surname)) {
+        $surname_err = "Please enter your Surname.";
+    } elseif (!filter_var($input_surname, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
+        $surname_err = "Please enter a valid Surname.";
+    } else {
+        $surname = $input_surname;
+    }
+
+    // Validate first name
+    $input_first_name = trim($_POST["first_name"]);
+    if (empty($input_first_name)) {
+        $first_name_err = "Please enter your First Name.";
+    } elseif (!filter_var($input_first_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
+        $first_name_err = "Please enter a valid First Name.";
+    } else {
+        $first_name = $input_first_name;
+    }
+
+    // Validate Middle Initial
+    $input_middle_initial = trim($_POST["middle_initial"]);
+    // Check if the input is exactly one letter
+    if (strlen($input_middle_initial) !== 1) {
+        $middle_initial_err = "First Name should be exactly one letter.";
+    }
+    // Check if the input is followed by a period
+    elseif (!preg_match("/^[a-zA-Z]\.$/", $input_middle_initial)) {
+        $middle_initial_err = "First Name should be followed by a period (e.g., 'A.').";
+    } else {
+        $middle_initial = $input_middle_initial;
+    }
+
+    // Validate student number 
+    $input_student_number = trim($_POST["student_number"]);
+    // Check if the input is empty
+    if (empty($input_student_number)) {
+        $student_number_err = "Please enter your Student Number.";
+    }
+    // Check if the input contains only numbers and is exactly 11 characters long
+    elseif (!preg_match("/^\d{11}$/", $input_student_number)) {
+        $student_number_err = "Student Number should be exactly 11 digits and contain only numbers.";
+    } else {
+        $student_number = $input_student_number;
+    }
+
+    // Validate year-level
+    $input_year_level = trim($_POST["year_level"]);
+    if (empty($input_year_level)) {
+        $year_level_err = "Please enter your Year Level.";
+    }else {
+        $year_level = $input_first_name;
+    }
+
+
+
+
+//=======
+
+    // Validate event date
+    $input_date = trim($_POST["id_event_date"]);
+    $current_date = date("Y-m-d");
+    $tomorrow_date = date("Y-m-d", strtotime("+1 day"));
+
+    if (empty($input_date)) {
+        $event_date_err = "Please enter a date.";
+    } elseif ($input_date < $tomorrow_date) {
+        $event_date_err = "Please enter a date from tomorrow onwards.";
+    } else {
+        $event_date = $input_date;
+    }
+
+
+    // Validate start time and end time
+    $input_start_time = trim($_POST["id_event_start_time"]);
+    $input_end_time = trim($_POST["id_event_end_time"]);
+
+    if (empty($input_start_time)) {
+        $start_time_err = "Please enter a start time.";
+    } elseif (empty($input_end_time)) {
+        $end_time_err = "Please enter an end time.";
+    } elseif (strtotime($input_start_time) >= strtotime($input_end_time)) {
+        $time_err = "Start time must be before end time.";
+    } else {
+        $start_time = $input_start_time;
+        $end_time = $input_end_time;
+    }
+
+    // Validate event vemue
+    $input_venue = trim($_POST["id_event_venue"]);
+    if (empty($input_venue)) {
+        $event_venue_err = "Please enter the Event Venue.";
+    } else {
+        $event_venue = $input_venue;
+    }
+
+    // Validate event speaker name
+    $input_speaker = trim($_POST["id_event_speaker"]);
+    if (empty($input_speaker)) {
+        $event_speaker_err = "Please enter the Event Venue.";
+    } else {
+        $event_speaker = $input_speaker;
+    }
+
+    // // Validate salary
+    // $input_salary = trim($_POST["salary"]);
+    // if (empty($input_salary)) {
+    //     $salary_err = "Please enter the salary amount.";
+    // } elseif (!ctype_digit($input_salary)) {
+    //     $salary_err = "Please enter a positive integer value.";
+    // } else {
+    //     $salary = $input_salary;
+    // }
+
+    // Check input errors before inserting in database
+    if (
+        empty($event_name_err) && empty($event_date_err) && empty($event_start_time_err) && empty($event_end_time_err)
+        && empty($time_err) && empty($event_venue_err) && empty($event_speaker_err)
+    ) {
+        // Prepare an insert statement
+        $sql = "INSERT INTO create_event (event_name, event_date, event_start_time, event_end_time, event_venue, event_speaker) VALUES (?, ?, ?, ?, ?, ?)";
+
+        if ($stmt = $mysqli->prepare($sql)) {
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param(
+                "ssssss",
+                $param_event_name,
+                $param_event_date,
+                $param_event_start_time,
+                $param_event_end_time,
+                $param_event_venue,
+                $param_event_speaker
+            );
+
+
+            // Set parameters
+            $param_event_name = $event_name;
+            $param_event_date = $event_date;
+            $param_event_start_time = $event_start_time;
+            $param_event_end_time = $event_end_time;
+            $param_event_venue = $event_venue;
+            $param_event_speaker = $event_speaker;
+
+            // Attempt to execute the prepared statement
+            if ($stmt->execute()) {
+                // Records created successfully. Redirect to landing page
+                header("location: index.html");
+                exit();
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+
+        // Close statement
+        $stmt->close();
+    }
+
+    // Close connection
+    $mysqli->close();
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +240,7 @@
                                     provided are true and correct and likewise authorizing this office to process your
                                     information. Your accomplished form will be kept in a secure place and will be
                                     disposed of within a reasonable time frame.</p>
-                                    
+
 
 
                                 <div style="overflow:auto;">
@@ -127,30 +311,30 @@
                                 <p>For queries and concerns, please contact <b>esteban.dylann@ue.edu.ph</b>.</p><br>
                                 <!-- <p contenteditable="true">esteban.dylann@ue.edu.ph. Click here to edit.</p> -->
 
-                    
-                                    <form id="consentForm">
-                                        <label>
-                                            <input type="radio" name="consent" value="Yes" required> I consent
-                                        </label>
-                                
-                                        <div style="overflow:auto;">
-                                            <div style="float:right;">
-                                                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                                            </div>
-                                        </div>
-                                    </form>
 
-                                
-                    
+                                <form id="consentForm">
+                                    <label>
+                                        <input type="radio" name="consent" value="Yes" required> I consent
+                                    </label>
+
+                                    <div style="overflow:auto;">
+                                        <div style="float:right;">
+                                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+
 
                             </div>
                         </div>
                     </div>
-                    
 
 
-                    <div class="tab" id="third-tab"> 
+
+                    <div class="tab" id="third-tab">
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
@@ -166,26 +350,47 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="first-name" style="font-weight: bold;">First Name (in UPPERCASE)</label>
-                                    <input type="text" class="form-control" id="first-name"
+                                    <label for="first_name" style="font-weight: bold;">First Name (in UPPERCASE)</label>
+                                    <input type="text" class="form-control" id="first_name"
                                         placeholder="Enter your first name" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="middle-initial" style="font-weight: bold;">Middle Initial</label>
-                                    <input type="text" class="form-control" id="middle-initial"
+                                    <label for="middle_initial" style="font-weight: bold;">Middle Initial</label>
+                                    <input type="text" class="form-control" id="middle_initial"
                                         placeholder="Enter your middle initial" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="student-number" style="font-weight: bold;">Student Number</label>
-                                    <input type="text" class="form-control" id="student-number"
+                                    <label for="student_number" style="font-weight: bold;">Student Number</label>
+                                    <input type="text" class="form-control" id="student_number"
                                         placeholder="Enter your student number" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="year-level" style="font-weight: bold;">Year Level</label>
-                                    <select class="form-control" id="year-level" required>
+                                    <label for="college" style="font-weight: bold;">College</label>
+                                    <input type="text" class="form-control" id="college"
+                                        placeholder="Enter your College" required>
+                                </div>
+
+
+
+                                <!-- <div class="form-group">
+                                    <label for="year_level" style="font-weight: bold;">College</label>
+                                        <option value="CENGG">CENGG</option>
+                                        <option value="CCSS">CCSS</option>
+                                        <option value="Basic Ed">Basic Ed</option>
+                                    </select>
+                                </div> -->
+                        
+                                <div class="form-group">
+                                    <label for="program" style="font-weight: bold;">Program</label>
+                                    <input type="text" class="form-control" id="program"
+                                        placeholder="Enter your Program" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="year_level" style="font-weight: bold;">Year Level</label>
                                         <option value="5">5</option>
                                         <option value="4">4</option>
                                         <option value="3">3</option>
@@ -194,17 +399,64 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
+                                    <label for="year_level" style="font-weight: bold;">Year Level</label>
+                                        <option value="2">12</option>
+                                        <option value="1">11</option>
+                                        <option value="5">10</option>
+                                        <option value="4">9</option>
+                                        <option value="3">8</option>
+                                        <option value="2">7</option>
+                                        <option value="1">6</option>
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="1">1</option>
+                                    </select>
+                                </div> -->
+
+                                <!-- <div class="form-group">
                                     <label for="program" style="font-weight: bold;">Program</label>
                                     <input type="text" class="form-control" id="program"
                                         placeholder="Enter your Program" required>
+                                </div> -->
+                                <!-- <div class="form-group">
+                                    <label for="program" style="font-weight: bold;">Program </label>
+                                    <select class="form-control" id="program" required>
+                                        <option value="5">5</option>
+                                        <option value="4">4</option>
+                                        <option value="3">3</option>
+                                        <option value="2">2</option>
+                                        <option value="1">1</option>
+                                    </select>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="college" style="font-weight: bold;">College</label>
-                                    <input type="text" class="form-control" id="college"
-                                        placeholder="Enter your College" required>
-                                </div>
+<div class="form-group">
+        <label for="college" style="font-weight: bold;">College</label>
+        <select class="form-control" id="college" onchange="updateProgramsAndYearLevels()" required>
+            <option value="">Select College</option>
+            <option value="CENGG">CENGG</option>
+            <option value="CCSS">CCSS</option>
+            <option value="Basic Ed">Basic Ed</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="program" style="font-weight: bold;">Program</label>
+        <select class="form-control" id="program" required>
+            <option value="">Select Program</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="year_level" style="font-weight: bold;">Year Level</label>
+        <select class="form-control" id="year_level" required>
+            <option value="">Select Year Level</option>
+        </select>
+    </div> -->
+
+
 
                                 <div class="form-group">
                                     <label for="age" style="font-weight: bold;">Age</label>
@@ -308,8 +560,8 @@
                                     <div class="card-body">
                                         <h4>Time Management</h4>
                                         <div class="rating">
-                                            <input type="radio" name="time_management" id="time_management-star5" checked
-                                                style="background-color: rgb(84, 95, 84);">
+                                            <input type="radio" name="time_management" id="time_management-star5"
+                                                checked style="background-color: rgb(84, 95, 84);">
                                             <label for="time_management-star5">
                                                 <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
                                                 <span>Excellent</span>
@@ -389,32 +641,36 @@
                                     <div class="card-body">
                                         <h4>Speakers/Performers</h4>
                                         <div class="rating">
-                                            <input type="radio" name="speakers_performers" id="speakers_performers-star5" checked
+                                            <input type="radio" name="speakers_performers"
+                                                id="speakers_performers-star5" checked
                                                 style="background-color: rgb(18, 87, 18);">
                                             <label for="peakers_performers-star5">
                                                 <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
                                                 <span>Excellent</span>
                                             </label>
-                                            <input type="radio" name="speakers_performers" id="speakers_performers-star4"
+                                            <input type="radio" name="speakers_performers"
+                                                id="speakers_performers-star4"
                                                 style="background-color: rgb(146, 185, 88);">
                                             <label for="peakers_performers-star4">
                                                 <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
                                                     height="120">
                                                 <span>Very Satisfactory</span>
                                             </label>
-                                            <input type="radio" name="speakers_performers" id="speakers_performers-star3"
-                                                style="background-color: #FFC300;">
+                                            <input type="radio" name="speakers_performers"
+                                                id="speakers_performers-star3" style="background-color: #FFC300;">
                                             <label for="peakers_performers-star3">
                                                 <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
                                                 <span>Satisfactory</span>
                                             </label>
-                                            <input type="radio" name="speakers_performers" id="speakers_performers-star2"
+                                            <input type="radio" name="speakers_performers"
+                                                id="speakers_performers-star2"
                                                 style="background-color: rgb(236, 120, 78);">
                                             <label for="peakers_performers-star2">
                                                 <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
                                                 <span>Poor</span>
                                             </label>
-                                            <input type="radio" name="speakers_performers" id="speakers_performers-star1"
+                                            <input type="radio" name="speakers_performers"
+                                                id="speakers_performers-star1"
                                                 style="background-color: rgb(240, 46, 46);">
                                             <label for="peakers_performers-star1">
                                                 <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
@@ -567,7 +823,7 @@
 
                                 <div style="overflow:auto;">
                                     <div style="float:right;">
-                                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button> 
+                                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                                         <!-- i should change this  to submit -->
                                         <button type="button" id="nextBtn" onclick="nextPrev(1)">Submit</button>
                                     </div>
@@ -581,14 +837,17 @@
 
 
 
-                    <div class="tab"> 
+                    <div class="tab">
                         <div class="card">
                             <div class="card-body">
-                                
+
                                 <center>
-                               <p style="font-family: Courier New; font-size: 15px; font-weight: bold;"> Thank You for  your participation in the SCpES and DCpE 2023 conference. <br><br>
-                                We hope you enjoyed the conference and we look forward to seeing you again in the future. </p></center>
-                     
+                                    <p style="font-family: Courier New; font-size: 15px; font-weight: bold;"> Thank You
+                                        for your participation in the SCpES and DCpE 2023 conference. <br><br>
+                                        We hope you enjoyed the conference and we look forward to seeing you again in
+                                        the future. </p>
+                                </center>
+
 
 
 
@@ -597,7 +856,8 @@
                                         <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                                         <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button> -->
 
-                                        <button type="button" onclick="window.open('', '_self', ''); window.close();">Exit</button>
+                                        <button type="button"
+                                            onclick="window.open('', '_self', ''); window.close();">Exit</button>
                                     </div>
                                 </div>
 
@@ -608,7 +868,7 @@
                               <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                             </div>
                           </div> -->
-     
+
 
                         </div>
                     </div>
@@ -659,4 +919,3 @@
 </body>
 
 </html>
-
