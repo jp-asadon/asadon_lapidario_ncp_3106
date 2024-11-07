@@ -14,5 +14,5 @@ if ($mysqli === false) {
     die("ERROR: Could not connect. ") ;
 }
 else{
-    echo"Connection Success";
+    echo"";
 }

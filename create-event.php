@@ -14,12 +14,12 @@ $event_name_err = $event_date_err = $event_start_time_err = $event_end_time_err 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate event name
     $input_event_name = trim($_POST["id_event_name"]);
-    if (empty($input_name)) {
-        $name_err = "Please enter a name.";
+    if (empty($input_event_name)) {
+        $name_err = "Please enter a name."; 
     } elseif (!filter_var($input_event_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
         $name_err = "Please enter a valid name.";
     } else {
-        $name = $input_name;
+        $name = $input_event_name;
     }
 
       // Validate event date
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate event vemue
     $input_venue = trim($_POST["id_event_venue"]);
-    if (empty($input_address)) {
+    if (empty($input_venue)) {
         $event_venue_err = "Please enter the Event Venue.";
     } else {
         $event_venue = $input_venue;
@@ -81,12 +81,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($event_name_err) && empty($event_date_err) && empty($event_start_time_err) && empty($event_end_time_err) 
     && empty($time_err) && empty($event_venue_err) && empty($event_speaker_err)) {
         // Prepare an insert statement
-        $sql = "INSERT INTO create_event (event_name, event_date, event_start_time, event_end_time, event_venue, event_speaker) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO create_event (event_name, event_date, event_start_time, event_end_time, event_venue, event_speaker) VALUES (?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $mysqli->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("sss", $param_event_name, $param_event_date, $param_event_start_time,
-          $param_event_end_time, $param_event_venue, $param_event_speaker);
+            $stmt->bind_param("ssssss", $param_event_name, $param_event_date, $param_event_start_time, 
+            $param_event_end_time, $param_event_venue, $param_event_speaker);
+
 
             // Set parameters
             $param_event_name = $event_name;
@@ -99,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
                 // Records created successfully. Redirect to landing page
-                header("location: index.php");
+                header("location: index.html");
                 exit();
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
@@ -194,7 +195,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <main id="main" class="main" style="margin: 10px;">
 
     <div class="pagetitle">
-      <h1 style="font-size: 35px;">Create New Eventtt</h1>
+      <h1 style="font-size: 35px;">Create New Event</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
@@ -204,17 +205,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div><!-- End Page Title -->
 
     <!-- Vertical Form -->
-    <form class="row g-3 needs-validation" id="eventForm" novalidate>
-      <div class="col-12">
+    <form class="row g-3 needs-validation" id="eventForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <div class="col-12">
         <label for="id_event_name" class="form-label">Event Name</label>
-        <input type="text" class="form-control <?php echo (!empty($event_name_err)) ? 'is-invalid' : ''; ?>" id="id_event_name" style="text-transform: capitalize" value="<?php echo $event_name; ?>" required>
+        <input type="text" class="form-control <?php echo (!empty($event_name_err)) ? 'is-invalid' : ''; ?>" name="id_event_name" style="text-transform: capitalize" value="<?php echo $event_name; ?>" required>
         <div class="invalid-feedback">
           <?php echo $event_name_err; ?>
         </div>
       </div>
       <div class="col-12">
         <label for="id_event_date" class="form-label">Event Date</label>
-        <input type="date" class="form-control <?php echo (!empty($event_date_err)) ? 'is-invalid' : ''; ?>" id="id_event_date" value="<?php echo $event_date; ?>" required>
+        <input type="date" class="form-control <?php echo (!empty($event_date_err)) ? 'is-invalid' : ''; ?>" name="id_event_date" value="<?php echo $event_date; ?>" required>
         <div class="invalid-feedback">
         <?php echo $event_date_err; ?>
         </div>
@@ -222,14 +223,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="row" style="margin: 0px; padding: 0px;">
         <div class="col">
           <label for="id_event_start_time" class="form-label">Start Time</label>
-          <input type="time" class="form-control <?php echo (!empty($event_start_time_err)) ? 'is-invalid' : ''; ?>" id="id_event_start_time" value="<?php echo $event_start_time; ?>" required>
+          <input type="time" class="form-control <?php echo (!empty($event_start_time_err)) ? 'is-invalid' : ''; ?>" name="id_event_start_time" value="<?php echo $event_start_time; ?>" required>
           <div class="invalid-feedback">
           <?php echo $event_start_time_err; ?>
           </div>
         </div>
         <div class="col">
           <label for="id_event_end_time" class="form-label">End Time</label>
-          <input type="time" class="form-control <?php echo (!empty($event_end_time_err)) ? 'is-invalid' : ''; ?>" id="id_event_end_time" value="<?php echo $event_end_time; ?>" required>
+          <input type="time" class="form-control <?php echo (!empty($event_end_time_err)) ? 'is-invalid' : ''; ?>" name="id_event_end_time" value="<?php echo $event_end_time; ?>" required>
           <div class="invalid-feedback">
           <?php echo $event_end_time_err; ?>
         </div>
@@ -238,14 +239,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       <div class="col-12">
         <label for="id_event_venue" class="form-label">Event Venue</label>
-        <input type="text" class="form-control <?php echo (!empty($event_venue_err)) ? 'is-invalid' : ''; ?>" id="id_event_venue" style="text-transform: capitalize" value="<?php echo $event_venue; ?>" required>
+        <input type="text" class="form-control <?php echo (!empty($event_venue_err)) ? 'is-invalid' : ''; ?>" name="id_event_venue" style="text-transform: capitalize" value="<?php echo $event_venue; ?>" required>
         <div class="invalid-feedback">
         <?php echo $event_venue_err; ?>
       </div>
       </div>
       <div class="col-12">
         <label for="id_event_speaker" class="form-label">Event Speaker/s</label>
-        <input type="text" class="form-control <?php echo (!empty($event_speaker_err)) ? 'is-invalid' : ''; ?>" id="id_event_speaker" style="text-transform: capitalize" value="<?php echo $event_speaker; ?>" required>
+        <input type="text" class="form-control <?php echo (!empty($event_speaker_err)) ? 'is-invalid' : ''; ?>" name="id_event_speaker" style="text-transform: capitalize" value="<?php echo $event_speaker; ?>" required>
         <div class="invalid-feedback">
         <?php echo $event_speaker_err; ?>
         </div>
