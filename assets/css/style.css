@@ -15,7 +15,7 @@
 
 body {
   font-family: "Open Sans", sans-serif;
-  background: #f6f9ff;
+  background: #e0dfdf;
   color: #444444;
 }
 
@@ -50,7 +50,7 @@ h6 {
 
 @media (max-width: 1199px) {
   #main {
-    padding: 20px;
+    padding: 0px;
   }
 }
 
@@ -65,7 +65,7 @@ h6 {
   font-size: 24px;
   margin-bottom: 0;
   font-weight: 600;
-  color: #012970;
+  color: #2a2a2a;
 }
 
 /*--------------------------------------------------------------
@@ -220,7 +220,7 @@ h6 {
 .card {
   margin-bottom: 30px;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }
 
@@ -236,7 +236,7 @@ h6 {
   padding: 10px 0 10px 0;
   font-size: 18px;
   font-weight: 500;
-  color: #012970;
+  color: #2a2a2a;
   font-family: "Poppins", sans-serif;
 }
 
@@ -381,7 +381,7 @@ h6 {
   z-index: 997;
   height: 60px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-  background-color: #fff;
+  background-color: #2c2c2c;
   padding-left: 20px;
 }
 
@@ -1153,12 +1153,27 @@ h6 {
 
 .footer .copyright {
   text-align: center;
-  color: #012970;
+  color: #2a2a2a;
 }
 
 .footer .credits {
   padding-top: 5px;
   text-align: center;
   font-size: 13px;
-  color: #012970;
+  color: #2a2a2a;
+}
+
+/* Basic link styling */
+.zoom-link {
+  display: inline-block;
+  font-size: 16px;
+  text-decoration: none;
+  color: #007bff;
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+/* Zoom-in effect on hover */
+.zoom-link:hover {
+  transform: scale(1.2); /* Adjust the scale value as desired */
+  color: #0056b3; /* Optional: Change color on hover */
 }
