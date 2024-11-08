@@ -57,12 +57,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate year-level
-    $input_year_level = trim($_POST["year_level"]);
-    if (empty($input_year_level)) {
-        $year_level_err = "Please enter your Year Level.";
-    }else {
-        $year_level = $input_first_name;
+$input_year_level = trim($_POST["year_level"]);
+if ($input_year_level == "Choose Sex") {
+    $year_level_err = "Please select your Year Level.";
+} else {
+    $sex = $input_year_level;
+}
+
+
+// Validate program
+$input_program = trim($_POST["program"]);
+if (empty($input_program)) {
+    $program_err = "Please enter your Program.";
+} elseif (!preg_match("/^BS[a-zA-Z]+$/", $input_program)) {
+    $program_err = "Please enter a valid Program Format e.g. (BSCpE, BSCE, BSME, BSEE).";
+} else {
+    $program = $input_program;
+}
+
+        // Validate college
+$input_college = trim($_POST["college"]);
+if (empty($input_college)) {
+    $college_err = "Please enter your Program.";
+} elseif  (!filter_var($input_college, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/"))))
+{
+    $college_err = "Please enter a valid Program Format e.g. (BSCpE, BSCE, BSME, BSEE).";
+} else {
+    $college = $input_college;
+}
+
+
+    // Validate age
+    $input_age = trim($_POST["age"]);
+    // Check if the input is empty
+    if (empty($input_age)) {
+        $age_err = "Please enter your Age.";
     }
+    // Check if the input contains only numbers and is exactly 2 characters long
+    elseif (!preg_match("/^\d{2}$/", $input_age)) {
+        $age_err = "Student Number should be exactly 2 digits and contain only numbers.";
+    } else {
+        $student_number = $input_student_number;
+    }
+
+        // Validate sex
+$input_sex = trim($_POST["sex"]);
+if ($input_sex == "Choose Sex") {
+    $sex_err = "Please select your Sex.";
+} else {
+    $sex = $input_sex;
+}
+
+
+        //my "sex" is a dropdown it has a default value of <option selected="true" disabled="disabled">Choose Sex</option>. I want to show an error message that they still need to fill out a value besides this disabled  option. So I need an added code to check if the value is not equal to the disabled option.
+
+
 
 
 
@@ -391,6 +440,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <div class="form-group">
                                     <label for="year_level" style="font-weight: bold;">Year Level</label>
+                                    <select class="form-control" id="year-level" required>
+                                        <option selected="true" disabled="disabled">Choose Year Level</option>
                                         <option value="5">5</option>
                                         <option value="4">4</option>
                                         <option value="3">3</option>
@@ -466,9 +517,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <div class="form-group">
                                     <label for="sex" style="font-weight: bold;">Sex</label>
+                                    <select class="form-control" id="sex" required>
+                                    <option selected="true" disabled="disabled">Choose Sex</option>
+                                        <option value="M">M</option>
+                                        <option value="F">F</option>
+                                    </select>
+                                </div>
+
+                                <!-- <div class="form-group">
+                                    <label for="sex" style="font-weight: bold;">Sex</label>
                                     <input type="text" class="form-control" id="sex" placeholder="Enter your Sex"
                                         required>
-                                </div>
+                                </div> -->
 
                                 <!-- <div class="form-group">
                                 <label for="year-level" style="font-weight: bold;">Yeaar Level</label>
