@@ -109,75 +109,12 @@ if ($input_sex == "Choose Sex") {
 }
 
 
-        //my "sex" is a dropdown it has a default value of <option selected="true" disabled="disabled">Choose Sex</option>. I want to show an error message that they still need to fill out a value besides this disabled  option. So I need an added code to check if the value is not equal to the disabled option.
-
-
-
-
-
-
-//=======
-
-    // Validate event date
-    $input_date = trim($_POST["id_event_date"]);
-    $current_date = date("Y-m-d");
-    $tomorrow_date = date("Y-m-d", strtotime("+1 day"));
-
-    if (empty($input_date)) {
-        $event_date_err = "Please enter a date.";
-    } elseif ($input_date < $tomorrow_date) {
-        $event_date_err = "Please enter a date from tomorrow onwards.";
-    } else {
-        $event_date = $input_date;
-    }
-
-
-    // Validate start time and end time
-    $input_start_time = trim($_POST["id_event_start_time"]);
-    $input_end_time = trim($_POST["id_event_end_time"]);
-
-    if (empty($input_start_time)) {
-        $start_time_err = "Please enter a start time.";
-    } elseif (empty($input_end_time)) {
-        $end_time_err = "Please enter an end time.";
-    } elseif (strtotime($input_start_time) >= strtotime($input_end_time)) {
-        $time_err = "Start time must be before end time.";
-    } else {
-        $start_time = $input_start_time;
-        $end_time = $input_end_time;
-    }
-
-    // Validate event vemue
-    $input_venue = trim($_POST["id_event_venue"]);
-    if (empty($input_venue)) {
-        $event_venue_err = "Please enter the Event Venue.";
-    } else {
-        $event_venue = $input_venue;
-    }
-
-    // Validate event speaker name
-    $input_speaker = trim($_POST["id_event_speaker"]);
-    if (empty($input_speaker)) {
-        $event_speaker_err = "Please enter the Event Venue.";
-    } else {
-        $event_speaker = $input_speaker;
-    }
-
-    // // Validate salary
-    // $input_salary = trim($_POST["salary"]);
-    // if (empty($input_salary)) {
-    //     $salary_err = "Please enter the salary amount.";
-    // } elseif (!ctype_digit($input_salary)) {
-    //     $salary_err = "Please enter a positive integer value.";
-    // } else {
-    //     $salary = $input_salary;
-    // }
-
     // Check input errors before inserting in database
     if (
-        empty($event_name_err) && empty($event_date_err) && empty($event_start_time_err) && empty($event_end_time_err)
-        && empty($time_err) && empty($event_venue_err) && empty($event_speaker_err)
+        empty($surname_err) && empty($first_name_err) && empty($middle_initial_err) && empty($student_number_err)
+        && empty($college_err) && empty($program_err) && empty($year_level_err) && empty($age_err) && empty($sex_err)
     ) {
+
         // Prepare an insert statement
         $sql = "INSERT INTO create_event (event_name, event_date, event_start_time, event_end_time, event_venue, event_speaker) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -382,60 +319,54 @@ if ($input_sex == "Choose Sex") {
                     </div>
 
 
-
-                    <div class="tab" id="third-tab">
+<!-- ORIGINAL thrid-tab -->
+                    <!-- <div class="tab" id="third-tab">
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <!-- <section>
-                                    <p>This will be shown on your certificate to be sent on your respective UE Email Address.</p>
-                                    <p>Format: <b>GIVEN NAME M. SURNAME</b> </p> 
-                                    <p>Surname (in UPPERCASE)</p>
-                                </section> -->
+
 
                                     <label for="surname" style="font-weight: bold;">Surname (in UPPERCASE)</label>
                                     <input type="text" class="form-control" id="surname"
-                                        placeholder="Enter your surname" required>
+                                        placeholder="Enter your surname" style="padding: 10px;
+  margin-bottom: 0px;" required >
+                                        <span id="surnameErr" class="error-message" style="color: red;
+  font-size: 0.875em;"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="first_name" style="font-weight: bold;">First Name (in UPPERCASE)</label>
                                     <input type="text" class="form-control" id="first_name"
                                         placeholder="Enter your first name" required>
+                                        <span id="firstNameErr" class="error-message"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="middle_initial" style="font-weight: bold;">Middle Initial</label>
                                     <input type="text" class="form-control" id="middle_initial"
                                         placeholder="Enter your middle initial" required>
+                                        <span id="middleInitialErr" class="error-message"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="student_number" style="font-weight: bold;">Student Number</label>
                                     <input type="text" class="form-control" id="student_number"
                                         placeholder="Enter your student number" required>
+                                        <span id="studentNumberErr" class="error-message"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="college" style="font-weight: bold;">College</label>
                                     <input type="text" class="form-control" id="college"
                                         placeholder="Enter your College" required>
+                                        <span id="collegeErr" class="error-message"></span>
                                 </div>
-
-
-
-                                <!-- <div class="form-group">
-                                    <label for="year_level" style="font-weight: bold;">College</label>
-                                        <option value="CENGG">CENGG</option>
-                                        <option value="CCSS">CCSS</option>
-                                        <option value="Basic Ed">Basic Ed</option>
-                                    </select>
-                                </div> -->
                         
                                 <div class="form-group">
                                     <label for="program" style="font-weight: bold;">Program</label>
                                     <input type="text" class="form-control" id="program"
                                         placeholder="Enter your Program" required>
+                                        <span id="programErr" class="error-message"></span>
                                 </div>
 
                                 <div class="form-group">
@@ -448,71 +379,15 @@ if ($input_sex == "Choose Sex") {
                                         <option value="2">2</option>
                                         <option value="1">1</option>
                                     </select>
+                                    <span id="yearLevelErr" class="error-message"></span>
                                 </div>
-
-                                <!-- <div class="form-group">
-                                    <label for="year_level" style="font-weight: bold;">Year Level</label>
-                                        <option value="2">12</option>
-                                        <option value="1">11</option>
-                                        <option value="5">10</option>
-                                        <option value="4">9</option>
-                                        <option value="3">8</option>
-                                        <option value="2">7</option>
-                                        <option value="1">6</option>
-                                        <option value="5">5</option>
-                                        <option value="4">4</option>
-                                        <option value="3">3</option>
-                                        <option value="2">2</option>
-                                        <option value="1">1</option>
-                                    </select>
-                                </div> -->
-
-                                <!-- <div class="form-group">
-                                    <label for="program" style="font-weight: bold;">Program</label>
-                                    <input type="text" class="form-control" id="program"
-                                        placeholder="Enter your Program" required>
-                                </div> -->
-                                <!-- <div class="form-group">
-                                    <label for="program" style="font-weight: bold;">Program </label>
-                                    <select class="form-control" id="program" required>
-                                        <option value="5">5</option>
-                                        <option value="4">4</option>
-                                        <option value="3">3</option>
-                                        <option value="2">2</option>
-                                        <option value="1">1</option>
-                                    </select>
-                                </div>
-
-<div class="form-group">
-        <label for="college" style="font-weight: bold;">College</label>
-        <select class="form-control" id="college" onchange="updateProgramsAndYearLevels()" required>
-            <option value="">Select College</option>
-            <option value="CENGG">CENGG</option>
-            <option value="CCSS">CCSS</option>
-            <option value="Basic Ed">Basic Ed</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="program" style="font-weight: bold;">Program</label>
-        <select class="form-control" id="program" required>
-            <option value="">Select Program</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="year_level" style="font-weight: bold;">Year Level</label>
-        <select class="form-control" id="year_level" required>
-            <option value="">Select Year Level</option>
-        </select>
-    </div> -->
-
 
 
                                 <div class="form-group">
                                     <label for="age" style="font-weight: bold;">Age</label>
                                     <input type="text" class="form-control" id="age" placeholder="Enter your Age"
                                         required>
+                                        <span id="ageErr" class="error-message"></span>
                                 </div>
 
                                 <div class="form-group">
@@ -522,25 +397,9 @@ if ($input_sex == "Choose Sex") {
                                         <option value="M">M</option>
                                         <option value="F">F</option>
                                     </select>
+                                    <span id="sexErr" class="error-message"></span>
+
                                 </div>
-
-                                <!-- <div class="form-group">
-                                    <label for="sex" style="font-weight: bold;">Sex</label>
-                                    <input type="text" class="form-control" id="sex" placeholder="Enter your Sex"
-                                        required>
-                                </div> -->
-
-                                <!-- <div class="form-group">
-                                <label for="year-level" style="font-weight: bold;">Yeaar Level</label>
-                                <select class="form-control" id="year-level" required>
-                                    <option value="">Select Year Level</option>
-                                    <option value="5">Excellent</option>
-                                    <option value="4">Very Good</option>
-                                    <option value="3">Good</option>
-                                    <option value="2">Fair</option>
-                                    <option value="1">Poor</option>
-                                </select>
-                            </div> -->
 
                                 <div style="overflow:auto;">
                                     <div style="float:right;">
@@ -550,16 +409,90 @@ if ($input_sex == "Choose Sex") {
                                 </div>
 
                             </div>
-                            <!-- <div style="overflow:auto;">
-                            <div style="float:right;">
-                              <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                              <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                            </div>
-                          </div> -->
                             </form>
 
                         </div>
-                    </div>
+                    </div> -->
+
+                    <div class="tab" id="third-tab">
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="surname" style="font-weight: bold;">Surname (in UPPERCASE)</label>
+                <input type="text" class="form-control" id="surname" placeholder="Enter your surname" style="padding: 10px; margin-bottom: 0px;" required>
+                <span id="surnameErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="first_name" style="font-weight: bold;">First Name (in UPPERCASE)</label>
+                <input type="text" class="form-control" id="first_name" placeholder="Enter your first name" style="padding: 10px; margin-bottom: 0px;" required>
+                <span id="firstNameErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="middle_initial" style="font-weight: bold;">Middle Initial</label>
+                <input type="text" class="form-control" id="middle_initial" placeholder="Enter your middle initial" style="padding: 10px; margin-bottom: 0px;" required>
+                <span id="middleInitialErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="student_number" style="font-weight: bold;">Student Number</label>
+                <input type="text" class="form-control" id="student_number" placeholder="Enter your student number" style="padding: 10px; margin-bottom: 0px;" required>
+                <span id="studentNumberErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="college" style="font-weight: bold;">College</label>
+                <input type="text" class="form-control" id="college" placeholder="Enter your College" style="padding: 10px; margin-bottom: 0px;" required>
+                <span id="collegeErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="program" style="font-weight: bold;">Program</label>
+                <input type="text" class="form-control" id="program" placeholder="Enter your Program" style="padding: 10px; margin-bottom: 0px;" required>
+                <span id="programErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="year_level" style="font-weight: bold;">Year Level</label>
+                <select class="form-control" id="year-level" style="padding: 10px; margin-bottom: 0px;" required>
+                    <option selected="true" disabled="disabled">Choose Year Level</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+                <span id="yearLevelErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="age" style="font-weight: bold;">Age</label>
+                <input type="text" class="form-control" id="age" placeholder="Enter your Age" style="padding: 10px; margin-bottom: 0px;" required>
+                <span id="ageErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="sex" style="font-weight: bold;">Sex</label>
+                <select class="form-control" id="sex" style="padding: 10px; margin-bottom: 0px;" required>
+                    <option selected="true" disabled="disabled">Choose Sex</option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+                <span id="sexErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+            </div>
+
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
                     <div class="tab">
@@ -975,7 +908,9 @@ if ($input_sex == "Choose Sex") {
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <!-- <script src="student-form.js"></script> -->
-    <script src="assets/js/student-form.js"></script>
+    <!-- <script src="assets/js/student-form.js"></script> -->
+    <script src="assets/js/student-formnew.js"></script>
+
 </body>
 
 </html>

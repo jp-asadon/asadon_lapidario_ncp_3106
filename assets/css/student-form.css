@@ -21,6 +21,7 @@ body {
 }
 
 
+
 /* for the consent radio */
 
 label {
@@ -35,12 +36,19 @@ input[type="radio"] {
 
 /* end of consent radio */
 
+.form-group{
+  margin-bottom: 0px;
+}
 
 .form-control{
   padding: 10px;
-  margin-bottom: 15px;
-
+  margin-bottom: 0px;
 }
+.error-message {
+  color: red;
+  font-size: 0.875em;
+}
+
 
 /*for the img logo*/
 .header-content img {
