@@ -194,25 +194,26 @@ $surname_err = $first_name_err = $middle_initial_err = $student_number_err = $ye
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Retrieve values using $_POST
-    $surname = $_POST['surname'];
-    $first_name = $_POST['first_name'];
-    $middle_initial = $_POST['middle_initial'];
-    $student_number = $_POST['student_number'];
-    $year_level = $_POST['year_level'];
-    $program = $_POST['program'];
-    $college = $_POST['college'];
-    $age = $_POST['age'];
-    $sex = $_POST['sex'];
-    $program_flow = $_POST['program_flow'];
-    $time_management = $_POST['time_management'];
-    $venue = $_POST['venue'];
-    $speaker = $_POST['speaker'];
-    $topic = $_POST['topic'];
-    $facilitator = $_POST['facilitator'];
-    $overall_rating = $_POST['overall_rating'];
-    $comments_speaker = $_POST['comments_speaker'];
-    $comments_organizer = $_POST['comments_organizer'];
+    // Retrieve values using $_POST and trim inputs
+    $surname = trim($_POST['surname']);
+    $first_name = trim($_POST['first_name']);
+    $middle_initial = trim($_POST['middle_initial']);
+    $student_number = trim($_POST['student_number']);
+    $year_level = trim($_POST['year_level']);
+    $program = trim($_POST['program']);
+    $college = trim($_POST['college']);
+    $age = trim($_POST['age']);
+    $sex = trim($_POST['sex']);
+
+    $program_flow = isset($_POST['program_flow']) ? $_POST['program_flow'] : null;
+    $time_management = isset($_POST['time_management']) ? $_POST['time_management'] : null;
+    $venue = isset($_POST['venue_and_fac']) ? $_POST['venue_and_fac'] : null;
+    $speaker = isset($_POST['speakers_performers']) ? $_POST['speakers_performers'] : null;
+    $topic = isset($_POST['topics']) ? $_POST['topics'] : null;
+    $facilitator = isset($_POST['facilitators']) ? $_POST['facilitators'] : null;
+    $overall_rating = isset($_POST['overall_rating']) ? $_POST['overall_rating'] : null;
+    $comments_speaker = trim($_POST['comments_speaker']);
+    $comments_organizer = trim($_POST['comments_organizer']);
 
     // Prepare an insert statement
     $sql = "INSERT INTO feedback_event (surname, first_name, middle_initial, student_number, year_level, program, college, age, sex, program_flow, time_management, venue_and_fac, speakers_performers, topics, facilitators, overall_rating, feedback_speakers, feedback_organizers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -221,45 +222,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Bind variables to the prepared statement as parameters
         $stmt->bind_param(
             "ssssssssssssssssss",
-            $param_surname,
-            $param_first_name,
-            $param_middle_initial,
-            $param_student_number,
-            $param_year_level,
-            $param_program,
-            $param_college,
-            $param_age,
-            $param_sex,
-            $param_program_flow,
-            $param_time_management,
-            $param_venue_and_fac,
-            $param_speakers_performers,
-            $param_topics,
-            $param_facilitators,
-            $param_overall_rating,
-            $param_feedback_speakers,
-            $param_feedback_organizers
+            $surname,
+            $first_name,
+            $middle_initial,
+            $student_number,
+            $year_level,
+            $program,
+            $college,
+            $age,
+            $sex,
+            $program_flow,
+            $time_management,
+            $venue,
+            $speaker,
+            $topic,
+            $facilitator,
+            $overall_rating,
+            $comments_speaker,
+            $comments_organizer
         );
-
-        // Set parameters
-        $param_surname = $surname;
-        $param_first_name = $first_name;
-        $param_middle_initial = $middle_initial;
-        $param_student_number = $student_number;
-        $param_year_level = $year_level;
-        $param_program = $program;
-        $param_college = $college;
-        $param_age = $age;
-        $param_sex = $sex;
-        $param_program_flow = $program_flow;
-        $param_time_management = $time_management;
-        $param_venue_and_fac = $venue;
-        $param_speakers_performers = $speaker;
-        $param_topics = $topic;
-        $param_facilitators = $facilitator;
-        $param_overall_rating = $overall_rating;
-        $param_feedback_speakers = $comments_speaker;
-        $param_feedback_organizers = $comments_organizer;
 
         // Attempt to execute the prepared statement
         if ($stmt->execute()) {
@@ -267,10 +248,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("location: index.html");
             exit();
         } else {
-            echo "Oops! Something went wrong. Please try again later.";
+            echo "Error: Could not execute the statement. " . $mysqli->error;
         }
     } else {
-        echo "Error: " . $mysqli->error;
+        echo "Error: Could not prepare the statement. " . $mysqli->error;
     }
 
     // Close statement
@@ -280,13 +261,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mysqli->close();
 }
 ?>
-
-
-
-
-
-
-
 
 
 
@@ -330,7 +304,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </section>
 
 
-                <formid="regForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <form id="regForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
 
                     <!-- One "tab" for each step in the form: -->
@@ -541,43 +515,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="card-body">
             <div class="form-group">
                 <label for="surname" style="font-weight: bold;">Surname (in UPPERCASE)</label>
-                <input type="text" class="form-control" id="surname" name="surname" placeholder="Enter your surname" value="<?php echo $surname; ?>" style="padding: 10px; margin-bottom: 7px;" required>
+                <input type="text" class="form-control" id="surname" name="surname" placeholder="Enter your surname"value="<?php echo htmlspecialchars($surname); ?>"
+                style="padding: 10px; margin-bottom: 7px;" required>
                 <span id="surnameErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
             </div>
 
             <div class="form-group">
                 <label for="first_name" style="font-weight: bold;">First Name (in UPPERCASE)</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" value="<?php echo $first_name; ?>" style="padding: 10px; margin-bottom: 7px;" required>
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" value="<?php echo htmlspecialchars($first_name); ?>" style="padding: 10px; margin-bottom: 7px;" required>
                 <span id="firstNameErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
             </div>
 
             <div class="form-group">
                 <label for="middle_initial" style="font-weight: bold;">Middle Initial</label>
-                <input type="text" class="form-control" id="middle_initial" name="middle_initial" placeholder="Enter your middle initial" value="<?php echo $middle_initial; ?>" style="padding: 10px; margin-bottom: 7px;" required>
+                <input type="text" class="form-control" id="middle_initial" name="middle_initial" placeholder="Enter your middle initial" value="<?php echo htmlspecialchars($middle_initial); ?>" style="padding: 10px; margin-bottom: 7px;" required>
                 <span id="middleInitialErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
             </div>
 
             <div class="form-group">
                 <label for="student_number" style="font-weight: bold;">Student Number</label>
-                <input type="text" class="form-control" id="student_number" name="student_number" placeholder="Enter your student number" value="<?php echo $student_number; ?>" style="padding: 10px; margin-bottom: 7px;" required>
+                <input type="text" class="form-control" id="student_number" name="student_number" placeholder="Enter your student number" value="<?php echo htmlspecialchars($student_number); ?>" style="padding: 10px; margin-bottom: 7px;" required>
                 <span id="studentNumberErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
             </div>
 
             <div class="form-group">
                 <label for="college" style="font-weight: bold;">College</label>
-                <input type="text" class="form-control" id="college" name="college" placeholder="Enter your College" value="<?php echo $college; ?>" style="padding: 10px; margin-bottom: 7px;" required>
+                <input type="text" class="form-control" id="college" name="college" placeholder="Enter your College" value="<?php echo htmlspecialchars(string: $college); ?>" style="padding: 10px; margin-bottom: 7px;" required>
                 <span id="collegeErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
             </div>
 
             <div class="form-group">
                 <label for="program" style="font-weight: bold;">Program</label>
-                <input type="text" class="form-control" id="program" name="program" placeholder="Enter your Program" value="<?php echo $program; ?>" style="padding: 10px; margin-bottom: 7px;" required>
+                <input type="text" class="form-control" id="program" name="program" placeholder="Enter your Program" value="<?php echo htmlspecialchars($program); ?>" style="padding: 10px; margin-bottom: 7px;" required>
                 <span id="programErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
             </div>
 
             <div class="form-group">
                 <label for="year_level" style="font-weight: bold;">Year Level</label>
-                <select class="form-control" id="year-level" name="year_level" value="<?php echo $year_level; ?>" style="padding: 10px; margin-bottom: 7px;" required>
+                <select class="form-control" id="year-level" name="year_level" value="<?php echo htmlspecialchars($year_level); ?>" style="padding: 10px; margin-bottom: 7px;" required>
                     <option selected="true" disabled="disabled">Choose Year Level</option>
                     <option value="5">5</option>
                     <option value="4">4</option>
@@ -590,13 +565,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label for="age" style="font-weight: bold;">Age</label>
-                <input type="text" class="form-control" id="age" name="age" placeholder="Enter your Age" value="<?php echo $age; ?>" style="padding: 10px; margin-bottom: 7px;" required>
+                <input type="text" class="form-control" id="age" name="age" placeholder="Enter your Age" value="<?php echo htmlspecialchars(string: $age); ?>" style="padding: 10px; margin-bottom: 7px;" required>
                 <span id="ageErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
             </div>
 
             <div class="form-group">
                 <label for="sex" style="font-weight: bold;">Sex</label>
-                <select class="form-control" id="sex" name="sex" value="<?php echo $sex; ?>" style="padding: 10px; margin-bottom: 7px;" required>
+                <select class="form-control" id="sex" name="sex"value="<?php echo htmlspecialchars($sex); ?>" style="padding: 10px; margin-bottom: 7px;" required>
                     <option selected="true" disabled="disabled">Choose Sex</option>
                     <option value="M">M</option>
                     <option value="F">F</option>
@@ -922,7 +897,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <h4>Comments and Suggestion for the Speakers</h4>
                                         <textarea name="feedback_speakers" rows="4"
                                             placeholder="Kindly place your comments for our guest speaker here. (Optional)"
-                                            style="width: 100%; padding: 10px;"> <?php echo $comments_speaker; ?></textarea>
+                                            style="width: 100%; padding: 10px;"> <?php echo htmlspecialchars($comments_speaker); ?></textarea>
                                     </div>
                                 </div>
 
@@ -931,7 +906,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <h4>Comments and Suggestion for the Organizers (SCpES and DCpE)</h4>
                                         <textarea name="feedback_organizers" rows="4"
                                             placeholder="Kindly place your comments for our organizers here. (Optional)"
-                                            style="width: 100%; padding: 10px;"><?php echo $comments_organizer; ?></textarea>
+                                            style="width: 100%; padding: 10px;"><?php echo htmlspecialchars($comments_organizer); ?></textarea>
                                     </div>
                                 </div>
 
@@ -1010,7 +985,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-            </formid=>
+            </form>
         </div>
     </div>
 
