@@ -209,7 +209,7 @@ if ($result = $mysqli->query($sql)) {
 
                     <div class="row">
                         <div class="col-lg-2 d-flex align-items-center justify-content-center" style="background-color: aqua; padding:10px">
-                            <img src="assets/img/ardui.jpg" style="height: 150px; width: 150px; object-fit: scale-down;">
+                            <img src="assets/img/ardui.jpg" style="height: 120px; width: 120px; object-fit: scale-down;">
                         </div>
                         
                         <div class="col-lg-5" style="padding: 10px;">

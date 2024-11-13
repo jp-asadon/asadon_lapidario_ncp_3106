@@ -103,6 +103,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Records created successfully. Redirect to landing page
                 // header("location: index.html"."?".$param_event_name);
                 // exit();
+
+
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -162,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center light-background sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+      <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
         <img src="scpeslogo.png" alt="">
         <span class="d-none d-lg-block">SCPES</span>
       </a>
@@ -170,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <nav class="header-nav ms-auto">
       <ul>
-        <li><a href="index.html" class="active">Dashboard</a></li>
+        <li><a href="index.php" class="active">Dashboard</a></li>
         <li><a href="results.html">Results</a></li>
       </ul>
   </nav>
@@ -199,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <h1 style="font-size: 35px;">Create New Event</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
           <li class="breadcrumb-item active">Create event</li>
         </ol>
       </nav>
@@ -255,14 +257,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="text-center" style="margin-top: 40px;">
         <button type="submit" class="btn btn-primary" style="margin: 5px;" data-toggle="modal" data-target="#createEventModal">Submit</button>
         <button type="reset" class="btn btn-secondary" style="margin: 5px;">Reset</button>
-        <a href="index.html" class="btn btn-secondary">Cancel</a>
+        <a href="index.php" class="btn btn-secondary">Cancel</a>
       </div>
     </form>
+
+
     
     <!-- Vertical Form -->
 
     <!-- Modal -->
-    <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header" style="background-color: #03C03C; color: white;">
@@ -290,7 +294,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
   </main><!-- End #main -->
 
