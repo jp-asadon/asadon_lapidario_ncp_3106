@@ -213,6 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $overall_rating = $_POST['overall_rating'];
     $comments_speaker = $_POST['comments_speaker'];
     $comments_organizer = $_POST['comments_organizer'];
+    $event_id = $_GET["event_id"];
 
     // Prepare an insert statement
     $sql = "INSERT INTO feedback_event (surname, first_name, middle_initial, student_number, year_level, program, college, age, sex, program_flow, time_management, venue_and_fac, speakers_performers, topics, facilitators, overall_rating, feedback_speakers, feedback_organizers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

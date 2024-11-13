@@ -12,14 +12,15 @@ $event_name_err = $event_date_err = $event_start_time_err = $event_end_time_err 
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Validate event name
     $input_event_name = trim($_POST["id_event_name"]);
     if (empty($input_event_name)) {
-        $name_err = "Please enter a name."; 
+        $event_name_err = "Please enter a name."; 
     } elseif (!filter_var($input_event_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $name_err = "Please enter a valid name.";
+        $event_name_err = "Please enter a valid name.";
     } else {
-        $name = $input_event_name;
+        $event_name = $input_event_name;
     }
 
       // Validate event date
@@ -41,14 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input_end_time = trim($_POST["id_event_end_time"]);
 
     if (empty($input_start_time)) {
-        $start_time_err = "Please enter a start time.";
+        $event_start_time_err = "Please enter a start time.";
     } elseif (empty($input_end_time)) {
-        $end_time_err = "Please enter an end time.";
+        $event_end_time_err = "Please enter an end time.";
     } elseif (strtotime($input_start_time) >= strtotime($input_end_time)) {
-        $time_err = "Start time must be before end time.";
+        $event_time_err = "Start time must be before end time.";
     } else {
-        $start_time = $input_start_time;
-        $end_time = $input_end_time;
+        $event_start_time = $input_start_time;
+        $event_end_time = $input_end_time;
     }
 
     // Validate event vemue
@@ -100,8 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
                 // Records created successfully. Redirect to landing page
-                header("location: index.html");
-                exit();
+                // header("location: index.html"."?".$param_event_name);
+                // exit();
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -252,15 +253,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
       </div>
       <div class="text-center" style="margin-top: 40px;">
-        <button type="submit" class="btn btn-primary" style="margin: 5px;">Submit</button>
+        <button type="submit" class="btn btn-primary" style="margin: 5px;" data-toggle="modal" data-target="#createEventModal">Submit</button>
         <button type="reset" class="btn btn-secondary" style="margin: 5px;">Reset</button>
         <a href="index.html" class="btn btn-secondary">Cancel</a>
       </div>
     </form>
+    
     <!-- Vertical Form -->
 
     <!-- Modal -->
-    <!-- <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header" style="background-color: #03C03C; color: white;">
@@ -288,7 +290,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
   </main><!-- End #main -->
 
@@ -320,7 +322,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- <script>
+  <script>
     // Get the modal
     var modal = document.getElementById("createEventModal");
   
@@ -336,7 +338,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         modal.style.display = "none";
       }
     }
-  </script> -->
+  </script>
 
 
 </body>

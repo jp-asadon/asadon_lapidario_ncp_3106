@@ -180,6 +180,11 @@ h6 {
   }
 }
 
+
+.carousel-item{
+  height: fit-content;
+}
+
 /* Light Backgrounds */
 .bg-primary-light {
   background-color: #cfe2ff;
