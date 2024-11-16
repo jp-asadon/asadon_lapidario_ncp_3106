@@ -242,9 +242,11 @@
                                             <a href="read.php?id=<?php echo $row['id']; ?>" class="btn btn-primary me-2" title="View Event"> <i class="bi bi-eye"></i> View
                                           </a>
                                             <!-- Update Event Details -->
-                                            <button class="btn btn-warning me-2" title="Edit Event">
-                                                <i class="bi bi-pencil"></i> Edit
-                                            </button>
+                                            <!-- <button class="btn btn-warning me-2" title="Edit Event">
+                                                <i class="bi bi-pencil"></i> Update
+                                            </button> -->
+                                            <a href="update.php?id=<?php echo $row['id']; ?>" class="btn btn-warning me-2" title="Update Event"> <i class="bi bi-eye"></i> Update
+                                            </a>
                                             <!-- Delete Event -->
                                             <button class="btn btn-danger" title="Delete Event">
                                                 <i class="bi bi-trash"></i> Delete

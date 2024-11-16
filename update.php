@@ -2,16 +2,15 @@
 // Include config file
 require_once "config.php";
 
-// Define variables and initialize with empty values
-// $name = $address = $salary = "";
-// $name_err = $address_err = $salary_err = "";
 
 
 $event_name = $event_date = $event_start_time = $event_end_time = $event_venue = $event_speaker = $event_image = "";
 $event_name_err = $event_date_err = $event_start_time_err = $event_end_time_err = $time_err = $event_venue_err = $event_speaker_err = $event_image_err = "";
 
 // Processing form data when form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST["id"]) && !empty($_POST["id"])) {
+    // Get hidden input value
+    $id = $_POST["id"];
 
     // Validate event name
     $input_event_name = trim($_POST["id_event_name"]);
@@ -68,15 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $event_speaker = $input_speaker;
     }
 
-    // // Validate salary
-    // $input_salary = trim($_POST["salary"]);
-    // if (empty($input_salary)) {
-    //     $salary_err = "Please enter the salary amount.";
-    // } elseif (!ctype_digit($input_salary)) {
-    //     $salary_err = "Please enter a positive integer value.";
-    // } else {
-    //     $salary = $input_salary;
-    // }
 
     // Check input errors before inserting in database
     if (empty($event_name_err) && empty($event_date_err) && empty($event_start_time_err) && empty($event_end_time_err) 
@@ -100,9 +90,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
-                // Records created successfully. Redirect to landing page
-                // header("location: index.html"."?".$param_event_name);
-                // exit();
 
 
             } else {
@@ -116,6 +103,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Close connection
     $mysqli->close();
+} else {
+    // Check existence of id parameter before processing further
+    if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+        // Get URL parameter
+        $id =  trim($_GET["id"]);
+
+        // Prepare a select statement
+        $sql = "SELECT * FROM create_event WHERE id = ?";
+        if ($stmt = $mysqli->prepare($sql)) {
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("i", $param_id);
+
+            // Set parameters
+            $param_id = $id;
+
+            // Attempt to execute the prepared statement
+            if ($stmt->execute()) {
+                $result = $stmt->get_result();
+
+                if ($result->num_rows == 1) {
+                    /* Fetch result row as an associative array. Since the result set
+                    contains only one row, we don't need to use while loop */
+                    $row = $result->fetch_array(MYSQLI_ASSOC);
+
+                // Retrieve individual field value
+                $event_name = $row["event_name"];
+                $event_date = $row["event_date"];
+                $event_time = $row["event_start_time"];
+                $event_venue = $row["event_venue"];
+                $event_speaker = $row["event_speaker"];
+                } else {
+                    // URL doesn't contain valid id. Redirect to error page
+                    header("location: error.php");
+                    exit();
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+
+        // Close statement
+        $stmt->close();
+
+        // Close connection
+        $mysqli->close();
+    } else {
+        // URL doesn't contain id parameter. Redirect to error page
+        header("location: error.php");
+        exit();
+    }
 }
 ?>
 
@@ -133,7 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Create New Event</title>
+  <title>Update Event Record</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -197,17 +234,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <main id="main" class="main" style="margin: 10px;">
 
     <div class="pagetitle">
-      <h1 style="font-size: 35px;">Create New Event</h1>
+      <h1 style="font-size: 35px;">Update Event Record</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-          <li class="breadcrumb-item active">Create event</li>
+          <li class="breadcrumb-item active">Update event</li>
         </ol>
       </nav>
+      <p>Please edit the input values and submit to update the event record.</p>
+
     </div><!-- End Page Title -->
 
     <!-- Vertical Form -->
-    <form class="row g-3 needs-validation" id="eventForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form class="row g-3 needs-validation" id="eventForm" action="<?php echo htmlspecialchars(basename($_SERVER["REQUEST_URI"])); ?>" method="post">
     <div class="col-12">
         <label for="id_event_name" class="form-label">Event Name</label>
         <input type="text" class="form-control <?php echo (!empty($event_name_err)) ? 'is-invalid' : ''; ?>" name="id_event_name" style="text-transform: capitalize" value="<?php echo $event_name; ?>" required>
@@ -255,45 +294,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="text-center" style="margin-top: 40px;">
         <button type="submit" class="btn btn-primary" style="margin: 5px;" data-toggle="modal" data-target="#createEventModal">Submit</button>
-        <button type="reset" class="btn btn-secondary" style="margin: 5px;">Reset</button>
+        <!-- <button type="reset" class="btn btn-secondary" style="margin: 5px;">Reset</button> -->
         <a href="index.php" class="btn btn-secondary">Cancel</a>
       </div>
     </form>
-
-
-    
-    <!-- Vertical Form -->
-
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header" style="background-color: #03C03C; color: white;">
-            <h5 class="modal-title" id="createEventModalLabel" style="font-weight: bold;">Event Created Successfully!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div id="qrCode" class="text-center mb-3" style="max-width: fit-content;
-            margin-left: auto;
-            margin-right: auto;"></div>
-            <h6 style="text-align: center; font-size: 15px; font-weight: 600;">Event Details:</h6>
-            <p><strong>Name:</strong> <span id="modalEventName"></span></p>
-            <p><strong>Date:</strong> <span id="modalEventDate"></span></p>
-            <p><strong>Venue:</strong> <span id="modalEventVenue"></span></p>
-            <p><strong>Speaker/s:</strong> <span id="modalEventSpeaker"></span></p>
-            <p><strong></strong></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="saveQrBtn" class="btn btn-success">Save QR Code</button>
-            <button type="button" id="deleteEventBtn" class="btn btn-danger">Delete Event</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-
-
-          </div>
-        </div>
-      </div>
-    </div> -->
 
   </main><!-- End #main -->
 
@@ -325,23 +329,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <script>
-    // Get the modal
-    var modal = document.getElementById("createEventModal");
-  
-    // Get the button that opens the modal
-    var btn = document.getElementById("openModalBtn");
-  
-    // Get the <span> element that closes the modal
-  
-  
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-  </script>
 
 
 </body>
