@@ -2,139 +2,111 @@
 // Include config file
 require_once "config.php";
 
-
-
-$event_name = $event_date = $event_start_time = $event_end_time = $event_venue = $event_speaker = $event_image = "";
-$event_name_err = $event_date_err = $event_start_time_err = $event_end_time_err = $time_err = $event_venue_err = $event_speaker_err = $event_image_err = "";
+// Initialize variables
+$event_name = $event_date = $event_start_time = $event_end_time = $event_venue = $event_speaker = "";
+$event_name_err = $event_date_err = $event_start_time_err = $event_end_time_err = $time_err = $event_venue_err = $event_speaker_err = "";
 
 // Processing form data when form is submitted
-if (isset($_POST["id"]) && !empty($_POST["id"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get hidden input value
     $id = $_POST["id"];
 
     // Validate event name
     $input_event_name = trim($_POST["id_event_name"]);
     if (empty($input_event_name)) {
-        $event_name_err = "Please enter a name."; 
-    } elseif (!filter_var($input_event_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
+        $event_name_err = "Please enter a name.";
+    } elseif (!preg_match("/^[a-zA-Z\s]+$/", $input_event_name)) {
         $event_name_err = "Please enter a valid name.";
     } else {
         $event_name = $input_event_name;
     }
 
-      // Validate event date
-      $input_date = trim($_POST["id_event_date"]);
-      $current_date = date("Y-m-d");
-      $tomorrow_date = date("Y-m-d", strtotime("+1 day"));
-  
-      if (empty($input_date)) {
-          $event_date_err = "Please enter a date.";
-      } elseif ($input_date < $tomorrow_date) {
-          $event_date_err = "Please enter a date from tomorrow onwards.";
-      } else {
-          $event_date = $input_date;
-      }
+    // Validate event date
+    $input_date = trim($_POST["id_event_date"]);
+    $tomorrow_date = date("Y-m-d", strtotime("+1 day"));
+    if (empty($input_date)) {
+        $event_date_err = "Please enter a date.";
+    } elseif ($input_date < $tomorrow_date) {
+        $event_date_err = "Please enter a date from tomorrow onwards.";
+    } else {
+        $event_date = $input_date;
+    }
 
-
-    // Validate start time and end time
+    // Validate start and end times
     $input_start_time = trim($_POST["id_event_start_time"]);
     $input_end_time = trim($_POST["id_event_end_time"]);
-
     if (empty($input_start_time)) {
         $event_start_time_err = "Please enter a start time.";
     } elseif (empty($input_end_time)) {
         $event_end_time_err = "Please enter an end time.";
     } elseif (strtotime($input_start_time) >= strtotime($input_end_time)) {
-        $event_time_err = "Start time must be before end time.";
+        $time_err = "Start time must be before end time.";
     } else {
         $event_start_time = $input_start_time;
         $event_end_time = $input_end_time;
     }
 
-    // Validate event vemue
+    // Validate event venue
     $input_venue = trim($_POST["id_event_venue"]);
     if (empty($input_venue)) {
-        $event_venue_err = "Please enter the Event Venue.";
+        $event_venue_err = "Please enter the event venue.";
     } else {
         $event_venue = $input_venue;
     }
 
-    // Validate event speaker name
+    // Validate event speaker
     $input_speaker = trim($_POST["id_event_speaker"]);
     if (empty($input_speaker)) {
-        $event_speaker_err = "Please enter the Event Venue.";
+        $event_speaker_err = "Please enter the speaker.";
     } else {
         $event_speaker = $input_speaker;
     }
 
-
-    // Check input errors before inserting in database
-    if (empty($event_name_err) && empty($event_date_err) && empty($event_start_time_err) && empty($event_end_time_err) 
-    && empty($time_err) && empty($event_venue_err) && empty($event_speaker_err)) {
-        // Prepare an insert statement
-        $sql = "INSERT INTO create_event (event_name, event_date, event_start_time, event_end_time, event_venue, event_speaker) VALUES (?, ?, ?, ?, ?, ?)";
+    // Check for errors
+    if (empty($event_name_err) && empty($event_date_err) && empty($event_start_time_err) && empty($event_end_time_err)
+        && empty($time_err) && empty($event_venue_err) && empty($event_speaker_err)) {
+        
+        // Update query
+        $sql = "UPDATE create_event SET event_name = ?, event_date = ?, event_start_time = ?, event_end_time = ?, event_venue = ?, event_speaker = ? WHERE id = ?";
 
         if ($stmt = $mysqli->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("ssssss", $param_event_name, $param_event_date, $param_event_start_time, 
-            $param_event_end_time, $param_event_venue, $param_event_speaker);
+            $stmt->bind_param("ssssssi", $event_name, $event_date, $event_start_time, $event_end_time, $event_venue, $event_speaker, $id);
 
-
-            // Set parameters
-            $param_event_name = $event_name;
-            $param_event_date = $event_date;
-            $param_event_start_time = $event_start_time;
-            $param_event_end_time = $event_end_time;
-            $param_event_venue = $event_venue;
-            $param_event_speaker = $event_speaker;
-
-            // Attempt to execute the prepared statement
+            // Execute the statement
             if ($stmt->execute()) {
-
-
+                // Redirect to the index page or show a success message
+                header("location: index.php");
+                exit();
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
         }
 
-        // Close statement
+        // Close the statement
         $stmt->close();
     }
 
-    // Close connection
+    // Close the connection
     $mysqli->close();
 } else {
-    // Check existence of id parameter before processing further
+    // Check for valid id in GET request
     if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
-        // Get URL parameter
-        $id =  trim($_GET["id"]);
-
-        // Prepare a select statement
+        $id = trim($_GET["id"]);
         $sql = "SELECT * FROM create_event WHERE id = ?";
         if ($stmt = $mysqli->prepare($sql)) {
-            // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("i", $param_id);
-
-            // Set parameters
-            $param_id = $id;
-
-            // Attempt to execute the prepared statement
+            $stmt->bind_param("i", $id);
             if ($stmt->execute()) {
                 $result = $stmt->get_result();
-
                 if ($result->num_rows == 1) {
-                    /* Fetch result row as an associative array. Since the result set
-                    contains only one row, we don't need to use while loop */
                     $row = $result->fetch_array(MYSQLI_ASSOC);
-
-                // Retrieve individual field value
-                $event_name = $row["event_name"];
-                $event_date = $row["event_date"];
-                $event_time = $row["event_start_time"];
-                $event_venue = $row["event_venue"];
-                $event_speaker = $row["event_speaker"];
+                    $event_name = $row["event_name"];
+                    $event_date = $row["event_date"];
+                    $event_start_time = $row["event_start_time"];
+                    $event_end_time = $row["event_end_time"];
+                    $event_venue = $row["event_venue"];
+                    $event_speaker = $row["event_speaker"];
                 } else {
-                    // URL doesn't contain valid id. Redirect to error page
                     header("location: error.php");
                     exit();
                 }
@@ -143,23 +115,13 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
             }
         }
 
-        // Close statement
         $stmt->close();
-
-        // Close connection
-        $mysqli->close();
     } else {
-        // URL doesn't contain id parameter. Redirect to error page
         header("location: error.php");
         exit();
     }
 }
 ?>
-
-
-
-
-
 
 
 
@@ -247,6 +209,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
 
     <!-- Vertical Form -->
     <form class="row g-3 needs-validation" id="eventForm" action="<?php echo htmlspecialchars(basename($_SERVER["REQUEST_URI"])); ?>" method="post">
+    <input type="hidden" name="id" value="<?php echo $id; ?>">
     <div class="col-12">
         <label for="id_event_name" class="form-label">Event Name</label>
         <input type="text" class="form-control <?php echo (!empty($event_name_err)) ? 'is-invalid' : ''; ?>" name="id_event_name" style="text-transform: capitalize" value="<?php echo $event_name; ?>" required>
