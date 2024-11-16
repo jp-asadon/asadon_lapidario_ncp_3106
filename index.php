@@ -186,81 +186,87 @@
 
         <!-- Left side columns -->
         <div class="col-sm-8" style="height: 410px;">
-
-            <!-- Customers Card -->
-
-              <div class="card info-card customers-card"  style="height: 410px;">
-
-              <div class="card-body" style="height: 410px; overflow-y: auto; padding: 15px;">
-                <h1>EVENT LIST</h1>
-
-<?php
-
-require_once("config.php");
-
-$sql = "SELECT * FROM create_event";
-
-if ($result = $mysqli->query($sql)) {
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            ?>
-            <div class="card info-card customers-card mb-3">
-                <div class="card-body" style="color: #555555; padding: 10px; border-radius:10px">
-
-                    <div class="row">
-                        <div class="col-lg-2 d-flex align-items-center justify-content-center" style="background-color: aqua; padding:10px">
-                            <img src="assets/img/ardui.jpg" style="height: 120px; width: 120px; object-fit: scale-down;">
-                        </div>
-                        
-                        <div class="col-lg-5" style="padding: 10px;">
-                            <div class="form-group">
-                                <label>Event Name</label>
-                                <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_name']); ?></p>
-                            </div> 
-                            <div class="form-group">
-                                <label>Date</label>
-                                <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_date']); ?></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Time</label>
-                                <p style="margin-bottom:5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_start_time']) . " - " . htmlspecialchars($row['event_end_time']); ?></p>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-5" style="padding: 10px;">
-                            <div class="form-group">
-                                <label>Event Venue</label>
-                                <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_venue']); ?></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Event Speaker/s</label>
-                                <p style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($row['event_speaker']); ?></p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+    <!-- Customers Card -->
+    <div class="card info-card customers-card" style="height: 410px;">
+        <!-- Card Header -->
+        <div style="position: sticky; top: 0; background-color: white; z-index: 1; padding: 15px; border-bottom: 1px solid #ddd;">
+            <h1 style="margin: 0;">EVENT LIST</h1>
+        </div>
+        
+        <!-- Card Body -->
+        <div class="card-body" style="height: 410px; overflow-y: auto; padding: 15px;">
             <?php
-        }
-    } else {
-        echo "<p>No events found.</p>";
-    }
-} else {
-    echo "<p>Error: Could not execute query.</p>";
-}
+            require_once("config.php");
 
-?>
+            $sql = "SELECT * FROM create_event";
 
+            if ($result = $mysqli->query($sql)) {
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        ?>
+                        <div class="card info-card customers-card mb-3">
+                            <div class="card-body" style="color: #555555; padding: 10px; border-radius: 10px;">
+                                <div class="row">
+                                    <div class="col-lg-2 d-flex align-items-center justify-content-center" style="background-color: aqua; padding: 10px;">
+                                        <img src="assets/img/ardui.jpg" style="height: 120px; width: 120px; object-fit: scale-down;">
+                                    </div>
+                                    
+                                    <div class="col-lg-5" style="padding: 10px;">
+                                        <div class="form-group">
+                                            <label>Event Name</label>
+                                            <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_name']); ?></p>
+                                        </div> 
+                                        <div class="form-group">
+                                            <label>Date</label>
+                                            <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_date']); ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Time</label>
+                                            <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_start_time']) . " - " . htmlspecialchars($row['event_end_time']); ?></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-5" style="padding: 10px;">
+                                        <div class="form-group">
+                                            <label>Event Venue</label>
+                                            <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_venue']); ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Event Speaker/s</label>
+                                            <p style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($row['event_speaker']); ?></p>
+                                        </div>
+
+                                        <!-- Buttons for View, Edit, Delete -->
+                                        <div class="mt-3 d-flex justify-content-start">
+                                            <!-- View Event Details -->
+                                            <a href="read.php?id=<?php echo $row['id']; ?>" class="btn btn-primary me-2" title="View Event"> <i class="bi bi-eye"></i> View
+                                          </a>
+                                            <!-- Update Event Details -->
+                                            <button class="btn btn-warning me-2" title="Edit Event">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </button>
+                                            <!-- Delete Event -->
+                                            <button class="btn btn-danger" title="Delete Event">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    echo "<p>No events found.</p>";
+                }
+            } else {
+                echo "<p>Error: Could not execute query.</p>";
+            }
+            ?>
+        </div>
+    </div>
 </div>
 
-
-              </div>
-
-
-
-
-        </div>
         <!-- End Left side columns -->
 
         <!-- <div class="col-sm-4">

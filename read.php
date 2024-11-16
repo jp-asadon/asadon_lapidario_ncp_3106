@@ -1,3 +1,61 @@
+<?php
+// Check existence of id parameter before processing further
+if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+    // Include config file
+    require_once "config.php";
+
+
+
+    // Prepare a select statement
+    $sql = "SELECT * FROM create_event WHERE id = ?";
+
+
+  
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        // Bind variables to the prepared statement as parameters
+        $stmt->bind_param("i", $param_id);
+
+        // Set parameters
+        $param_id = trim($_GET["id"]);
+
+        // Attempt to execute the prepared statement
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+
+            if ($result->num_rows == 1) {
+                /* Fetch result row as an associative array. Since the result set
+                contains only one row, we don't need to use while loop */
+                $row = $result->fetch_array(MYSQLI_ASSOC);
+
+                // Retrieve individual field value
+                $event_name = $row["event_name"];
+                $event_date = $row["event_date"];
+                $event_time = $row["event_start_time"];
+                $event_venue = $row["event_venue"];
+                $event_speaker = $row["event_speaker"];
+            } else {
+                // URL doesn't contain valid id parameter. Redirect to error page
+                header("location: error.php");
+                exit();
+            }
+        } else {
+            echo "Oops! Something went wrong. Please try again later.";
+        }
+    }
+
+    // Close statement
+    $stmt->close();
+
+    // Close connection
+    $mysqli->close();
+} else {
+    // URL doesn't contain id parameter. Redirect to error page
+    header("location: error.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +100,7 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center light-background sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+      <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
         <img src="scpeslogo.png" alt="">
         <span class="d-none d-lg-block" style="color: #e4e4e4;">SCPES</span>
       </a>
@@ -50,7 +108,7 @@
 
     <nav class="header-nav ms-auto">
       <ul>
-        <li><a href="index.html" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
+        <li><a href="index.php" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
         <li><a href="results.html" class="zoom-link" style="color: #e4e4e4;">Results</a></li>
       </ul>
   </nav>
@@ -78,11 +136,16 @@
         <h2>Event Details</h2>
         <div class="details-body">  
           <div class="info-container">
-            <p><strong>Event Name:</strong> Sample Event Name</p>
-            <p><strong>Event Date:</strong> January 1, 2025</p>
-            <p><strong>Event Time:</strong> 8:00 AM</p>
-            <p><strong>Venue:</strong> UE Lualhati Building</p>
-            <p><strong>Speakers:</strong> John Doe, Jane Smith</p>
+            <p><strong>Event Name:</strong></p>
+            <p><?php echo $row["event_name"]; ?></p>
+            <p><strong>Event Date:</strong></p>
+            <p><?php echo $row["event_date"]; ?></p>
+            <p><strong>Event Time:</strong></p>
+            <p><?php echo htmlspecialchars($row['event_start_time']) . " - " . htmlspecialchars($row['event_end_time']); ?></p>
+            <p><strong>Venue:</strong></p>
+            <p><?php echo htmlspecialchars($row['event_venue']); ?></p>
+            <p><strong>Speakers:</strong></p>
+            <p><?php echo htmlspecialchars($row['event_speaker']); ?></p>
           </div>
           <div class="image-container">
             <img src="qrplaceholder.png" alt="Event Image">
