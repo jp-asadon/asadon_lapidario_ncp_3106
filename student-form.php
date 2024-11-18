@@ -304,9 +304,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -635,39 +633,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="card" style="margin: 5px;">
                                     <div class="card-body">
                                         <h4>Program Flow</h4>
-                                        <div class="rating">
-                                            <input type="radio" name="program_flow" id="program_flow-star5" value="5" checked
-                                                style="background-color: rgb(18, 87, 18);">
+                                        <div class="survey-container">
+                                            <div class="emoji-container">
+                                            <input type="radio" name="program_flow" id="program_flow-star5" value="5">
                                             <label for="program_flow-star5">
-                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
-                                                <span>Excellent</span>
+                                                🤩
+                                                <span class="label-text">Excellent</span>
                                             </label>
-                                            <input type="radio" name="program_flow" id="program_flow-star4" value="4"
-                                                style="background-color: rgb(146, 185, 88);">
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="program_flow" id="program_flow-star4" value="4">
                                             <label for="program_flow-star4">
-                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
-                                                    height="120">
-                                                <span>Very Satisfactory</span>
+                                                😊
+                                                <span class="label-text">Very Satisfactory</span>
                                             </label>
-                                            <input type="radio" name="program_flow" id="program_flow-star3" value="3"
-                                                style="background-color: #FFC300;">
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="program_flow" id="program_flow-star3" value="3">
                                             <label for="program_flow-star3">
-                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
-                                                <span>Satisfactory</span>
+                                                😐
+                                                <span class="label-text">Satisfactory</span>
                                             </label>
-                                            <input type="radio" name="program_flow" id="program_flow-star2" value="2"
-                                                style="background-color: rgb(236, 120, 78);">
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="program_flow" id="program_flow-star2" value="2">
                                             <label for="program_flow-star2">
-                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
-                                                <span>Poor</span>
+                                                😞
+                                                <span class="label-text">Poor</span>
                                             </label>
-                                            <input type="radio" name="program_flow" id="program_flow-star1" value="1"
-                                                style="background-color: rgb(240, 46, 46);">
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="program_flow" id="program_flow-star1" value="1">
                                             <label for="program_flow-star1">
-                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120" 
-                                                    height="120">
-                                                <span>Extremely Poor</span>
+                                                😡
+                                                <span class="label-text">Extremely Poor</span>
                                             </label>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -675,39 +677,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="card" style="margin: 5px;">
                                     <div class="card-body">
                                         <h4>Time Management</h4>
-                                        <div class="rating">
-                                            <input type="radio" name="time_management" id="time_management-star5" value="5"
-                                                checked style="background-color: rgb(84, 95, 84);">
-                                            <label for="time_management-star5">
-                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
-                                                <span>Excellent</span>
-                                            </label>
-                                            <input type="radio" name="time_management" id="time_management-star4" value="4"
-                                                style="background-color: rgb(146, 185, 88);">
-                                            <label for="time_management-star4">
-                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
-                                                    height="120">
-                                                <span>Very Satisfactory</span>
-                                            </label>
-                                            <input type="radio" name="time_management" id="time_management-star3" value="3"
-                                                style="background-color: #FFC300;">
-                                            <label for="time_management-star3">
-                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
-                                                <span>Satisfactory</span>
-                                            </label>
-                                            <input type="radio" name="time_management" id="time_management-star2" value="2"
-                                                style="background-color: rgb(236, 120, 78);">
-                                            <label for="time_management-star2">
-                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
-                                                <span>Poor</span>
-                                            </label>
-                                            <input type="radio" name="time_management" id="time_management-star1" value="1"
-                                                style="background-color: rgb(240, 46, 46);">
-                                            <label for="time_management-star1">
-                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
-                                                    height="120">
-                                                <span>Extremely Poor</span>
-                                            </label>
+                                        <div class="survey-container">
+                                            <div class="emoji-container">
+                                                <input type="radio" name="time_management" id="time_management-star5" value="5">
+                                                <label for="time_management-star5">
+                                                🤩
+                                                <span class="label-text">Excellent</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                                <input type="radio" name="time_management" id="time_management-star4" value="4">
+                                                <label for="time_management-star4">
+                                                😊
+                                                <span class="label-text">Very Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                                <input type="radio" name="time_management" id="time_management-star3" value="3">
+                                                <label for="time_management-star3">
+                                                😐
+                                                <span class="label-text">Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                                <input type="radio" name="time_management" id="time_management-star2" value="2">
+                                                <label for="time_management-star2">
+                                                😞
+                                                <span class="label-text">Poor</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                                <input type="radio" name="time_management" id="time_management-star1" value="1">
+                                                <label for="time_management-star1">
+                                                😡
+                                                <span class="label-text">Extremely Poor</span>
+                                                </label>
+                                            </div>
+                                                
                                         </div>
                                     </div>
                                 </div>
@@ -715,40 +721,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="card" style="margin: 5px;">
                                     <div class="card-body">
                                         <h4>Venue and Facilities</h4>
-
-                                        <div class="rating">
-                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star5" value="5" checked
-                                                style="background-color: rgb(18, 87, 18);">
-                                            <label for="venue_and_fac-star5">
-                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
-                                                <span>Excellent</span>
-                                            </label>
-                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star4" value="4"
-                                                style="background-color: rgb(146, 185, 88);">
-                                            <label for="venue_and_fac-star4">
-                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
-                                                    height="120">
-                                                <span>Very Satisfactory</span>
-                                            </label>
-                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star3" value="3"
-                                                style="background-color: #FFC300;">
-                                            <label for="venue_and_fac-star3">
-                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
-                                                <span>Satisfactory</span>
-                                            </label>
-                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star2" value="2"
-                                                style="background-color: rgb(236, 120, 78);">
-                                            <label for="venue_and_fac-star2">
-                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
-                                                <span>Poor</span>
-                                            </label>
-                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star1" value="1"
-                                                style="background-color: rgb(240, 46, 46);">
-                                            <label for="venue_and_fac-star1">
-                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
-                                                    height="120">
-                                                <span>Extremely Poor</span>
-                                            </label>
+                                        <div class="survey-container">
+                                            <div class="emoji-container">
+                                                <input type="radio" name="venue_and_fac" id="venue_and_fac-star5" value="5">
+                                                <label for="venue_and_fac-star5">
+                                                    🤩
+                                                    <span class="label-text">Excellent</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star4" value="4">
+                                                <label for="venue_and_fac-star4">
+                                                    😊
+                                                    <span class="label-text">Very Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star3" value="3">
+                                                <label for="venue_and_fac-star3">
+                                                    😐
+                                                    <span class="label-text">Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star2" value="2">
+                                                <label for="venue_and_fac-star2">
+                                                    😞
+                                                    <span class="label-text">Poor</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star1" value="1">
+                                                <label for="venue_and_fac-star1">
+                                                    😡
+                                                    <span class="label-text">Extremely Poor</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -756,43 +764,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="card" style="margin: 5px;">
                                     <div class="card-body">
                                         <h4>Speakers/Performers</h4>
-                                        <div class="rating">
+                                        <div class="survey-container">
+                                            <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
-                                                id="speakers_performers-star5" value="5" checked
-                                                style="background-color: rgb(18, 87, 18);">
-                                            <label for="peakers_performers-star5">
-                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
-                                                <span>Excellent</span>
-                                            </label>
+                                                id="speakers_performers-star5" value="5">
+                                                <label for="peakers_performers-star5">
+                                                    🤩
+                                                    <span class="label-text">Excellent</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
-                                                id="speakers_performers-star4" value="4"
-                                                style="background-color: rgb(146, 185, 88);">
-                                            <label for="peakers_performers-star4">
-                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
-                                                    height="120">
-                                                <span>Very Satisfactory</span>
-                                            </label>
+                                                id="speakers_performers-star4" value="4">
+                                                <label for="peakers_performers-star4">
+                                                    😊
+                                                    <span class="label-text">Very Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
-                                                id="speakers_performers-star3" value="3" style="background-color: #FFC300;">
-                                            <label for="peakers_performers-star3">
-                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
-                                                <span>Satisfactory</span>
-                                            </label>
+                                                id="speakers_performers-star3" value="3">
+                                                <label for="peakers_performers-star3">
+                                                    😐
+                                                    <span class="label-text">Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
-                                                id="speakers_performers-star2" value="2"
-                                                style="background-color: rgb(236, 120, 78);">
-                                            <label for="peakers_performers-star2">
-                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
-                                                <span>Poor</span>
-                                            </label>
+                                                id="speakers_performers-star2" value="2">
+                                                <label for="peakers_performers-star2">
+                                                    😞
+                                                    <span class="label-text">Poor</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
-                                                id="speakers_performers-star1" value="1"
-                                                style="background-color: rgb(240, 46, 46);">
-                                            <label for="peakers_performers-star1">
-                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
-                                                    height="120">
-                                                <span>Extremely Poor</span>
-                                            </label>
+                                                id="speakers_performers-star1" value="1">
+                                                <label for="peakers_performers-star1">
+                                                    😡
+                                                    <span class="label-text">Extremely Poor</span>
+                                                </label>
+                                            </div>
+                                    
                                         </div>
                                     </div>
                                 </div>
@@ -800,39 +813,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="card" style="margin: 5px;">
                                     <div class="card-body">
                                         <h4> Topics/Quality of Performances</h4>
-                                        <div class="rating">
-                                            <input type="radio" name="topics" id="topics-star5" value="5" checked
-                                                style="background-color: rgb(18, 87, 18);">
-                                            <label for="topics-star5">
-                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
-                                                <span>Excellent</span>
-                                            </label>
-                                            <input type="radio" name="topics" id="topics-star4" value="4"
-                                                style="background-color: rgb(146, 185, 88);">
-                                            <label for="topics-star4">
-                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
-                                                    height="120">
-                                                <span>Very Satisfactory</span>
-                                            </label>
-                                            <input type="radio" name="topics" id="topics-star3" value="3"
-                                                style="background-color: #FFC300;">
-                                            <label for="topics-star3">
-                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
-                                                <span>Satisfactory</span>
-                                            </label>
-                                            <input type="radio" name="topics" id="topics-star2" value="2"
-                                                style="background-color: rgb(236, 120, 78);">
-                                            <label for="topics-star2">
-                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
-                                                <span>Poor</span>
-                                            </label>
-                                            <input type="radio" name="topics" id="topics-star1" value="1"
-                                                style="background-color: rgb(240, 46, 46);">
-                                            <label for="topics-star1">
-                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
-                                                    height="120">
-                                                <span>Extremely Poor</span>
-                                            </label>
+                                        <div class="survey-container">
+                                            <div class="emoji-container">
+                                            <input type="radio" name="topics" id="topics-star5" value="5">
+                                                <label for="topics-star5">
+                                                    🤩
+                                                    <span class="label-text">Excellent</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="topics" id="topics-star4" value="4">
+                                                <label for="topics-star4">
+                                                    😊
+                                                    <span class="label-text">Very Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="topics" id="topics-star3" value="3">
+                                                <label for="topics-star3">
+                                                    😐
+                                                    <span class="label-text">Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="topics" id="topics-star2" value="2">
+                                                <label for="topics-star2">
+                                                    😞
+                                                    <span class="label-text">Poor</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="topics" id="topics-star1" value="1">
+                                                <label for="topics-star1">
+                                                    😡
+                                                    <span class="label-text">Extremely Poor</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -840,40 +856,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="card" style="margin: 5px;">
                                     <div class="card-body">
                                         <h4>Facilitators/Event Organizers</h4>
-
-                                        <div class="rating">
-                                            <input type="radio" name="facilitators" id="facilitators-star5" value="5" checked
-                                                style="background-color: rgb(18, 87, 18);">
-                                            <label for="facilitators-star5">
-                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
-                                                <span>Excellent</span>
-                                            </label>
-                                            <input type="radio" name="facilitators" id="facilitators-star4" value="4"
-                                                style="background-color: rgb(146, 185, 88);">
-                                            <label for="facilitators-star4">
-                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
-                                                    height="120">
-                                                <span>Very Satisfactory</span>
-                                            </label>
-                                            <input type="radio" name="facilitators" id="facilitators-star3" value="3"
-                                                style="background-color: #FFC300;">
-                                            <label for="facilitators-star3">
-                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
-                                                <span>Satisfactory</span>
-                                            </label>
-                                            <input type="radio" name="facilitators" id="facilitators-star2" value="2"
-                                                style="background-color: rgb(236, 120, 78);">
-                                            <label for="facilitators-star2">
-                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
-                                                <span>Poor</span>
-                                            </label>
-                                            <input type="radio" name="facilitators" id="facilitators-star1" value="1"
-                                                style="background-color: rgb(240, 46, 46);">
+                                        <div class="survey-container">
+                                            <div class="emoji-container">
+                                            <input type="radio" name="facilitators" id="facilitators-star5" value="5">
+                                                <label for="facilitators-star5">
+                                                    🤩
+                                                    <span class="label-text">Excellent</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="facilitators" id="facilitators-star4" value="4">
+                                                <label for="facilitators-star4">
+                                                    😊
+                                                    <span class="label-text">Very Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="facilitators" id="facilitators-star3" value="3">
+                                                <label for="facilitators-star3">
+                                                    😐
+                                                    <span class="label-text">Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="facilitators" id="facilitators-star2" value="2">
+                                                <label for="facilitators-star2">
+                                                    😞
+                                                    <span class="label-text">Poor</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="facilitators" id="facilitators-star1" value="1">
                                             <label for="facilitators-star1">
-                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
-                                                    height="120">
-                                                <span>Extremely Poor</span>
+                                                😡
+                                                <span class="label-text">Extremely Poor</span>
                                             </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -881,39 +899,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="card" style="margin: 5px;">
                                     <div class="card-body">
                                         <h4>Overall Rating for the Activity</h4>
-                                        <div class="rating">
-                                            <input type="radio" name="overall_rating" id="overall_rating-star5" value="5" checked
-                                                style="background-color: rgb(18, 87, 18);">
-                                            <label for="overall_rating-star5">
-                                                <img src="assets/img/5.jpg" alt="Excellent" width="120" height="120">
-                                                <span>Excellent</span>
-                                            </label>
-                                            <input type="radio" name="overall_rating" id="overall_rating-star4" value="4"
-                                                style="background-color: rgb(146, 185, 88);">
-                                            <label for="overall_rating-star4">
-                                                <img src="assets/img/4.jpg" alt="Very Satisfactory" width="120"
-                                                    height="120">
-                                                <span>Very Satisfactory</span>
-                                            </label>
-                                            <input type="radio" name="overall_rating" id="overall_rating-star3" value="3"
-                                                style="background-color: #FFC300;">
-                                            <label for="overall_rating-star3">
-                                                <img src="assets/img/3.jpg" alt="Satisfactory" width="120" height="120">
-                                                <span>Satisfactory</span>
-                                            </label>
-                                            <input type="radio" name="overall_rating" id="overall_rating-star2" value="2"
-                                                style="background-color: rgb(236, 120, 78);">
-                                            <label for="overall_rating-star2">
-                                                <img src="assets/img/2.jpg" alt="Poor" width="120" height="120">
-                                                <span>Poor</span>
-                                            </label>
-                                            <input type="radio" name="overall_rating" id="overall_rating-star1" value="1"
-                                                style="background-color: rgb(240, 46, 46);">
-                                            <label for="overall_rating-star1">
-                                                <img src="assets/img/1.jpg" alt="Extremely Poor" width="120"
-                                                    height="120">
-                                                <span>Extremely Poor</span>
-                                            </label>
+                                        <div class="survey-container">
+                                            <div class="emoji-container">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star5" value="5">
+                                                <label for="overall_rating-star5">
+                                                    🤩
+                                                    <span class="label-text">Excellent</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star4" value="4">
+                                                <label for="overall_rating-star4">
+                                                    😊
+                                                    <span class="label-text">Very Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star3" value="3">
+                                                <label for="overall_rating-star3">
+                                                    😐
+                                                    <span class="label-text">Satisfactory</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star2" value="2">
+                                                <label for="overall_rating-star2">
+                                                    😞
+                                                    <span class="label-text">Poor</span>
+                                                </label>
+                                            </div>
+                                            <div class="emoji-container">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star1" value="1">
+                                                <label for="overall_rating-star1">
+                                                    😡
+                                                    <span class="label-text">Extremely Poor</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
