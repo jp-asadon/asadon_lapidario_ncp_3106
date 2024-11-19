@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -198,7 +200,7 @@
             <?php
             require_once("config.php");
 
-            $sql = "SELECT * FROM create_event";
+            $sql = "SELECT * FROM create_event WHERE delete_event = 0";
 
             if ($result = $mysqli->query($sql)) {
                 if ($result->num_rows > 0) {
@@ -248,9 +250,17 @@
                                             <a href="update.php?id=<?php echo $row['id']; ?>" class="btn btn-warning me-2" title="Update Event"> <i class="bi bi-eye"></i> Update
                                             </a>
                                             <!-- Delete Event -->
-                                            <button class="btn btn-danger" title="Delete Event">
+                                            <!-- <button class="btn btn-danger" title="Delete Event" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 <i class="bi bi-trash"></i> Delete
                                             </button>
+                                            <a href="archive.php?id=<?php echo $row['id']; ?>"class="btn btn-danger" title="Delete Event" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="bi bi-trash"></i> Delete
+                                            </a> -->
+                                            <button class="btn btn-danger delete-btn" title="Delete Event" data-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <i class="bi bi-trash"></i> Delete
+</button>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -265,9 +275,76 @@
                 echo "<p>Error: Could not execute query.</p>";
             }
             ?>
+
+            
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">DELETE RECORD</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- <form>
+                        <div class="alert alert-danger">
+                            <input type="hidden" name="id" />
+                            <p>Are you sure you want to delete this event record?</p>
+                        </div>
+                    </form> -->
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+<form method="POST" action="archive.php">
+    <div class="modal-body">
+        <div class="alert alert-danger">
+            <input type="hidden" name="id" />
+            <p>Are you sure you want to delete this event record?</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="Yes" class="btn btn-danger">
+        <button type="button" class="btn btn-secondary ml-2" data-bs-dismiss="modal">No</button>
+    </div>
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Record</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="archive.php" method="POST">
+            <div class="alert alert-danger">
+              <input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? htmlspecialchars($_GET['id']) : ''; ?>">
+              <p>Are you sure you want to delete this event record?</p>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" value="Yes" class="btn btn-danger">
+              <button type="button" class="btn btn-secondary ml-2" data-bs-dismiss="modal">No</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> -->
 
         <!-- End Left side columns -->
 
@@ -339,6 +416,19 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const eventId = this.getAttribute('data-id');
+                document.querySelector('#exampleModal input[name="id"]').value = eventId;
+            });
+        });
+    });
+</script>
 
 </body>
 
