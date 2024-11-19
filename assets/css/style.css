@@ -1187,12 +1187,12 @@ h6 {
   text-align:center;
   padding: 5px;
   margin-bottom: 0;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .event-details {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   max-width: 800px;
@@ -1233,4 +1233,50 @@ h6 {
 
 .info-container p {
   font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.info-row p {
+  margin: 0;
+  padding-right: 10px;
+}
+
+.info-row p:last-child {
+  font-weight: normal;
+  flex: 1;
+}
+
+.label {
+  width: 150px; /* Set a fixed width for labels */
+  margin: 0;
+  font-weight: bold;
+  text-align: left;
+}
+
+.download-container {
+  text-align: center; /* Center the button */
+  margin-top: 10px; /* Add space above the button */
+  margin-bottom: 20px;
+}
+
+.btn-download {
+  display: inline-block;
+  background-color: #007BFF; /* Primary button color */
+  color: #fff; /* Text color */
+  text-decoration: none; /* Remove underline */
+  padding: 10px 20px; /* Button padding */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Text size */
+
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.btn-download:hover {
+  background-color: #0056b3; /* Darker shade on hover */
 }

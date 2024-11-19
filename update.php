@@ -164,21 +164,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
       <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
         <img src="scpeslogo.png" alt="">
-        <span class="d-none d-lg-block">SCPES</span>
+        <span class="d-none d-lg-block" style="color: #e4e4e4;">SCPES</span>
       </a>
     </div><!-- End Logo -->
 
     <nav class="header-nav ms-auto">
       <ul>
-        <li><a href="index.php" class="active">Dashboard</a></li>
-        <li><a href="results.html">Results</a></li>
+        <li><a href="index.html" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
+        <li><a href="results.html" class="zoom-link" style="color: #e4e4e4;">Results</a></li>
       </ul>
-  </nav>
+    </nav>
 
   <div>  
     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
       <img src="uelogo.png" alt="Profile" class="rounded-circle" style="max-height: 36px;">
-      <span class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
+      <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #e4e4e4;">Admin</span>
     </a><!-- End Profile Iamge Icon -->
 
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -199,8 +199,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <h1 style="font-size: 35px;">Update Event Record</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-          <li class="breadcrumb-item active">Update event</li>
+          <li class="breadcrumb-item"><a href="index.php"style="color: #555555;" >Dashboard</a></li>
+          <li class="breadcrumb-item active" style="color: #555555;">Update event</li>
         </ol>
       </nav>
       <p>Please edit the input values and submit to update the event record.</p>
@@ -267,12 +267,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>project-Wolfgang Developers</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>Project-Wolfgang Developers</span></strong>. All Rights Reserved
     </div>
-    <!-- <div class="credits">
-
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div> -->
   </footer>
   <!-- End Footer -->
 

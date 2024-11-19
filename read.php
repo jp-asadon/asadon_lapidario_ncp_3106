@@ -133,24 +133,46 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
   <main id="main" class="main"  style="margin: 20px; display: flex; justify-content: center; align-items: center;">
 
     <section class="event-details">
-        <h2>Event Details</h2>
+        <h2><strong>Event Details</strong></h2>
         <div class="details-body">  
           <div class="info-container">
-            <p><strong>Event Name:</strong></p>
-            <p><?php echo $row["event_name"]; ?></p>
-            <p><strong>Event Date:</strong></p>
-            <p><?php echo $row["event_date"]; ?></p>
-            <p><strong>Event Time:</strong></p>
-            <p><?php echo htmlspecialchars($row['event_start_time']) . " - " . htmlspecialchars($row['event_end_time']); ?></p>
-            <p><strong>Venue:</strong></p>
-            <p><?php echo htmlspecialchars($row['event_venue']); ?></p>
-            <p><strong>Speakers:</strong></p>
-            <p><?php echo htmlspecialchars($row['event_speaker']); ?></p>
+
+          <div class="info-row">
+                <p class="label"><strong>Event Name:</strong></p>
+                <p><?php echo $row["event_name"]; ?></p>
           </div>
+
+          <div class="info-row">
+                <p class="label"><strong>Event Date:</strong></p>
+                <p><?php echo $row["event_date"]; ?></p>
+          </div>
+
+          <div class="info-row">
+                <p class="label"><strong>Event Time:</strong></p>
+                <p><?php echo htmlspecialchars($row['event_start_time']) . " - " . htmlspecialchars($row['event_end_time']); ?></p>
+          </div>
+
+          <div class="info-row">
+                <p class="label"><strong>Venue:</strong></p>
+                <p><?php echo htmlspecialchars($row['event_venue']); ?></p>
+          </div>
+
+          <div class="info-row">
+                <p class="label"><strong>Speakers:</strong></p>
+                <p><?php echo htmlspecialchars($row['event_speaker']); ?></p>
+          </div>
+        </div>
+
           <div class="image-container">
             <img src="qrplaceholder.png" alt="Event Image">
           </div>
         </div>
+
+        <div class="download-container">
+          <a href="event-details.pdf" class="btn-download" download>Download QR</a>
+        </div>
+
+      </div>
     </section>
 
   </main><!-- End #main -->
@@ -159,9 +181,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
   <footer id="footer" class="footer">
     <div class="copyright">
       &copy; Copyright <strong><span>Project-Wolfgang Developers</span></strong>. All Rights Reserved
-    <!-- </div>
-     Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div> -->
+    </div>
   </footer>
   <!-- End Footer -->
 
