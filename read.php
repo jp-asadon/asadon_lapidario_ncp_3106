@@ -181,9 +181,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
   <footer id="footer" class="footer">
     <div class="copyright">
       &copy; Copyright <strong><span>Project-Wolfgang Developers</span></strong>. All Rights Reserved
-    <!-- </div>
-     Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div> -->
+    </div>
   </footer>
   <!-- End Footer -->
 
