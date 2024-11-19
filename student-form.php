@@ -537,7 +537,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="tab" id="third-tab">
     <div class="card">
-        <div class="card-body">
+        <div class="card-body" style="font-family: 'Montserrat';">
             <div class="form-group">
                 <label for="surname" style="font-weight: bold;">Surname (in UPPERCASE)</label>
                 <input type="text" class="form-control" id="surname" name="surname" placeholder="Enter your surname" value="<?php echo $surname; ?>" style="padding: 10px; margin-bottom: 7px;" required>
@@ -768,7 +768,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
                                                 id="speakers_performers-star5" value="5">
-                                                <label for="peakers_performers-star5">
+                                                <label for="speakers_performers-star5">
                                                     🤩
                                                     <span class="label-text">Excellent</span>
                                                 </label>
@@ -776,7 +776,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
                                                 id="speakers_performers-star4" value="4">
-                                                <label for="peakers_performers-star4">
+                                                <label for="speakers_performers-star4">
                                                     😊
                                                     <span class="label-text">Very Satisfactory</span>
                                                 </label>
@@ -784,7 +784,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
                                                 id="speakers_performers-star3" value="3">
-                                                <label for="peakers_performers-star3">
+                                                <label for="speakers_performers-star3">
                                                     😐
                                                     <span class="label-text">Satisfactory</span>
                                                 </label>
@@ -792,7 +792,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
                                                 id="speakers_performers-star2" value="2">
-                                                <label for="peakers_performers-star2">
+                                                <label for="speakers_performers-star2">
                                                     😞
                                                     <span class="label-text">Poor</span>
                                                 </label>
@@ -800,12 +800,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
                                                 id="speakers_performers-star1" value="1">
-                                                <label for="peakers_performers-star1">
+                                                <label for="speakers_performers-star1">
                                                     😡
                                                     <span class="label-text">Extremely Poor</span>
                                                 </label>
                                             </div>
-                                    
                                         </div>
                                     </div>
                                 </div>
