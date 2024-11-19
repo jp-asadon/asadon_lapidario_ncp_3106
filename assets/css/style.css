@@ -48,6 +48,18 @@ h6 {
 
 
 
+.sticky-title {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+
+
 @media (max-width: 1199px) {
   #main {
     padding: 0px;
