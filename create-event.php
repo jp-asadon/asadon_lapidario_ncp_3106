@@ -1,14 +1,11 @@
 <?php
 // Include config file
 require_once "config.php";
+require_once 'phpqrcode/qrlib.php'; // Include the QR Code library
 
 // Define variables and initialize with empty values
-// $name = $address = $salary = "";
-// $name_err = $address_err = $salary_err = "";
-
-
-$event_name = $event_date = $event_start_time = $event_end_time = $event_venue = $event_speaker = $event_image = "";
-$event_name_err = $event_date_err = $event_start_time_err = $event_end_time_err = $time_err = $event_venue_err = $event_speaker_err = $event_image_err = "";
+$event_name = $event_date = $event_start_time = $event_end_time = $event_venue = $event_speaker = "";
+$event_name_err = $event_date_err = $event_start_time_err = $event_end_time_err = $time_err = $event_venue_err = $event_speaker_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -23,19 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $event_name = $input_event_name;
     }
 
-      // Validate event date
-      $input_date = trim($_POST["id_event_date"]);
-      $current_date = date("Y-m-d");
-      $tomorrow_date = date("Y-m-d", strtotime("+1 day"));
+    // Validate event date
+    $input_date = trim($_POST["id_event_date"]);
+    $current_date = date("Y-m-d");
+    $tomorrow_date = date("Y-m-d", strtotime("+1 day"));
   
-      if (empty($input_date)) {
-          $event_date_err = "Please enter a date.";
-      } elseif ($input_date < $tomorrow_date) {
-          $event_date_err = "Please enter a date from tomorrow onwards.";
-      } else {
-          $event_date = $input_date;
-      }
-
+    if (empty($input_date)) {
+        $event_date_err = "Please enter a date.";
+    } elseif ($input_date < $tomorrow_date) {
+        $event_date_err = "Please enter a date from tomorrow onwards.";
+    } else {
+        $event_date = $input_date;
+    }
 
     // Validate start time and end time
     $input_start_time = trim($_POST["id_event_start_time"]);
@@ -52,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $event_end_time = $input_end_time;
     }
 
-    // Validate event vemue
+    // Validate event venue
     $input_venue = trim($_POST["id_event_venue"]);
     if (empty($input_venue)) {
         $event_venue_err = "Please enter the Event Venue.";
@@ -63,32 +59,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate event speaker name
     $input_speaker = trim($_POST["id_event_speaker"]);
     if (empty($input_speaker)) {
-        $event_speaker_err = "Please enter the Event Venue.";
+        $event_speaker_err = "Please enter the Event Speaker.";
     } else {
         $event_speaker = $input_speaker;
     }
 
-    // // Validate salary
-    // $input_salary = trim($_POST["salary"]);
-    // if (empty($input_salary)) {
-    //     $salary_err = "Please enter the salary amount.";
-    // } elseif (!ctype_digit($input_salary)) {
-    //     $salary_err = "Please enter a positive integer value.";
-    // } else {
-    //     $salary = $input_salary;
-    // }
-
     // Check input errors before inserting in database
     if (empty($event_name_err) && empty($event_date_err) && empty($event_start_time_err) && empty($event_end_time_err) 
-    && empty($time_err) && empty($event_venue_err) && empty($event_speaker_err)) {
+        && empty($time_err) && empty($event_venue_err) && empty($event_speaker_err)) {
+
         // Prepare an insert statement
-        $sql = "INSERT INTO create_event (event_name, event_date, event_start_time, event_end_time, event_venue, event_speaker) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO create_event (event_name, event_date, event_start_time, event_end_time, event_venue, event_speaker, qrtext, qrimage) 
+                VALUES (?, ?, ?, ?, ?, ?, '', '')";
 
         if ($stmt = $mysqli->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("ssssss", $param_event_name, $param_event_date, $param_event_start_time, 
-            $param_event_end_time, $param_event_venue, $param_event_speaker);
-
+                $param_event_end_time, $param_event_venue, $param_event_speaker);
 
             // Set parameters
             $param_event_name = $event_name;
@@ -100,11 +87,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
-                // Records created successfully. Redirect to landing page
-                // header("location: index.html"."?".$param_event_name);
-                // exit();
+                // Get the last inserted id
+                $last_id = $mysqli->insert_id;
 
+                // Generate the QR code text and image using the new ID
+                $qrtext = "http://localhost/project-wolfgang/student-form.php?id=" . $last_id;
+                $qrimage_name = time() . ".png";
+                $qrimage_path = 'images/' . $qrimage_name;
+                QRcode::png($qrtext, $qrimage_path, 'H', 4, 4);
 
+                // Update the database with the QR code data
+                $update_sql = "UPDATE create_event SET qrtext = ?, qrimage = ? WHERE id = ?";
+                if ($update_stmt = $mysqli->prepare($update_sql)) {
+                    $update_stmt->bind_param("ssi", $qrtext, $qrimage_name, $last_id);
+                    $update_stmt->execute();
+                    $update_stmt->close();
+                }
+
+                // Prepare modal content
+                $modal_title = "Event Created Successfully!";
+                $modal_body = "<p>Here is the QR code for your event:</p>";
+                $modal_body .= "<img src='" . $qrimage_path . "' alt='QR Code' class='img-fluid'>";
+                $modal_footer = "<a href='index.php' class='btn btn-secondary'>Back to Events</a>";
+
+                // Trigger the modal
+                echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                        successModal.show();
+                    });
+                </script>";
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -157,6 +169,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <!-- QRCode.js Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 
 <body>
@@ -254,12 +271,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
       </div>
       <div class="text-center" style="margin-top: 40px;">
-        <button type="submit" class="btn btn-primary" style="margin: 5px;" data-toggle="modal" data-target="#createEventModal">Submit</button>
+        <button type="submit" class="btn btn-primary" style="margin: 5px;" data-toggle="modal" data-target="#createEventModal" name="btn_createSubmit">Submit</button>
         <button type="reset" class="btn btn-secondary" style="margin: 5px;">Reset</button>
         <a href="index.php" class="btn btn-secondary">Cancel</a>
       </div>
     </form>
 
+
+
+    <!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel"><?php echo $modal_title; ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <?php echo $modal_body; ?>
+            </div>
+            <div class="modal-footer">
+                <?php echo $modal_footer; ?>
+            </div>
+        </div>
+    </div>
+</div>
 
     
     <!-- Vertical Form -->
