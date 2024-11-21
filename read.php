@@ -4,13 +4,8 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     // Include config file
     require_once "config.php";
 
-
-
     // Prepare a select statement
     $sql = "SELECT * FROM create_event WHERE id = ?";
-
-
-  
 
     if ($stmt = $mysqli->prepare($sql)) {
         // Bind variables to the prepared statement as parameters
@@ -24,16 +19,16 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
             $result = $stmt->get_result();
 
             if ($result->num_rows == 1) {
-                /* Fetch result row as an associative array. Since the result set
-                contains only one row, we don't need to use while loop */
+                // Fetch result row as an associative array
                 $row = $result->fetch_array(MYSQLI_ASSOC);
 
-                // Retrieve individual field value
+                // Retrieve individual field values
                 $event_name = $row["event_name"];
                 $event_date = $row["event_date"];
                 $event_time = $row["event_start_time"];
                 $event_venue = $row["event_venue"];
                 $event_speaker = $row["event_speaker"];
+                $qrimage = $row["qrimage"]; // Add this to fetch the QR code image name
             } else {
                 // URL doesn't contain valid id parameter. Redirect to error page
                 header("location: error.php");
@@ -55,6 +50,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -163,13 +159,19 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
           </div>
         </div>
 
+          <!-- <div class="image-container">
+            <img src="" alt="Event Image"> I would like to display the qrcode image of an event based on the event id. How can I do this? Per event, a table on  my database holds
+            value for my qr image in a png form like for example 1732187508.png. 
+            This qr code is in my directory "images/" I want to get ther names to use for my img src="".
+          </div> -->
           <div class="image-container">
-            <img src="qrplaceholder.png" alt="Event Image">
-          </div>
+    <img src="images/<?php echo htmlspecialchars($qrimage); ?>" alt="Event QR Code" class="img-fluid">
+</div>
+
         </div>
 
         <div class="download-container">
-          <a href="event-details.pdf" class="btn-download" download>Download QR</a>
+          <a href="images/<?php echo htmlspecialchars($qrimage); ?>" class="btn-download" download>Download QR</a>
         </div>
 
       </div>

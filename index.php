@@ -112,7 +112,7 @@
 
           <!-- Recent Activity -->
           <div class="card" style="height: 300px; overflow-y: auto;">
-  <div class="filter">
+  <div class="filter" style="background-color: #2a2a2a">
     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
       <li class="dropdown-header text-start">
