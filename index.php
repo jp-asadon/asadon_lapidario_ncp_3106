@@ -43,7 +43,7 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center light-background sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+      <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
         <img src="scpeslogo.png" alt="">
         <span class="d-none d-lg-block" style="color: #e4e4e4;">SCPES</span>
       </a>
@@ -51,7 +51,7 @@
 
     <nav class="header-nav ms-auto">
       <ul>
-        <li><a href="index.html" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
+        <li><a href="index.php" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
         <li><a href="results.html" class="zoom-link" style="color: #e4e4e4;">Results</a></li>
       </ul>
   </nav>
@@ -63,7 +63,7 @@
     </a><!-- End Profile Iamge Icon -->
 
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-      <a  href="pages-login.html" class="dropdown-item d-flex align-items-center" href="#">
+      <a  href="pages-login.php" class="dropdown-item d-flex align-items-center" href="#">
         <i class="bi bi-box-arrow-right"></i>
         <span>Sign Out</span>
       </a>
@@ -80,7 +80,7 @@
       <h1 style="font-weight: bold; font-size: 30px; color: #2a2a2a;">Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html" style="color: #555555;">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="index.php" style="color: #555555;">Dashboard</a></li>
           <li class="breadcrumb-item active"></li>
         </ol>
       </nav>

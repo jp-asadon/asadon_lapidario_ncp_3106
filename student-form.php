@@ -184,6 +184,61 @@
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 
+
+// Check existence of id parameter before processing further
+if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+    // Include config file
+    require_once "config.php";
+
+    // Prepare a select statement
+    $sql = "SELECT * FROM create_event WHERE id = ?";
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        // Bind variables to the prepared statement as parameters
+        $stmt->bind_param("i", $param_id);
+
+        // Set parameters
+        $param_id = trim($_GET["id"]);
+
+        // Attempt to execute the prepared statement
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+
+            if ($result->num_rows == 1) {
+                // Fetch result row as an associative array
+                $row = $result->fetch_array(MYSQLI_ASSOC);
+
+                // Retrieve individual field values
+                $event_name = $row["event_name"];
+                $event_date = $row["event_date"];
+                $event_time = $row["event_start_time"];
+                $event_venue = $row["event_venue"];
+                $event_speaker = $row["event_speaker"];
+                $qrimage = $row["qrimage"]; // Add this to fetch the QR code image name
+            } else {
+                // URL doesn't contain valid id parameter. Redirect to error page
+                header("location: error.php");
+                exit();
+            }
+        } else {
+            echo "Oops! Something went wrong. Please try again later.";
+        }
+    }
+
+    // Close statement
+    $stmt->close();
+
+    // Close connection
+    $mysqli->close();
+} else {
+    // URL doesn't contain id parameter. Redirect to error page
+    header("location: error.php");
+    exit();
+}
+// end
+
+
+
 // Include config file
 require_once "config.php";
 
@@ -321,7 +376,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="card-body">
 
                 <section>
-                    <h1 style="text-align: center;">Event Name (SAO Evaluation)</h1>
+                    <h1 style="text-align: center;"><?php echo $row["event_name"]; ?></h1>
+                    <p style="text-align:center">SAO Evaluation</p>
                     <p style="text-align: justify;">Thank you for attending the Workshop. We would like to appreciate
                         your feedback and welcome any additional comments that you may have. Your response will be used
                         to enhance our events and activities and ensure that we meet your future needs. We value your
@@ -404,9 +460,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <p style="text-align: justify;">The Society of Computer Engineering Students would like
                                     to hear your feedback on the following event in order to improve our procedures on
                                     event management and facilitation to serve you better in future.</p>
-                                <p style="text-align: center; font-weight: bold;">Figma: An Introductory UI Development
-                                    Workshop for Beginners </p>
-                                <p style="text-align: center; font-weight: bold;">September 20, 2022</p>
+                                <p style="text-align: center; font-weight: bold;"><?php echo $row["event_name"]; ?></p>
+                                <p style="text-align: center; font-weight: bold;"><?php echo $row["event_date"]; ?></p>
 
                                 <p style="text-align: justify;"><b>Privacy Consent: </b> I understand and agree that by
                                     filling-out this form, my personal data will be processed only for the purpose of
@@ -415,7 +470,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     Furthermore, I understand that my personal data will be kept confidential and stored
                                     in a secure location.
                                 </p>
-                                <p>For queries and concerns, please contact <b>esteban.dylann@ue.edu.ph</b>.</p><br>
+                                <p>For queries and concerns, please contact <b>soliven.alividale@ue.edu.ph</b>.</p><br>
                                 <!-- <p contenteditable="true">esteban.dylann@ue.edu.ph. Click here to edit.</p> -->
 
 
@@ -552,7 +607,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label for="middle_initial" style="font-weight: bold;">Middle Initial</label>
-                <input type="text" class="form-control" id="middle_initial" name="middle_initial" placeholder="Enter your middle initial" value="<?php echo $middle_initial; ?>" style="padding: 10px; margin-bottom: 7px;" required>
+                <input type="text" class="form-control" id="middle_initial" name="middle_initial" placeholder="Enter your middle initial" value="<?php echo $middle_initial; ?>" style="padding: 10px; margin-bottom: 7px;">
                 <span id="middleInitialErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
             </div>
 

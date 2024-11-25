@@ -55,18 +55,15 @@ function validateForm() {
     firstNameErr.textContent = "";
   }
 
-  // Validate Middle Initial
-  const middleInitial = document.getElementById("middle_initial").value.trim();
-  const middleInitialErr = document.getElementById("middleInitialErr");
-  if (middleInitial === "") {
-    middleInitialErr.textContent = "Please enter your Middle Initial.";
-    isValid = false;
-  } else if (middleInitial.length !== 2 || !/^[A-Z]\.$/.test(middleInitial)) {
-    middleInitialErr.textContent = "Middle Initial should be one uppercase letter followed by a period (e.g., 'A.').";
-    isValid = false;
-  } else {
-    middleInitialErr.textContent = "";
-  }
+ // Validate Middle Initial
+const middleInitial = document.getElementById("middle_initial").value.trim();
+const middleInitialErr = document.getElementById("middleInitialErr");
+if (middleInitial !== "" && (!/^[A-Z]\.$/.test(middleInitial) || middleInitial.length !== 2)) {
+  middleInitialErr.textContent = "Middle Initial should be one uppercase letter followed by a perioddd (e.g., 'A.').";
+  isValid = false;
+} else {
+  middleInitialErr.textContent = "";
+}
 
   // Validate Student Number
   const studentNumber = document.getElementById("student_number").value.trim();
