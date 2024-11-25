@@ -271,7 +271,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $event_id = $_GET["event_id"];
 
     // Prepare an insert statement
-    $sql = "INSERT INTO feedback_event (surname, first_name, middle_initial, student_number, year_level, program, college, age, sex, program_flow, time_management, venue_and_fac, speakers_performers, topics, facilitators, overall_rating, feedback_speakers, feedback_organizers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO feedback_event (event_id, surname, first_name, middle_initial, student_number, year_level, program, college, age, sex, program_flow, time_management, venue_and_fac, speakers_performers, topics, facilitators, overall_rating, feedback_speakers, feedback_organizers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt = $mysqli->prepare($sql)) {
         // Bind variables to the prepared statement as parameters
@@ -461,7 +461,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     to hear your feedback on the following event in order to improve our procedures on
                                     event management and facilitation to serve you better in future.</p>
                                 <p style="text-align: center; font-weight: bold;"><?php echo $row["event_name"]; ?></p>
-                                <p style="text-align: center; font-weight: bold;"><?php echo $row["event_date"]; ?></p>
+                                <p style="text-align: center; font-weight: bold;"><?php echo $row["event_date"]; ?>  |  <?php echo $row["event_venue"]; ?></p>
 
                                 <p style="text-align: justify;"><b>Privacy Consent: </b> I understand and agree that by
                                     filling-out this form, my personal data will be processed only for the purpose of
@@ -1016,7 +1016,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div style="float:right;">
                                         <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                                         <!-- i should change this  to submit -->
-                                        <!-- <button type="button" id="nextBtn" onclick="nextPrev(1)">Submit</button> -->
+                                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Submit</button>
                                         <input type="submit" class="btn btn-primary" value="Submit">
                                     </div>
                                 </div>
@@ -1108,7 +1108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <!-- <script src="student-form.js"></script> -->
     <!-- <script src="assets/js/student-form.js"></script> -->
-    <script src="assets/js/student-formnew.js"></script>
+    <script src="assets/js/survey-validation.js"></script>
 
 </body>
 
