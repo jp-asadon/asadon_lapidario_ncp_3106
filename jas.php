@@ -470,7 +470,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <form id="consentForm">
                                     <label>
-                                        <input type="radio" name="consent" value="Yes" required> I consent
+                                        <input type="radio" name="consent" value="Yes" required>Agree
                                     </label>
 
                                     <div style="overflow:auto;">
