@@ -476,7 +476,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <form id="consentForm">
                                     <label>
-                                        <input type="radio" name="consent" value="Yes" required> I consent
+                                        <input type="radio" name="consent" value="Yes" required>Agree
                                     </label>
 
                                     <div style="overflow:auto;">
@@ -669,8 +669,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 
-
-
                     <div class="tab">
                         <div class="card">
                             <div class="card-body">
@@ -683,42 +681,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     4 - Very Satisfactory<br>
                                     3 - Satisfactory<br>
                                     2 - Poor<br>
-                                    1 - Extremely Poor</p>
+                                    1 - Extremely Poor
+                                </p>
 
+                            
                                 <div class="card" style="margin: 5px;">
                                     <div class="card-body">
                                         <h4>Program Flow</h4>
                                         <div class="survey-container">
                                             <div class="emoji-container">
-                                            <input type="radio" name="program_flow" id="program_flow-star5" value="5">
+                                            <input type="radio" name="program_flow" id="program_flow-star5" value="5" required>
                                             <label for="program_flow-star5">
                                                 🤩
                                                 <span class="label-text">Excellent</span>
                                             </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="program_flow" id="program_flow-star4" value="4">
+                                            <input type="radio" name="program_flow" id="program_flow-star4" value="4" required>
                                             <label for="program_flow-star4">
                                                 😊
                                                 <span class="label-text">Very Satisfactory</span>
                                             </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="program_flow" id="program_flow-star3" value="3">
+                                            <input type="radio" name="program_flow" id="program_flow-star3" value="3" required>
                                             <label for="program_flow-star3">
                                                 😐
                                                 <span class="label-text">Satisfactory</span>
                                             </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="program_flow" id="program_flow-star2" value="2">
+                                            <input type="radio" name="program_flow" id="program_flow-star2" value="2" required>
                                             <label for="program_flow-star2">
                                                 😞
                                                 <span class="label-text">Poor</span>
                                             </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="program_flow" id="program_flow-star1" value="1">
+                                            <input type="radio" name="program_flow" id="program_flow-star1" value="1" required>
                                             <label for="program_flow-star1">
                                                 😡
                                                 <span class="label-text">Extremely Poor</span>
@@ -734,35 +734,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <h4>Time Management</h4>
                                         <div class="survey-container">
                                             <div class="emoji-container">
-                                                <input type="radio" name="time_management" id="time_management-star5" value="5">
+                                                <input type="radio" name="time_management" id="time_management-star5" value="5" required>
                                                 <label for="time_management-star5">
                                                 🤩
                                                 <span class="label-text">Excellent</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                                <input type="radio" name="time_management" id="time_management-star4" value="4">
+                                                <input type="radio" name="time_management" id="time_management-star4" value="4" required>
                                                 <label for="time_management-star4">
                                                 😊
                                                 <span class="label-text">Very Satisfactory</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                                <input type="radio" name="time_management" id="time_management-star3" value="3">
+                                                <input type="radio" name="time_management" id="time_management-star3" value="3" required>
                                                 <label for="time_management-star3">
                                                 😐
                                                 <span class="label-text">Satisfactory</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                                <input type="radio" name="time_management" id="time_management-star2" value="2">
+                                                <input type="radio" name="time_management" id="time_management-star2" value="2" required>
                                                 <label for="time_management-star2">
                                                 😞
                                                 <span class="label-text">Poor</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                                <input type="radio" name="time_management" id="time_management-star1" value="1">
+                                                <input type="radio" name="time_management" id="time_management-star1" value="1" required>
                                                 <label for="time_management-star1">
                                                 😡
                                                 <span class="label-text">Extremely Poor</span>
@@ -778,35 +778,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <h4>Venue and Facilities</h4>
                                         <div class="survey-container">
                                             <div class="emoji-container">
-                                                <input type="radio" name="venue_and_fac" id="venue_and_fac-star5" value="5">
+                                                <input type="radio" name="venue_and_fac" id="venue_and_fac-star5" value="5" required>
                                                 <label for="venue_and_fac-star5">
                                                     🤩
                                                     <span class="label-text">Excellent</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star4" value="4">
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star4" value="4" required>
                                                 <label for="venue_and_fac-star4">
                                                     😊
                                                     <span class="label-text">Very Satisfactory</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star3" value="3">
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star3" value="3" required>
                                                 <label for="venue_and_fac-star3">
                                                     😐
                                                     <span class="label-text">Satisfactory</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star2" value="2">
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star2" value="2" required>
                                                 <label for="venue_and_fac-star2">
                                                     😞
                                                     <span class="label-text">Poor</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star1" value="1">
+                                            <input type="radio" name="venue_and_fac" id="venue_and_fac-star1" value="1" required>
                                                 <label for="venue_and_fac-star1">
                                                     😡
                                                     <span class="label-text">Extremely Poor</span>
@@ -822,7 +822,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <div class="survey-container">
                                             <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
-                                                id="speakers_performers-star5" value="5">
+                                                id="speakers_performers-star5" value="5" required>
                                                 <label for="speakers_performers-star5">
                                                     🤩
                                                     <span class="label-text">Excellent</span>
@@ -830,7 +830,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             </div>
                                             <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
-                                                id="speakers_performers-star4" value="4">
+                                                id="speakers_performers-star4" value="4" required>
                                                 <label for="speakers_performers-star4">
                                                     😊
                                                     <span class="label-text">Very Satisfactory</span>
@@ -838,7 +838,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             </div>
                                             <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
-                                                id="speakers_performers-star3" value="3">
+                                                id="speakers_performers-star3" value="3" required>
                                                 <label for="speakers_performers-star3">
                                                     😐
                                                     <span class="label-text">Satisfactory</span>
@@ -846,7 +846,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             </div>
                                             <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
-                                                id="speakers_performers-star2" value="2">
+                                                id="speakers_performers-star2" value="2" required>
                                                 <label for="speakers_performers-star2">
                                                     😞
                                                     <span class="label-text">Poor</span>
@@ -854,7 +854,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             </div>
                                             <div class="emoji-container">
                                             <input type="radio" name="speakers_performers"
-                                                id="speakers_performers-star1" value="1">
+                                                id="speakers_performers-star1" value="1" required>
                                                 <label for="speakers_performers-star1">
                                                     😡
                                                     <span class="label-text">Extremely Poor</span>
@@ -869,35 +869,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <h4> Topics/Quality of Performances</h4>
                                         <div class="survey-container">
                                             <div class="emoji-container">
-                                            <input type="radio" name="topics" id="topics-star5" value="5">
+                                            <input type="radio" name="topics" id="topics-star5" value="5" required>
                                                 <label for="topics-star5">
                                                     🤩
                                                     <span class="label-text">Excellent</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="topics" id="topics-star4" value="4">
+                                            <input type="radio" name="topics" id="topics-star4" value="4" required>
                                                 <label for="topics-star4">
                                                     😊
                                                     <span class="label-text">Very Satisfactory</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="topics" id="topics-star3" value="3">
+                                            <input type="radio" name="topics" id="topics-star3" value="3" required>
                                                 <label for="topics-star3">
                                                     😐
                                                     <span class="label-text">Satisfactory</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="topics" id="topics-star2" value="2">
+                                            <input type="radio" name="topics" id="topics-star2" value="2" required>
                                                 <label for="topics-star2">
                                                     😞
                                                     <span class="label-text">Poor</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="topics" id="topics-star1" value="1">
+                                            <input type="radio" name="topics" id="topics-star1" value="1" required>
                                                 <label for="topics-star1">
                                                     😡
                                                     <span class="label-text">Extremely Poor</span>
@@ -912,35 +912,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <h4>Facilitators/Event Organizers</h4>
                                         <div class="survey-container">
                                             <div class="emoji-container">
-                                            <input type="radio" name="facilitators" id="facilitators-star5" value="5">
+                                            <input type="radio" name="facilitators" id="facilitators-star5" value="5" required>
                                                 <label for="facilitators-star5">
                                                     🤩
                                                     <span class="label-text">Excellent</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="facilitators" id="facilitators-star4" value="4">
+                                            <input type="radio" name="facilitators" id="facilitators-star4" value="4" required>
                                                 <label for="facilitators-star4">
                                                     😊
                                                     <span class="label-text">Very Satisfactory</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="facilitators" id="facilitators-star3" value="3">
+                                            <input type="radio" name="facilitators" id="facilitators-star3" value="3" required>
                                                 <label for="facilitators-star3">
                                                     😐
                                                     <span class="label-text">Satisfactory</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="facilitators" id="facilitators-star2" value="2">
+                                            <input type="radio" name="facilitators" id="facilitators-star2" value="2" required>
                                                 <label for="facilitators-star2">
                                                     😞
                                                     <span class="label-text">Poor</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="facilitators" id="facilitators-star1" value="1">
+                                            <input type="radio" name="facilitators" id="facilitators-star1" value="1" required>
                                             <label for="facilitators-star1">
                                                 😡
                                                 <span class="label-text">Extremely Poor</span>
@@ -955,35 +955,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <h4>Overall Rating for the Activity</h4>
                                         <div class="survey-container">
                                             <div class="emoji-container">
-                                            <input type="radio" name="overall_rating" id="overall_rating-star5" value="5">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star5" value="5" required>
                                                 <label for="overall_rating-star5">
                                                     🤩
                                                     <span class="label-text">Excellent</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="overall_rating" id="overall_rating-star4" value="4">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star4" value="4" required>
                                                 <label for="overall_rating-star4">
                                                     😊
                                                     <span class="label-text">Very Satisfactory</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="overall_rating" id="overall_rating-star3" value="3">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star3" value="3" required>
                                                 <label for="overall_rating-star3">
                                                     😐
                                                     <span class="label-text">Satisfactory</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="overall_rating" id="overall_rating-star2" value="2">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star2" value="2" required>
                                                 <label for="overall_rating-star2">
                                                     😞
                                                     <span class="label-text">Poor</span>
                                                 </label>
                                             </div>
                                             <div class="emoji-container">
-                                            <input type="radio" name="overall_rating" id="overall_rating-star1" value="1">
+                                            <input type="radio" name="overall_rating" id="overall_rating-star1" value="1" required>
                                                 <label for="overall_rating-star1">
                                                     😡
                                                     <span class="label-text">Extremely Poor</span>
@@ -1011,13 +1011,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                 </div>
 
-
                                 <div style="overflow:auto;">
                                     <div style="float:right;">
                                         <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                                         <!-- i should change this  to submit -->
-                                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Submit</button>
-                                        <input type="submit" class="btn btn-primary" value="Submit">
+                                        <button type="button" id="nextBtn" onclick="if (validateSurvey()) nextPrev(1);">Submit</button>
+                                        <!-- <input type="submit" class="btn btn-primary" value="Submit"> -->
                                     </div>
                                 </div>
                             </div>
@@ -1027,14 +1026,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-
-
                     <div class="tab">
                         <div class="card">
                             <div class="card-body">
 
                                 <center>
-                                    <p style="font-family: Courier New; font-size: 15px; font-weight: bold;"> Thank You
+                                    <p style="font-family: Montserrat; font-size: 15px; font-weight: bold;"> Thank You
                                         for your participation in the SCpES and DCpE 2023 conference. <br><br>
                                         We hope you enjoyed the conference and we look forward to seeing you again in
                                         the future. </p>

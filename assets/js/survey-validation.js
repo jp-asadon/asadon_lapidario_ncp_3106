@@ -17,6 +17,9 @@ function nextPrev(n) {
 }
 
 function validateForm() {
+
+  let isValid = true; // Track overall form validity
+
   if (currentTab === 1) { // Check consent on the second tab (index 1)
     const consentGiven = document.querySelector('input[name="consent"]:checked');
     if (!consentGiven) {
@@ -25,9 +28,9 @@ function validateForm() {
     }
   }
   
-  if (currentTab !== 2) return true; // Only validate other fields if on the third tab (index 2)
-  
-  let isValid = true;
+  if (currentTab !== 2 && currentTab !== 3) {
+    return true;  // Skip validation if not on tab 2 or tab 3
+  }
 
   // Validate Surname
   const surname = document.getElementById("surname").value.trim();
@@ -58,15 +61,14 @@ function validateForm() {
   // Validate Middle Initial
   const middleInitial = document.getElementById("middle_initial").value.trim();
   const middleInitialErr = document.getElementById("middleInitialErr");
-  if (middleInitial === "") {
-    middleInitialErr.textContent = "Please enter your Middle Initial.";
-    isValid = false;
-  } else if (middleInitial.length !== 2 || !/^[A-Z]\.$/.test(middleInitial)) {
-    middleInitialErr.textContent = "Middle Initial should be one uppercase letter followed by a period (e.g., 'A.').";
+
+  if (middleInitial !== "" && (middleInitial.length !== 2 || !/^[A-Z]\.$/.test(middleInitial))) {
+    middleInitialErr.textContent = "Please enter a valid Middle Initial (e.g., 'A').";
     isValid = false;
   } else {
     middleInitialErr.textContent = "";
   }
+
 
   // Validate Student Number
   const studentNumber = document.getElementById("student_number").value.trim();
@@ -139,7 +141,8 @@ function validateForm() {
   } else {
     sexErr.textContent = "";
   }
-
+  
+  // Return the overall form validity (true if all fields are valid)
   return isValid;
 }
 
@@ -148,4 +151,33 @@ function showTab(n) {
   tabs[n].style.display = "block";
   document.getElementById("prevBtn").style.display = n === 0 ? "none" : "inline";
   document.getElementById("nextBtn").innerText = n === (tabs.length - 1) ? "Submit" : "Next";
+}
+
+// Function to check if all radio buttons in survey containers are selected
+function validateSurvey() {
+  // Get all the survey containers
+  var surveyContainers = document.querySelectorAll('.survey-container');
+
+  // Iterate through each survey container
+  for (var i = 0; i < surveyContainers.length; i++) {
+      var radioButtons = surveyContainers[i].querySelectorAll('input[type="radio"]');
+      var isSelected = false;
+
+      // Check if any radio button in this group is selected
+      for (var j = 0; j < radioButtons.length; j++) {
+          if (radioButtons[j].checked) {
+              isSelected = true;
+              break;
+          }
+      }
+
+      // If no radio button is selected in this group, show an alert and return false
+      if (!isSelected) {
+          alert("Please select a rating for all items before proceeding.");
+          return false;
+      }
+  }
+
+  // If all survey containers have a selected radio button, return true
+  return true;
 }
