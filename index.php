@@ -26,6 +26,8 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
@@ -170,7 +172,12 @@
                                     <div class="col-lg-5" style="padding: 10px;">
                                         <div class="form-group">
                                             <label>Event Name</label>
-                                            <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_name']); ?></p>
+                                            <p style="margin-bottom: 5px; font-weight: bold;">
+                                                  <?php echo htmlspecialchars($row['event_name']); ?> 
+                                                  <a href="analytics-page.php?id=<?php echo $row['id']; ?>" style="font-size: 20px; text-decoration: none;" target="_blank" data-toggle="tooltip" title="Show Event Survey Result">
+                                                      <i class="fa">&#xf200;</i>
+                                                  </a>
+                                              </p>
                                         </div> 
                                         <div class="form-group">
                                             <label>Date</label>
@@ -277,68 +284,6 @@
   </div>
 </div>
 
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Record</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form action="archive.php" method="POST">
-            <div class="alert alert-danger">
-              <input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? htmlspecialchars($_GET['id']) : ''; ?>">
-              <p>Are you sure you want to delete this event record?</p>
-            </div>
-            <div class="modal-footer">
-              <input type="submit" value="Yes" class="btn btn-danger">
-              <button type="button" class="btn btn-secondary ml-2" data-bs-dismiss="modal">No</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-        <!-- End Left side columns -->
-
-        <!-- <div class="col-sm-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Past Events</h5>
-
-              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="assets/img/ardui.jpg" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="assets/img/techcon.jpg" class="d-block w-100" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="assets/img/lovelang.jpg" class="d-block w-100" alt="...">
-                  </div>
-                </div>
-
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-
-              </div>
-
-            </div>
-          </div>
-        </div> -->
 
 
       </div>
@@ -371,8 +316,19 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+<!-- Include Bootstrap JS (at the bottom of your page) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
   <script>
+
+      // Enable Bootstrap tooltips
+      $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+
     document.addEventListener('DOMContentLoaded', function () {
         const deleteButtons = document.querySelectorAll('.delete-btn');
         deleteButtons.forEach(button => {

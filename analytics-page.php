@@ -1,3 +1,57 @@
+<?php
+// Check existence of id parameter before processing further
+if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+    // Include config file
+    require_once "config.php";
+
+    // Prepare a select statement
+    $sql = "SELECT * FROM create_event WHERE id = ?";
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        // Bind variables to the prepared statement as parameters
+        $stmt->bind_param("i", $param_id);
+
+        // Set parameters
+        $param_id = trim($_GET["id"]);
+
+        // Attempt to execute the prepared statement
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+
+            if ($result->num_rows == 1) {
+                // Fetch result row as an associative array
+                $row = $result->fetch_array(MYSQLI_ASSOC);
+
+                // Retrieve individual field values
+                $event_name = $row["event_name"];
+                $event_date = $row["event_date"];
+                $event_time = $row["event_start_time"];
+                $event_venue = $row["event_venue"];
+                $event_speaker = $row["event_speaker"];
+                $qrimage = $row["qrimage"]; // Add this to fetch the QR code image name
+            } else {
+                // URL doesn't contain valid id parameter. Redirect to error page
+                header("location: error.php");
+                exit();
+            }
+        } else {
+            echo "Oops! Something went wrong. Please try again later.";
+        }
+    }
+
+    // Close statement
+    $stmt->close();
+
+    // Close connection
+    $mysqli->close();
+} else {
+    // URL doesn't contain id parameter. Redirect to error page
+    header("location: error.php");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,15 +82,6 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style-analytics.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Updated: Apr 20 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
 
 <body>
 
@@ -94,7 +139,7 @@
 
 
             <!-- Attendees Card -->
-            <div class="col-xxl-4 col-md-6">
+            <div class="col">
               <div class="card info-card sales-card">
 
                 <div class="card-body">
@@ -106,7 +151,7 @@
                       </div>
                     <div class="ps-3">
                       <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <span class="text-success small pt-1 fw-bold">Current</span><span class="text-muted small pt-2 ps-1">responses</span>
 
                     </div>
                   </div>
@@ -116,15 +161,17 @@
             </div><!-- End Attendees Card -->
 
             <!-- Revenue Card -->
-            <div class="col-xxl-4 col-md-6">
+            <div class="col">
               <div class="card info-card revenue-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Revenue <span>| Today</span></h5>
+                  <h5 class="card-title">Last Updated <span>| Today</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
+                      <i class="ri-time-line"></i>
+                
+
                     </div>
                     <div class="ps-3">
                       <h6>$3,264</h6>
