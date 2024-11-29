@@ -73,7 +73,7 @@ function nextPrev(n) {
   if (n === 1 && x[currentTab].id === "second-tab") {
     var radioChecked = document.querySelector("#second-tab input[name='consent']:checked");
     if (!radioChecked) {
-      alert("Please provide your consent by selecting the radio option.");
+      alert("Please provide your consent by selecting the radiooo option.");
       return false;
     }
   }
