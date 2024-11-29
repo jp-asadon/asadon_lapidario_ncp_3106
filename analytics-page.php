@@ -283,7 +283,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
     <nav class="header-nav ms-auto">
       <ul>
-        <li><a href="index.html" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
+        <li><a href="index.php" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
         <li><a href="results.html" class="zoom-link" style="color: #e4e4e4;">Results</a></li>
       </ul>
     </nav>
@@ -313,7 +313,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
       <h1>Data Analytics</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html" style="color: #555555;">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="index.php" style="color: #555555;">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="results.html" style="color: #555555;">Results</a></li>
           <li class="breadcrumb-item active" style="color: #555555;">Data Analytics</li>
         </ol>
@@ -363,9 +363,9 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                       <i class="ri-time-line"></i>
                     </div>
                     <div class="ps-3">
-                      <h6><?php echo date("l")?>
-                      </h6>
-                      <span class="text-muted small pt-2 ps-1">  As of </span><span class="text-success small pt-1 fw-bold"><?php echo date("Y-m-d"); ?> <?php echo date("h:i A"); ?> </span> 
+                    <h6 id="currentDay"></h6>
+                      <span class="text-muted small pt-2 ps-1">As of </span>
+                      <span class="text-success small pt-1 fw-bold" id="currentDateTime"></span>                    
                     </div>
                   </div>
                 </div>
@@ -659,8 +659,8 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
               <div class="col" style="display: flex; justify-content: center; align-items: center ;">
 <table class="table table-sm" style="align-items: center;">
 <thead><tr>
-<th scope="col">Words</th>
-<th scope="col">Count</th>
+<th scope="col" style="font: size 30px;">Words</th>
+<th scope="col" style="font: size 30px;">Count</th>
 </tr></thead><tbody>
             
                 <?php
@@ -761,6 +761,37 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
 
   <script>
+
+document.addEventListener("DOMContentLoaded", () => {
+    const dayElement = document.getElementById('currentDay');
+    const now = new Date();
+
+    // Get the day name based on the user's device settings
+    const options = { weekday: 'long' };
+    const dayName = now.toLocaleDateString(undefined, options);
+
+    dayElement.textContent = dayName; // Display the day name
+  });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const dateTimeElement = document.getElementById('currentDateTime');
+    const now = new Date();
+    const options = { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit', 
+      hour: '2-digit', 
+      minute: '2-digit', 
+      second: '2-digit',
+      hour12: true 
+    };
+
+    // Format the date and time based on user's locale (e.g., en-PH for Philippine format)
+    const formattedDateTime = now.toLocaleString('en-PH', options);
+    dateTimeElement.textContent = formattedDateTime;
+  });
+
 function filterRecords() {
   var limit = document.getElementById('recordLimit').value;
   var table = document.getElementById('recordTable');
