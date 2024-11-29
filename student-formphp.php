@@ -1,60 +1,102 @@
 <?php
-// Include config file
-require_once "config.php";
-
-// Initialize variables
-$event_name = $event_date = $event_time = $event_venue = $event_speaker = $qrimage = "";
-
-// Check existence of ID parameter
+// Check existence of id parameter before processing further
 if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
-    // Prepare a SELECT statement
+    // Include config file
+    require_once "config.php";
+
+    // Prepare a select statement
     $sql = "SELECT * FROM create_event WHERE id = ?";
+
     if ($stmt = $mysqli->prepare($sql)) {
+        // Bind variables to the prepared statement as parameters
         $stmt->bind_param("i", $param_id);
+
+        // Set parameters
         $param_id = trim($_GET["id"]);
 
+        // Attempt to execute the prepared statement
         if ($stmt->execute()) {
             $result = $stmt->get_result();
+
             if ($result->num_rows == 1) {
+                // Fetch result row as an associative array
                 $row = $result->fetch_array(MYSQLI_ASSOC);
+
+                // Retrieve individual field values
                 $event_name = $row["event_name"];
                 $event_date = $row["event_date"];
                 $event_time = $row["event_start_time"];
                 $event_venue = $row["event_venue"];
                 $event_speaker = $row["event_speaker"];
-                $qrimage = $row["qrimage"];
+                $qrimage = $row["qrimage"]; // Add this to fetch the QR code image name
             } else {
+                // URL doesn't contain valid id parameter. Redirect to error page
                 header("location: error.php");
                 exit();
             }
         } else {
-            echo "Error executing query.";
+            echo "Oops! Something went wrong. Please try again later.";
         }
-        $stmt->close();
     }
+
+    // Close statement
+    $stmt->close();
+
+    // Close connection
+    $mysqli->close();
 } else {
+    // URL doesn't contain id parameter. Redirect to error page
     header("location: error.php");
     exit();
 }
+// end
 
-// Handle form submission
+// Include config file
+require_once "config.php";
+
+// Define variables and initialize with empty values
+$surname = $first_name = $middle_initial = $student_number = $year_level = $program = $college = $age = $sex = $program_flow = $time_management = $venue = $speaker = $topic = $facilitator = $overall_rating = $comments_speaker = $comments_organizer = "";
+$surname_err = $first_name_err = $middle_initial_err = $student_number_err = $year_level_err = $program_err = $college_err = $age_err = $sex_err = $program_flow_err = $time_management_err = $venue_err = $speaker_err = $topic_err = $facilitator_err = $overall_rating_err = $comments_speaker_err = $comments_organizer_err = "";
+
+// Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Retrieve values using $_POST
     $surname = $_POST['surname'];
     $first_name = $_POST['first_name'];
-    $middle_initial = $_POST['middle_initial'] ?? '';
+    $middle_initial = $_POST['middle_initial'];
     $student_number = $_POST['student_number'];
     $year_level = $_POST['year_level'];
     $program = $_POST['program'];
     $college = $_POST['college'];
     $age = $_POST['age'];
     $sex = $_POST['sex'];
+    
+    // Check if program_flow is set and retrieve the selected value
+    if (isset($_POST['program_flow'])) {
+        $program_flow = $_POST['program_flow'];
+    } else {
+        $program_flow = null; // Set a default value if no option is selected
+    }
 
-    $sql = "INSERT INTO feedback_event (event_id, surname, first_name, middle_initial, student_number, year_level, program, college, age, sex)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $time_management = $_POST['time_management'];
+    $venue = $_POST['venue'];
+    $speaker = $_POST['speaker'];
+    $topic = $_POST['topic'];
+    $facilitator = $_POST['facilitator'];
+    $overall_rating = $_POST['overall_rating'];
+    $comments_speaker = $_POST['comments_speaker'];
+    $comments_organizer = $_POST['comments_organizer'];
+    $event_id = $_GET["event_id"];
+
+    // Prepare an insert statement
+    $sql = "INSERT INTO feedback_event (event_id, surname, first_name, middle_initial, student_number, year_level, program, college, age, sex, program_flow, time_management, venue_and_fac, speakers_performers, topics, facilitators, overall_rating, feedback_speakers, feedback_organizers) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt = $mysqli->prepare($sql)) {
+        // Bind variables to the prepared statement as parameters
         $stmt->bind_param(
-            "isssisssis",
+            "ssssssssssssssssss",
             $param_event_id,
             $param_surname,
             $param_first_name,
@@ -64,10 +106,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_program,
             $param_college,
             $param_age,
-            $param_sex
+            $param_sex,
+            $param_program_flow,
+            $param_time_management,
+            $param_venue_and_fac,
+            $param_speakers_performers,
+            $param_topics,
+            $param_facilitators,
+            $param_overall_rating,
+            $param_feedback_speakers,
+            $param_feedback_organizers
         );
 
-        $param_event_id = $_GET['id'];
+        // Set parameters
+        $param_event_id = $event_id;
         $param_surname = $surname;
         $param_first_name = $first_name;
         $param_middle_initial = $middle_initial;
@@ -77,76 +129,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $param_college = $college;
         $param_age = $age;
         $param_sex = $sex;
+        $param_program_flow = $program_flow;
+        $param_time_management = $time_management;
+        $param_venue_and_fac = $venue;
+        $param_speakers_performers = $speaker;
+        $param_topics = $topic;
+        $param_facilitators = $facilitator;
+        $param_overall_rating = $overall_rating;
+        $param_feedback_speakers = $comments_speaker;
+        $param_feedback_organizers = $comments_organizer;
 
+        // Attempt to execute the prepared statement
         if ($stmt->execute()) {
+            // Records created successfully. Redirect to landing page
             header("location: form-success.html");
             exit();
         } else {
-            echo "Error executing statement: " . $stmt->error;
+            echo "Oops! Something went wrong. Please try again later.";
         }
-        $stmt->close();
     } else {
-        echo "Error preparing statement: " . $mysqli->error;
+        echo "Error: " . $mysqli->error;
     }
+
+    // Close statement
+    $stmt->close();
+
+    // Close connection
     $mysqli->close();
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Satisfaction Survey</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="assets/css/student-form.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="card shadow">
-            <div class="card-header text-center text-white" style="background-color: rgba(0, 0, 0, 0.831);">
-                <h2>Event Satisfaction Survey</h2>
-                <p>We value your feedback! Please take a moment to share your thoughts.</p>
-            </div>
-            <div class="card-body">
-                <h1 class="text-center"><?php echo htmlspecialchars($event_name); ?></h1>
-                <p class="text-center"><?php echo htmlspecialchars($event_date . " | " . $event_venue); ?></p>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?id=" . $_GET["id"]; ?>" method="post">
-                    <!-- Form Fields -->
-                    <label>Surname</label>
-                    <input type="text" name="surname" class="form-control" required>
-                    <label>First Name</label>
-                    <input type="text" name="first_name" class="form-control" required>
-                    <label>Middle Initial</label>
-                    <input type="text" name="middle_initial" class="form-control">
-                    <label>Student Number</label>
-                    <input type="text" name="student_number" class="form-control" required>
-                    <label>Year Level</label>
-                    <select name="year_level" class="form-control" required>
-                        <option disabled selected>Choose Year Level</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                    <label>Program</label>
-                    <input type="text" name="program" class="form-control" required>
-                    <label>College</label>
-                    <input type="text" name="college" class="form-control" required>
-                    <label>Age</label>
-                    <input type="number" name="age" class="form-control" required>
-                    <label>Sex</label>
-                    <select name="sex" class="form-control" required>
-                        <option disabled selected>Choose Sex</option>
-                        <option value="M">M</option>
-                        <option value="F">F</option>
-                    </select>
-                    <br>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</body>
-</html>

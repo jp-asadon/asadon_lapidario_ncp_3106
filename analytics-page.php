@@ -4,8 +4,37 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     // Include config file
     require_once "config.php";
 
-    // Prepare a select statement
-    $sql = "SELECT * FROM create_event WHERE id = ?";
+    // Prepare a SQL statement with a JOIN
+    $sql = "
+        SELECT 
+            ce.event_name, 
+            ce.event_date, 
+            ce.event_start_time, 
+            ce.event_venue, 
+            ce.event_speaker, 
+            ce.qrimage, 
+            fe.feedback_id,
+            fe.surname,
+            fe.first_name,
+            fe.middle_initial,
+            fe.student_number,
+            fe.year_level,
+            fe.program,
+            fe.college,
+            fe.age,
+            fe.sex,
+            fe.program_flow,
+            fe.time_management,
+            fe.venue,
+            fe.speaker,
+            fe.topic,
+            fe.facilitator,
+            fe.overall_rating,
+            fe.comments_speaker,
+            fe.comments_organizer
+        FROM create_event ce
+        LEFT JOIN feedback_event fe ON ce.id = fe.event_id
+        WHERE ce.id = ?";
 
     if ($stmt = $mysqli->prepare($sql)) {
         // Bind variables to the prepared statement as parameters
@@ -18,20 +47,129 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
         if ($stmt->execute()) {
             $result = $stmt->get_result();
 
-            if ($result->num_rows == 1) {
-                // Fetch result row as an associative array
-                $row = $result->fetch_array(MYSQLI_ASSOC);
+            if ($result->num_rows > 0) {
+                // Fetch all rows as an associative array
+                $feedback_data = [];
+                while ($row = $result->fetch_assoc()) {
+                    $feedback_data[] = $row;
+                }
 
-                // Retrieve individual field values
-                $event_name = $row["event_name"];
-                $event_date = $row["event_date"];
-                $event_time = $row["event_start_time"];
-                $event_venue = $row["event_venue"];
-                $event_speaker = $row["event_speaker"];
-                $qrimage = $row["qrimage"]; // Add this to fetch the QR code image name
+                // Now assign $event_name from the first row
+                $event_name = $feedback_data[0]["event_name"];
+
+                    // Initialize counts for program_flow values
+                    $program_flow_count = [
+                      '5' => 0,
+                      '4' => 0,
+                      '3' => 0,
+                      '2' => 0,
+                      '1' => 0,
+                    ];
+
+                    // Loop through feedback data and count occurrences of each value
+                    foreach ($feedback_data as $feedback) {
+                      if (isset($program_flow_count[$feedback['program_flow']])) {
+                          $program_flow_count[$feedback['program_flow']]++;
+                      }
+                    }
+
+                // Initialize counts for program_flow values
+                    $time_management_count = [
+                      '5' => 0,
+                      '4' => 0,
+                      '3' => 0,
+                      '2' => 0,
+                      '1' => 0,
+                    ];
+
+                    // Loop through feedback data and count occurrences of each value
+                    foreach ($feedback_data as $feedback) {
+                      if (isset($time_management_count[$feedback['time_management']])) {
+                          $time_management_count[$feedback['time_management']]++;
+                      }
+                    }
+
+                                        // Initialize counts for program_flow values
+                    $venue_count = [
+                      '5' => 0,
+                      '4' => 0,
+                      '3' => 0,
+                      '2' => 0,
+                      '1' => 0,
+                    ];
+
+                    // Loop through feedback data and count occurrences of each value
+                    foreach ($feedback_data as $feedback) {
+                      if (isset($venue_count[$feedback['venue']])) {
+                          $venue_count[$feedback['venue']]++;
+                      }
+                    }
+
+                    // Initialize counts for program_flow values
+                    $speaker_count = [
+                      '5' => 0,
+                      '4' => 0,
+                      '3' => 0,
+                      '2' => 0,
+                      '1' => 0,
+                    ];
+
+                    // Loop through feedback data and count occurrences of each value
+                    foreach ($feedback_data as $feedback) {
+                      if (isset($speaker_count[$feedback['speaker']])) {
+                          $speaker_count[$feedback['speaker']]++;
+                      }
+                    }
+
+                    // Initialize counts for program_flow values
+                    $topic_count = [
+                      '5' => 0,
+                      '4' => 0,
+                      '3' => 0,
+                      '2' => 0,
+                      '1' => 0,
+                    ];
+
+                    // Loop through feedback data and count occurrences of each value
+                    foreach ($feedback_data as $feedback) {
+                      if (isset($topic_count[$feedback['topic']])) {
+                          $topic_count[$feedback['topic']]++;
+                      }
+                    }
+                    // Initialize counts for program_flow values
+                    $facilitator_count = [
+                      '5' => 0,
+                      '4' => 0,
+                      '3' => 0,
+                      '2' => 0,
+                      '1' => 0,
+                    ];
+
+                    // Loop through feedback data and count occurrences of each value
+                    foreach ($feedback_data as $feedback) {
+                      if (isset($facilitator_count[$feedback['facilitator']])) {
+                          $facilitator_count[$feedback['facilitator']]++;
+                      }
+                    }
+                    // Initialize counts for program_flow values
+                    $overall_rating_count = [
+                      '5' => 0,
+                      '4' => 0,
+                      '3' => 0,
+                      '2' => 0,
+                      '1' => 0,
+                    ];
+
+                    // Loop through feedback data and count occurrences of each value
+                    foreach ($feedback_data as $feedback) {
+                      if (isset($overall_rating_count[$feedback['overall_rating']])) {
+                          $overall_rating_count[$feedback['overall_rating']]++;
+                      }
+                    }
+          
+
             } else {
-                // URL doesn't contain valid id parameter. Redirect to error page
-                header("location: error.php");
+                echo "<p>No data found for this event.</p>";
                 exit();
             }
         } else {
@@ -41,15 +179,13 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
     // Close statement
     $stmt->close();
-
-    // Close connection
     $mysqli->close();
 } else {
-    // URL doesn't contain id parameter. Redirect to error page
     header("location: error.php");
     exit();
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -135,9 +271,63 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     
 
     <section class="section dashboard">
+      <h2 style="text-align:center">EVENT SURVEY RESULT</h2>
+        <h1 style="text-align:center"><?php echo $event_name; ?></h1>
+
+        <br>
+        <br>
+        <h1>Event Feedback for "<?php echo htmlspecialchars($feedback_data[0]['event_name']); ?>"</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Feedback ID</th>
+                <th>Surname</th>
+                <th>First Name</th>
+                <th>Middle Initial</th>
+                <th>Student Number</th>
+                <th>Year Level</th>
+                <th>Program</th>
+                <th>College</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Program Flow</th>
+                <th>Time Management</th>
+                <th>Venue</th>
+                <th>Speaker</th>
+                <th>Topic</th>
+                <th>Facilitator</th>
+                <th>Overall Rating</th>
+                <th>Comments (Speaker)</th>
+                <th>Comments (Organizer)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($feedback_data as $feedback): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($feedback['feedback_id']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['surname']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['first_name']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['middle_initial']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['student_number']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['year_level']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['program']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['college']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['age']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['sex']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['program_flow']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['time_management']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['venue']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['speaker']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['topic']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['facilitator']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['overall_rating']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['comments_speaker']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['comments_organizer']); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
       <div class="row">
-
-
             <!-- Attendees Card -->
             <div class="col">
               <div class="card info-card sales-card">
@@ -150,7 +340,8 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                         <i class="bi bi-people"></i>
                       </div>
                     <div class="ps-3">
-                      <h6>145</h6>
+                      <h6><?php echo count($feedback_data); ?>
+                      </h6>
                       <span class="text-success small pt-1 fw-bold">Current</span><span class="text-muted small pt-2 ps-1">responses</span>
 
                     </div>
@@ -170,13 +361,11 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="ri-time-line"></i>
-                
-
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                      <h6><?php echo date("l")?>
+                      </h6>
+                      <span class="text-muted small pt-2 ps-1">  As of </span><span class="text-success small pt-1 fw-bold"><?php echo date("Y-m-d"); ?> <?php echo date("h:i A"); ?> </span> 
                     </div>
                   </div>
                 </div>
@@ -198,10 +387,11 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                       <div id="pieChart1"></div>
                       <script>
                         document.addEventListener("DOMContentLoaded", () => {
+                          const programFlowCount = <?php echo json_encode(array_values($program_flow_count)); ?>;
                           new ApexCharts(document.querySelector("#pieChart1"), {
-                            series: [44, 55, 13, 43, 22],
-                            chart: { height: 350, type: 'pie', toolbar: { show: true } },
-                            labels: ['5 - Excellent', '4 - Good', '3 - Moderate', '2 - Poor', '1 - Extremely Poor']
+                            series: programFlowCount, 
+                           chart: { height: 350, type: 'pie', toolbar: { show: true } },
+                            labels: ['5 - Excellent', '4 - Very Satisfactory', '3 - Satisfactory', '2 - Poor', '1 - Extremely Poor']
                           }).render();
                         });
                       </script>
@@ -213,8 +403,9 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                       <div id="donutChart1"></div>
                       <script>
                         document.addEventListener("DOMContentLoaded", () => {
+                          const timeManagementCount = <?php echo json_encode(array_values($time_management_count)); ?>;
                           new ApexCharts(document.querySelector("#donutChart1"), {
-                            series: [44, 55, 13, 43, 22],
+                            series: timeManagementCount,
                             chart: { height: 350, type: 'donut', toolbar: { show: true } },
                             labels: ['5 - Excellent', '4 - Good', '3 - Moderate', '2 - Poor', '1 - Extremely Poor']
                           }).render();
@@ -225,13 +416,13 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
               
                     <div class="col-md-4">
                         <h3 style="font-size: 15px; text-align: center; margin-bottom: 10px; font-style: italic; font-weight: 500; text-decoration: double;">Venue and Facilities</h3>
-
                       <!-- Pie Chart 2 -->
                       <div id="pieChart2"></div>
                       <script>
                         document.addEventListener("DOMContentLoaded", () => {
+                          const venueCount = <?php echo json_encode(array_values($venue_count)); ?>;
                           new ApexCharts(document.querySelector("#pieChart2"), {
-                            series: [44, 55, 13, 43, 22],
+                            series: venueCount,
                             chart: { height: 350, type: 'pie', toolbar: { show: true } },
                             labels: ['5 - Excellent', '4 - Good', '3 - Moderate', '2 - Poor', '1 - Extremely Poor']
                           }).render();
@@ -247,8 +438,9 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                       <div id="pieChart3"></div>
                       <script>
                         document.addEventListener("DOMContentLoaded", () => {
+                          const speakerCount = <?php echo json_encode(array_values($speaker_count)); ?>;
                           new ApexCharts(document.querySelector("#pieChart3"), {
-                            series: [44, 55, 13, 43, 22],
+                            series: speakerCount,
                             chart: { height: 350, type: 'pie', toolbar: { show: true } },
                             labels: ['5 - Excellent', '4 - Good', '3 - Moderate', '2 - Poor', '1 - Extremely Poor']
                           }).render();
@@ -263,8 +455,9 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                       <div id="donutChart2"></div>
                       <script>
                         document.addEventListener("DOMContentLoaded", () => {
+                          const topicCount = <?php echo json_encode(array_values($topic_count)); ?>;
                           new ApexCharts(document.querySelector("#donutChart2"), {
-                            series: [44, 55, 13, 43, 22],
+                            series: topicCount,
                             chart: { height: 350, type: 'donut', toolbar: { show: true } },
                             labels: ['5 - Excellent', '4 - Good', '3 - Moderate', '2 - Poor', '1 - Extremely Poor']
                           }).render();
@@ -279,6 +472,8 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                       <div id="pieChart4"></div>
                       <script>
                         document.addEventListener("DOMContentLoaded", () => {
+                          const facilitatorCount = <?php echo json_encode(array_values($facilitator_count)); ?>;
+
                           new ApexCharts(document.querySelector("#pieChart4"), {
                             series: [44, 55, 13, 43, 22],
                             chart: { height: 350, type: 'pie', toolbar: { show: true } },
@@ -302,10 +497,11 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
+                  const overallRatingCount = <?php echo json_encode(array_values($overall_rating_count)); ?>;
                   echarts.init(document.querySelector("#barChart")).setOption({
                     xAxis: {
                       type: 'category',
-                      data:  ['5 - Excellent', '4 - Good', '3 - Moderate', '2 - Poor', '1 - Extremely Poor']
+                      data: overallRatingCount
                     },
                     yAxis: {
                       type: 'value'
@@ -333,47 +529,51 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                   <h5 class="card-title">Attendees</h5>
                   <p>The following are the students that attended the seminar and has completed the event evaluation. The details to be utilized for their certificates are as follows.</p>
     
+                  <!-- Dropdown to select number of records -->
+                    <label for="recordLimit">Show</label>
+                    <select id="recordLimit" onchange="filterRecords()">
+                      <option value="10">10</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                      <option value="300">300</option>
+                      <option value="all">All</option>
+                    </select>
+                    <label>records</label>
                   <!-- Table with stripped rows -->
-                  <table class="table datatable">
+                  <table class="table datatable" id="recordTable">
                     <thead>
                       <tr>
+                      <th>Feedback ID</th>
+
                         <th>
                           <b>Surname</b>
                         </th>
                         <th>First Name</th>
                         <th>Middle Initial</th>
-                        <!-- <th data-type="date" data-format="YYYY/DD/MM">Student Number</th> -->
                         <th>Student Number</th>
                         <th>Year Level</th>
                         <th>Program</th>
+                        <th>College</th>
                         <th>Age</th>
                         <th>Sex</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Asadon</td>
-                        <td>John Paul</td>
-                        <td>C</td>
-                        <td>20210200569</td>
-                        <td>4</td>
-                        <td>BSCPE</td>
-                        <td>21</td>
-                        <td>M</td>
-                      </tr>
-                      <tr>
-                        <td>Lapidario</td>
-                        <td>Jasmine</td>
-                        <td>L</td>
-                        <td>20xxxxxxxxx</td>
-                        <td>3</td>
-                        <td>BSCPE</td>
-                        <td>24</td>
-                        <td>L</td>
-                      </tr>
-                      <tr>
-                      
-                    </tbody>
+            <?php foreach ($feedback_data as $feedback): ?>
+                <tr>
+                <td><?php echo htmlspecialchars($feedback['feedback_id']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['surname']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['first_name']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['middle_initial']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['student_number']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['year_level']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['program']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['college']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['age']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['sex']); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
                   </table>
                   <!-- End Table with stripped rows -->
     
@@ -400,13 +600,15 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin sapien in orci commodo sagittis. Duis ornare eu lectus sit amet consectetur. Donec maximus porta nisi nec cursus. Curabitur vel justo nulla. Mauris dictum mollis ligula, at dapibus magna tempus eget. </td>
-                                      </tr>
-                                      <tr>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin sapien in orci commodo sagittis. Duis ornare eu lectus sit amet consectetur. Donec maximus porta nisi nec cursus. Curabitur vel justo nulla. Mauris dictum mollis ligula, at dapibus magna tempus eget. </td>
-                                      </tr>
-                                    </tbody>
+                                      <?php foreach ($feedback_data as $feedback): ?>
+                                          <?php if (!empty($feedback['comments_speaker']) || !empty($feedback['comments_organizer'])): ?>
+                                              <tr>
+                                                  <td><?php echo htmlspecialchars($feedback['comments_speaker']); ?></td>
+                                              </tr>
+                                          <?php endif; ?>
+                                      <?php endforeach; ?>
+                                  </tbody>
+
                                   </table>
                                   <!-- End Table with stripped rows -->
     
@@ -428,13 +630,15 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin sapien in orci commodo sagittis. Duis ornare eu lectus sit amet consectetur. Donec maximus porta nisi nec cursus. Curabitur vel justo nulla. Mauris dictum mollis ligula, at dapibus magna tempus eget. </td>
-                                      </tr>
-                                      <tr>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin sapien in orci commodo sagittis. Duis ornare eu lectus sit amet consectetur. Donec maximus porta nisi nec cursus. Curabitur vel justo nulla. Mauris dictum mollis ligula, at dapibus magna tempus eget. </td>
-                                      </tr>
-                                    </tbody>
+                                    <?php foreach ($feedback_data as $feedback): ?>
+                                        <?php if (!empty($feedback['comments_speaker']) || !empty($feedback['comments_organizer'])): ?>
+                                            <tr>
+                                                <td><?php echo htmlspecialchars($feedback['comments_organizer']); ?></td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+
                                   </table>
                                   <!-- End Table with stripped rows -->
     
@@ -542,8 +746,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     <div class="copyright">
       &copy; Copyright <strong><span>Project-Wolfgang Developers</span></strong>. All Rights Reserved
     </div>
-     Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div> -->
+
   </footer>
   <!-- End Footer -->
 
@@ -561,6 +764,36 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+
+  <script>
+function filterRecords() {
+  var limit = document.getElementById('recordLimit').value;
+  var table = document.getElementById('recordTable');
+  var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+  
+  // Convert "all" to a very large number to show all records
+  if (limit === "all") {
+    limit = rows.length;
+  } else {
+    limit = parseInt(limit);
+  }
+
+  // Loop through the rows and show/hide as per the selected limit
+  for (var i = 0; i < rows.length; i++) {
+    if (i < limit) {
+      rows[i].style.display = "";  // Show row
+    } else {
+      rows[i].style.display = "none";  // Hide row
+    }
+  }
+}
+
+// Set an initial limit when the page loads (e.g., 10 records)
+window.onload = function() {
+  filterRecords();
+};
+</script>
 
 </body>
 

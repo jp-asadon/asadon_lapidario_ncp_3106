@@ -20,17 +20,17 @@ function validateForm() {
 
   let isValid = true; // Track overall form validity
 
-  if (currentTab === 1) { // Check consent on the second tab (index 1)
-    const consentGiven = document.querySelector('input[name="consent"]:checked');
-    if (!consentGiven) {
-      alert("Please provide your consent by selecting the radio option.");
-      return false;
-    }
-  }
+  // if (currentTab === 1) { // Check consent on the second tab (index 1)
+  //   const consentGiven = document.querySelector('input[name="consent"]:checked');
+  //   if (!consentGiven) {
+  //     alert("Please provide your consent by selecting the radio option.");
+  //     return false;
+  //   }
+  // }
   
-  if (currentTab !== 2 && currentTab !== 3) {
-    return true;  // Skip validation if not on tab 2 or tab 3
-  }
+  // if (currentTab !== 2 && currentTab !== 3) {
+  //   return true;  // Skip validation if not on tab 2 or tab 3
+  // }
 
   // Validate Surname
   const surname = document.getElementById("surname").value.trim();
