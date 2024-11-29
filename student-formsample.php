@@ -179,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <p>For queries and concerns, please contact <b>soliven.alividale@ue.edu.ph</b>.</p><br>
                                 <div id="consentForm">
                                     <label>
-                                        <input type="radio" name="consent" value="Yes" required>Agree
+                                    <input type="radio" name="consent" value="Yes" required>Agree
                                     </label>
                                 </div>
                             </div>
@@ -192,15 +192,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="card">
                     <div class="card-body">
                     <!-- Form Fields -->
-                    <label>Surname</label>
+                    <label for="surname" style="font-weight: bold;">Surname (in UPPERCASE)</label>
                     <input type="text" name="surname" class="form-control" required>
-                    <label>First Name</label>
+                    <span id="surnameErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+
+                    <label for="first_name" style="font-weight: bold;">First Name (in UPPERCASE)</label>
                     <input type="text" name="first_name" class="form-control" required>
-                    <label>Middle Initial</label>
+                    <span id="firstNameErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+
+                    <label for="middle_initial" style="font-weight: bold;">Middle Initial</label>
                     <input type="text" name="middle_initial" class="form-control">
-                    <label>Student Number</label>
+                    <span id="middleInitialErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+
+                    <label for="student_number" style="font-weight: bold;">Student Number</label>
                     <input type="text" name="student_number" class="form-control" required>
-                    <label>Year Level</label>
+                    <span id="studentNumberErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+
+                    <label for="year_level" style="font-weight: bold;">Year Level</label>
                     <select name="year_level" class="form-control" required>
                         <option disabled selected>Choose Year Level</option>
                         <option value="1">1</option>
@@ -209,18 +217,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    <label>Program</label>
+                    <span id="yearLevelErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+
+                    <label for="program" style="font-weight: bold;">Program</label>
                     <input type="text" name="program" class="form-control" required>
-                    <label>College</label>
+                    <span id="programErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+
+                    <label for="college" style="font-weight: bold;">College</label>
                     <input type="text" name="college" class="form-control" required>
-                    <label>Age</label>
+                    <span id="collegeErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+
+                    <label for="age" style="font-weight: bold;">Age</label>
                     <input type="number" name="age" class="form-control" required>
-                    <label>Sex</label>
+                    <span id="ageErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+
+                    <label for="sex" style="font-weight: bold;">Sex</label>
                     <select name="sex" class="form-control" required>
                         <option disabled selected>Choose Sex</option>
                         <option value="M">M</option>
                         <option value="F">F</option>
                     </select>
+                    <span id="sexErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+
                     <br>
 
                     </div>
@@ -474,29 +492,161 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <script>
-        let currentPage = 1;
-        const totalPages = 4;
+    let currentPage = 1;
+    const totalPages = 4;
 
-        function changePage(step) {
-            // Hide the current page
-            document.getElementById(`page-${currentPage}`).classList.remove('active');
-            document.getElementById(`step-${currentPage}`).classList.remove('active');
+    // Function to validate inputs on Page 3
+    function validatePage3() {
+        let isValid = true;
 
-            // Update the current page number
-            currentPage += step;
-
-            // Show the new page
-            document.getElementById(`page-${currentPage}`).classList.add('active');
-            document.getElementById(`step-${currentPage}`).classList.add('active');
-
-            // Disable/enable buttons
-            document.getElementById('prevBtn').disabled = currentPage === 1;
-            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        // Validate Surname
+        const surname = document.querySelector('input[name="surname"]').value.trim();
+        const surnameErr = document.getElementById("surnameErr");
+        if (surname === "") {
+            surnameErr.textContent = "Please enter your Surname.";
+            isValid = false;
+        } else if (!/^[A-Z\s]+$/.test(surname)) {
+            surnameErr.textContent = "Please enter a valid Surname in uppercase.";
+            isValid = false;
+        } else {
+            surnameErr.textContent = "";
         }
 
-        // Initialize buttons
-        document.getElementById('prevBtn').disabled = true;
+        // Validate First Name
+        const firstName = document.querySelector('input[name="first_name"]').value.trim();
+        const firstNameErr = document.getElementById("firstNameErr");
+        if (firstName === "") {
+            firstNameErr.textContent = "Please enter your First Name.";
+            isValid = false;
+        } else if (!/^[A-Z\s]+$/.test(firstName)) {
+            firstNameErr.textContent = "Please enter a valid First Name in uppercase.";
+            isValid = false;
+        } else {
+            firstNameErr.textContent = "";
+        }
 
-    </script>
+        // Validate Middle Initial
+        const middleInitial = document.querySelector('input[name="middle_initial"]').value.trim();
+        const middleInitialErr = document.getElementById("middleInitialErr");
+        if (middleInitial !== "" && (middleInitial.length !== 2 || !/^[A-Z]\.$/.test(middleInitial))) {
+            middleInitialErr.textContent = "Please enter a valid Middle Initial (e.g., 'A.').";
+            isValid = false;
+        } else {
+            middleInitialErr.textContent = "";
+        }
+
+        // Validate Student Number
+        const studentNumber = document.querySelector('input[name="student_number"]').value.trim();
+        const studentNumberErr = document.getElementById("studentNumberErr");
+        if (studentNumber === "") {
+            studentNumberErr.textContent = "Please enter your Student Number.";
+            isValid = false;
+        } else if (!/^\d{11}$/.test(studentNumber)) {
+            studentNumberErr.textContent = "Student Number should be exactly 11 digits.";
+            isValid = false;
+        } else {
+            studentNumberErr.textContent = "";
+        }
+
+        // Validate Year Level
+        const yearLevel = document.querySelector('select[name="year_level"]').value;
+        const yearLevelErr = document.getElementById("yearLevelErr");
+        if (yearLevel === "Choose Year Level") {
+            yearLevelErr.textContent = "Please select your Year Level.";
+            isValid = false;
+        } else {
+            yearLevelErr.textContent = "";
+        }
+
+        // Validate Program
+        const program = document.querySelector('input[name="program"]').value.trim();
+        const programErr = document.getElementById("programErr");
+        if (program === "") {
+            programErr.textContent = "Please enter your Program.";
+            isValid = false;
+        } else if (!/^BS[A-Z]+$/.test(program)) {
+            programErr.textContent = "Please enter a valid Program (e.g., BSCpE, BSCE).";
+            isValid = false;
+        } else {
+            programErr.textContent = "";
+        }
+
+        // Validate College
+        const college = document.querySelector('input[name="college"]').value.trim();
+        const collegeErr = document.getElementById("collegeErr");
+        if (college === "") {
+            collegeErr.textContent = "Please enter your College.";
+            isValid = false;
+        } else if (!/^[A-Z\s]+$/.test(college)) {
+            collegeErr.textContent = "Please enter a valid College name.";
+            isValid = false;
+        } else {
+            collegeErr.textContent = "";
+        }
+
+        // Validate Age
+        const age = document.querySelector('input[name="age"]').value.trim();
+        const ageErr = document.getElementById("ageErr");
+        if (age === "") {
+            ageErr.textContent = "Please enter your Age.";
+            isValid = false;
+        } else if (!/^\d{1,2}$/.test(age)) {
+            ageErr.textContent = "Age should be 1 or 2 digits.";
+            isValid = false;
+        } else {
+            ageErr.textContent = "";
+        }
+
+        // Validate Sex
+        const sex = document.querySelector('select[name="sex"]').value;
+        const sexErr = document.getElementById("sexErr");
+        if (sex === "Choose Sex") {
+            sexErr.textContent = "Please select your Sex.";
+            isValid = false;
+        } else {
+            sexErr.textContent = "";
+        }
+
+        return isValid;
+    }
+
+    // Modified changePage function
+    function changePage(step) {
+        // Validate page-specific logic
+        if (currentPage === 2 && step === 1) {
+            const consentRadio = document.querySelector('input[name="consent"]:checked');
+            if (!consentRadio) {
+                alert("Please provide your consent by selecting the radio option.");
+                return;
+            }
+        }
+
+        if (currentPage === 3 && step === 1) {
+            if (!validatePage3()) {
+                return; // Stop navigation if validation fails
+            }
+        }
+
+        // Hide the current page
+        document.getElementById(`page-${currentPage}`).classList.remove('active');
+        document.getElementById(`step-${currentPage}`).classList.remove('active');
+
+        // Update the current page number
+        currentPage += step;
+
+        // Show the new page
+        document.getElementById(`page-${currentPage}`).classList.add('active');
+        document.getElementById(`step-${currentPage}`).classList.add('active');
+
+        // Disable/enable buttons
+        document.getElementById('prevBtn').disabled = currentPage === 1;
+        document.getElementById('nextBtn').disabled = currentPage === totalPages;
+    }
+
+    // Initialize buttons
+    document.getElementById('prevBtn').disabled = true;
+</script>
+
+
 </body>
 </html>
