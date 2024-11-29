@@ -57,6 +57,56 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                 // Now assign $event_name from the first row
                 $event_name = $feedback_data[0]["event_name"];
 
+
+
+                $adjectives = ["good", "great", "excellent", "amazing", "fantastic", "bad", "poor", "horrible", "terrible", "awesome", "satisfactory", "organize", "organized", "unorganized", "insightful"]; // Add more adjectives as needed
+
+                $word_counts = []; // Initialize an array for word counts
+                
+                // Loop through the feedback data and count words from both columns
+                foreach ($feedback_data as $feedback) {
+                    // Process comments_organizer if not empty
+                    if (!empty($feedback['comments_organizer'])) {
+                        $words = preg_split('/[\s,.;!?]+/', strtolower($feedback['comments_organizer']));
+                        foreach ($words as $word) {
+                            $word = trim($word); // Trim whitespace
+                            if (!empty($word) && in_array($word, $adjectives)) { // Check if the word is an adjective
+                                if (!isset($word_counts[$word])) {
+                                    $word_counts[$word] = 0;
+                                }
+                                $word_counts[$word]++;
+                            }
+                        }
+                    }
+                
+                    // Process comments_speaker if not empty
+                    if (!empty($feedback['comments_speaker'])) {
+                        $words = preg_split('/[\s,.;!?]+/', strtolower($feedback['comments_speaker']));
+                        foreach ($words as $word) {
+                            $word = trim($word); // Trim whitespace
+                            if (!empty($word) && in_array($word, $adjectives)) { // Check if the word is an adjective
+                                if (!isset($word_counts[$word])) {
+                                    $word_counts[$word] = 0;
+                                }
+                                $word_counts[$word]++;
+                            }
+                        }
+                    }
+                }
+                
+                // Sort words by count in descending order
+                arsort($word_counts);
+                
+                // Get the top 5 most used words
+                $top_words = array_slice($word_counts, 0, 5, true);
+
+                $top_words_labels = json_encode(array_keys($top_words)); // Extract top words as labels
+                $top_words_data = json_encode(array_values($top_words)); // Extract their counts as data
+
+                
+            
+
+
                     // Initialize counts for program_flow values
                     $program_flow_count = [
                       '5' => 0,
@@ -166,6 +216,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                           $overall_rating_count[$feedback['overall_rating']]++;
                       }
                     }
+                    
           
 
             } else {
@@ -274,60 +325,9 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
       <h2 style="text-align:center">EVENT SURVEY RESULT</h2>
         <h1 style="text-align:center"><?php echo $event_name; ?></h1>
 
-        <br>
-        <br>
-        <h1>Event Feedback for "<?php echo htmlspecialchars($feedback_data[0]['event_name']); ?>"</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Feedback ID</th>
-                <th>Surname</th>
-                <th>First Name</th>
-                <th>Middle Initial</th>
-                <th>Student Number</th>
-                <th>Year Level</th>
-                <th>Program</th>
-                <th>College</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Program Flow</th>
-                <th>Time Management</th>
-                <th>Venue</th>
-                <th>Speaker</th>
-                <th>Topic</th>
-                <th>Facilitator</th>
-                <th>Overall Rating</th>
-                <th>Comments (Speaker)</th>
-                <th>Comments (Organizer)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($feedback_data as $feedback): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($feedback['feedback_id']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['surname']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['first_name']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['middle_initial']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['student_number']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['year_level']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['program']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['college']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['age']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['sex']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['program_flow']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['time_management']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['venue']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['speaker']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['topic']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['facilitator']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['overall_rating']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['comments_speaker']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['comments_organizer']); ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-      <div class="row">
+
+    
+    <div class="row">
             <!-- Attendees Card -->
             <div class="col">
               <div class="card info-card sales-card">
@@ -657,73 +657,67 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
             <!-- Small tables -->
             <div class="row">
               <div class="col" style="display: flex; justify-content: center; align-items: center ;">
-                <table class="table table-sm" style="align-items: center; ">
-                  <thead>
-                    <tr>
-                      <th scope="col" style="text-align: center;">Words</th>
-                      <th scope="col" style="text-align: center;">Count</th>
-                    </tr>
-                  </thead>
-                    <tr>
-                      <th scope="row">Great</th>
-                      <td>40</td>
-    
-                    </tr>
-                    <tr>
-                      <th scope="row">Amazing</th>
-                      <td>20</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Insightful</th>
-                      <td>32</td>
-                    </tr>
-    
-                  </tbody>
-                </table>
+<table class="table table-sm" style="align-items: center;">
+<thead><tr>
+<th scope="col">Words</th>
+<th scope="col">Count</th>
+</tr></thead><tbody>
+            
+                <?php
+                foreach ($top_words as $word => $count) {
+                    echo '<tr>';
+                    echo '<th scope="row">' . htmlspecialchars($word) . '</th>';
+                    echo '<td>' . $count . '</td>';
+                    echo '</tr>';
+                }
+            
+                echo '</tbody></table>';
+                ?>
               </div>
               <div class="col" style="display: flex; justify-content: center; align-items: center;;">
                 <!-- Bar Chart -->
               <canvas id="barChart2" style="max-height: 400px;"></canvas>
+              
               <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new Chart(document.querySelector('#barChart2'), {
-                    type: 'bar',
-                    data: {
-                      labels: ['Great', 'Amazing', 'Insightful'],
-                      datasets: [{
-                        label: 'Top Words Used',
-                        data: [40, 20, 32],
-                        backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(255, 159, 64, 0.2)',
-                          'rgba(255, 205, 86, 0.2)',
-                          // 'rgba(75, 192, 192, 0.2)',
-                          // 'rgba(54, 162, 235, 0.2)',
-                          // 'rgba(153, 102, 255, 0.2)',
-                          // 'rgba(201, 203, 207, 0.2)'
-                        ],
-                        borderColor: [
-                          'rgb(255, 99, 132)',
-                          'rgb(255, 159, 64)',
-                          'rgb(255, 205, 86)',
-                          // 'rgb(75, 192, 192)',
-                          // 'rgb(54, 162, 235)',
-                          // 'rgb(153, 102, 255)',
-                          // 'rgb(201, 203, 207)'
-                        ],
-                        borderWidth: 1
-                      }]
-                    },
-                    options: {
-                      scales: {
-                        y: {
-                          beginAtZero: true
-                        }
-                      }
-                    }
-                  });
-                });
-              </script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const labels = <?php echo $top_words_labels; ?>; // PHP-generated labels
+    const data = <?php echo $top_words_data; ?>;     // PHP-generated data
+
+    new Chart(document.querySelector('#barChart2'), {
+      type: 'bar',
+      data: {
+        labels: labels, // Use dynamic labels
+        datasets: [{
+          label: 'Top Words Used',
+          data: data, // Use dynamic data
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+</script>
+
               <!-- End Bar CHart -->
 
               </div>
