@@ -125,6 +125,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Event Satisfaction Survey</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="assets/css/student-form.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <style>
         .page { display: none; }
@@ -135,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5"]>
         <div class="card shadow">
         <div class="card-header text-center text-white" style="background-color: rgba(0, 0, 0, 0.831);">
 
@@ -144,10 +147,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2>Event Satisfaction Survey</h2>
 <p>We value your feedback! Please take a moment to share your thoughts.</p>
 </div>
-<div class="card-body">
+<div class="card-body" style="padding: 0px;">
 
 
-            <div class="card-body">
+            <div class="card-body" style="padding: 0px;">
                 <div class="card-body">
                 <section>
                     <h1 style="text-align: center;"><?php echo $row["event_name"]; ?></h1>
@@ -193,23 +196,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="card-body">
                     <!-- Form Fields -->
                     <label for="surname" style="font-weight: bold;">Surname (in UPPERCASE)</label>
-                    <input type="text" name="surname" class="form-control" required>
-                    <span id="surnameErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+                    <input type="text" name="surname" class="form-control" placeholder="Enter your surname" style="padding: 10px; margin-bottom: 7px;"required>
+                    <span id="surnameErr" class="error-message" style="color: red; font-size: 0.875em; display: block; margin-bottom: 10px;"></span>
 
                     <label for="first_name" style="font-weight: bold;">First Name (in UPPERCASE)</label>
-                    <input type="text" name="first_name" class="form-control" required>
-                    <span id="firstNameErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+                    <input type="text" name="first_name" class="form-control"  placeholder="Enter your first name" style="padding: 10px; margin-bottom: 7px;"required>
+                    <span id="firstNameErr" class="error-message" style="color: red; font-size: 0.875em; display: block; margin-bottom: 10px;"></span>
 
                     <label for="middle_initial" style="font-weight: bold;">Middle Initial</label>
-                    <input type="text" name="middle_initial" class="form-control">
-                    <span id="middleInitialErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+                    <input type="text" name="middle_initial" class="form-control" placeholder="Enter your middle initial" style="padding: 10px; margin-bottom: 7px;">
+                    <span id="middleInitialErr" class="error-message" style="color: red; font-size: 0.875em; display: block; margin-bottom: 10px;"></span>
 
                     <label for="student_number" style="font-weight: bold;">Student Number</label>
-                    <input type="text" name="student_number" class="form-control" required>
-                    <span id="studentNumberErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+                    <input type="text" name="student_number" class="form-control" placeholder="Enter your student number" style="padding: 10px; margin-bottom: 7px;" required>
+                    <span id="studentNumberErr" class="error-message" style="color: red; font-size: 0.875em; display: block; margin-bottom: 10px;"></span>
 
                     <label for="year_level" style="font-weight: bold;">Year Level</label>
-                    <select name="year_level" class="form-control" required>
+                    <select name="year_level" class="form-control" style="width: 100%; min-width: 200px; padding: 10px; margin-bottom: 7px;" required>
                         <option disabled selected>Choose Year Level</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -217,27 +220,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    <span id="yearLevelErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+                    <span id="yearLevelErr" class="error-message" style="color: red; font-size: 0.875em; display: block; margin-bottom: 10px;"></span>
 
                     <label for="program" style="font-weight: bold;">Program</label>
-                    <input type="text" name="program" class="form-control" required>
-                    <span id="programErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+                    <input type="text" name="program" class="form-control" placeholder="Enter your Program" style="padding: 10px; margin-bottom: 7px;"  required>
+                    <span id="programErr" class="error-message" style="color: red; font-size: 0.875em; display: block; margin-bottom: 10px;"></span>
 
                     <label for="college" style="font-weight: bold;">College</label>
-                    <input type="text" name="college" class="form-control" required>
-                    <span id="collegeErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+                    <input type="text" name="college" class="form-control" placeholder="Enter your College" style="padding: 10px; margin-bottom: 7px;" required>
+                    <span id="collegeErr" class="error-message" style="color: red; font-size: 0.875em; display: block; margin-bottom: 10px;"></span>
 
                     <label for="age" style="font-weight: bold;">Age</label>
-                    <input type="number" name="age" class="form-control" required>
-                    <span id="ageErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+                    <input type="number" name="age" class="form-control" placeholder="Enter your Age" style="padding: 10px; margin-bottom: 7px;"required>
+                    <span id="ageErr" class="error-message" style="color: red; font-size: 0.875em; display: block; margin-bottom: 10px;"></span>
 
                     <label for="sex" style="font-weight: bold;">Sex</label>
-                    <select name="sex" class="form-control" required>
+                    <select name="sex" class="form-control" style="padding: 10px; margin-bottom: 7px;" required>
                         <option disabled selected>Choose Sex</option>
                         <option value="M">M</option>
                         <option value="F">F</option>
                     </select>
-                    <span id="sexErr" class="error-message" style="color: red; font-size: 0.875em;"></span>
+                    <span id="sexErr" class="error-message" style="color: red; font-size: 0.875em; display: block; margin-bottom: 10px;"></span>
 
                     <br>
 
@@ -467,6 +470,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             style="width: 100%; padding: 10px;"></textarea>
                                     </div>
                                 </div>
+                                
                                 <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
 
                         </div>
@@ -484,8 +488,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                   <!-- Navigation Buttons -->
                   <div class="text-center mt-4">
-                    <button id="prevBtn" class="btn btn-secondary" onclick="changePage(-1)">Previous</button>
-                    <button id="nextBtn" class="btn btn-primary" onclick="changePage(1)">Next</button>
+                    <button type="button" id="prevBtn" onclick="changePage(-1)">Previous</button>
+                    <button type="button" id="nextBtn" onclick="changePage(1)">Next</button>
                 </div>
             </div>
         </div>
