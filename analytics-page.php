@@ -326,6 +326,60 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
         <h1 style="text-align:center"><?php echo $event_name; ?></h1>
 
 
+
+         <br>
+        <br>
+        <h1>Event Feedback for "<?php echo htmlspecialchars($feedback_data[0]['event_name']); ?>"</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Feedback ID</th>
+                <th>Surname</th>
+                <th>First Name</th>
+                <th>Middle Initial</th>
+                <th>Student Number</th>
+                <th>Year Level</th>
+                <th>Program</th>
+                <th>College</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Program Flow</th>
+                <th>Time Management</th>
+                <th>Venue</th>
+                <th>Speaker</th>
+                <th>Topic</th>
+                <th>Facilitator</th>
+                <th>Overall Rating</th>
+                <th>Comments (Speaker)</th>
+                <th>Comments (Organizer)</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($feedback_data as $feedback): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($feedback['feedback_id']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['surname']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['first_name']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['middle_initial']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['student_number']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['year_level']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['program']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['college']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['age']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['sex']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['program_flow']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['time_management']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['venue']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['speaker']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['topic']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['facilitator']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['overall_rating']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['comments_speaker']); ?></td>
+                    <td><?php echo htmlspecialchars($feedback['comments_organizer']); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table> 
     
     <div class="row">
             <!-- Attendees Card -->
@@ -340,6 +394,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                         <i class="bi bi-people"></i>
                       </div>
                     <div class="ps-3">
+                      
                       <h6><?php echo count($feedback_data); ?>
                       </h6>
                       <span class="text-success small pt-1 fw-bold">Current</span><span class="text-muted small pt-2 ps-1">responses</span>
@@ -373,6 +428,115 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
               </div>
             </div><!-- End Revenue Card -->
 
+
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <!-- 1st col -->
+                  <div class="col">
+                                  <!-- Table with stripped rows -->
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Metric</th>
+                    <th scope="col">Average Rating</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Program Flow</td>
+                    <td>*insert program flow rating here*</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Time Management</td>
+                    <td>*insert time management rating here*</td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Venue and Facilities</td>
+                    <td>*insert program venue rating here*</td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>Speakers/Performers</td>
+                    <td>*insert  speaker rating here*</td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Topics/Quality of Performances</td>
+                    <td>*insert topic rating here*</td>
+
+                  </tr>
+
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Facilitators/Event Organizers</td>
+                    <td>*insert facilitator rating here*</td>
+
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Overall Rating for the Activity</td>
+                    <td>*insert overall rating here*</td>
+
+                  </tr>
+                </tbody>
+              </table>
+                  </div>
+                  <!-- 2nd col -->
+                   <div class="col">
+
+                                 <!-- Vertical Bar Chart -->
+              <div id="verticalBarChart" style="min-height: 400px;" class="echart"></div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  echarts.init(document.querySelector("#verticalBarChart")).setOption({
+                    title: {
+                      text: 'Average Event Ratings'
+                    },
+                    tooltip: {
+                      trigger: 'axis',
+                      axisPointer: {
+                        type: 'shadow'
+                      }
+                    },
+                    legend: {},
+                    grid: {
+                      left: '3%',
+                      right: '4%',
+                      bottom: '3%',
+                      containLabel: true
+                    },
+                    xAxis: {
+                      type: 'value',
+                      boundaryGap: [0, 0.01]
+                    },
+                    yAxis: {
+                      type: 'category',
+                      data: ['Program Flow', 'Time Management', 'Venue and Facilities ', 'Speakers/Performers', 'Topics/Quality of Performances', 'Facilitators/Event Organizers', 'Overall Rating for the Activity	']
+                    },
+                    series: [{
+                        type: 'bar',
+                        data: [3.2, 4.2, 3.3, 4.3, 4.0, 3.2, 3.0]
+                      },
+                    ]
+                  });
+                });
+              </script>
+              <!-- End Vertical Bar Chart -->
+                   </div>
+                </div>
+              </div>
+            </div>
             
 
             <div class="card">
@@ -473,9 +637,8 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                       <script>
                         document.addEventListener("DOMContentLoaded", () => {
                           const facilitatorCount = <?php echo json_encode(array_values($facilitator_count)); ?>;
-
                           new ApexCharts(document.querySelector("#pieChart4"), {
-                            series: [44, 55, 13, 43, 22],
+                            series: facilitatorCount,
                             chart: { height: 350, type: 'pie', toolbar: { show: true } },
                             labels: ['5 - Excellent', '4 - Good', '3 - Moderate', '2 - Poor', '1 - Extremely Poor']
                           }).render();
