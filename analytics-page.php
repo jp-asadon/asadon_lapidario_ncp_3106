@@ -59,7 +59,9 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
 
 
-                $adjectives = ["good", "great", "excellent", "amazing", "fantastic", "bad", "poor", "horrible", "terrible", "awesome", "satisfactory", "organize", "organized", "unorganized", "insightful"]; // Add more adjectives as needed
+                $adjectives = ["good", "great", "excellent", "amazing", "fantastic", "bad", "poor", 
+                "horrible", "terrible", "awesome", "boring", "thanks", "thank you", "appreciate",
+                "satisfactory", "nice", "organized", "unorganized", "insightful", "fair", "fun"]; // Add more adjectives as needed
 
                 $word_counts = []; // Initialize an array for word counts
                 
