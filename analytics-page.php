@@ -4,6 +4,17 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     // Include config file
     require_once "config.php";
 
+    // Fetch the most recent update timestamp
+$last_updated_sql = "SELECT MAX(last_updated) AS last_updated FROM feedback_event";
+$last_updated_result = $mysqli->query($last_updated_sql);
+
+$last_updated_time = null;
+if ($last_updated_result && $last_updated_result->num_rows > 0) {
+    $last_updated_row = $last_updated_result->fetch_assoc();
+    $last_updated_time = $last_updated_row['last_updated'];
+}
+
+
     // Prepare a SQL statement with a JOIN
     $sql = "
         SELECT 
@@ -54,10 +65,55 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                     $feedback_data[] = $row;
                 }
 
-                // Now assign $event_name from the first row
+                // Now assign $event_name from the first row  
                 $event_name = $feedback_data[0]["event_name"];
 
+                // THIS IS FOR AVERAGES
 
+                                    // Initialize variables to store total scores and counts for each metric
+                    $totals = [
+                        'program_flow' => 0,
+                        'time_management' => 0,
+                        'venue' => 0,
+                        'speaker' => 0,
+                        'topic' => 0,
+                        'facilitator' => 0,
+                        'overall_rating' => 0,
+                    ];
+                    $counts = [
+                        'program_flow' => 0,
+                        'time_management' => 0,
+                        'venue' => 0,
+                        'speaker' => 0,
+                        'topic' => 0,
+                        'facilitator' => 0,
+                        'overall_rating' => 0,
+                    ];
+
+                    // Loop through feedback data and calculate totals and counts
+                    foreach ($feedback_data as $feedback) {
+                        foreach ($totals as $metric => &$total) {
+                            if (isset($feedback[$metric]) && is_numeric($feedback[$metric])) {
+                                $total += $feedback[$metric];
+                                $counts[$metric]++;
+                            }
+                        }
+                    }
+
+                    // Calculate averages
+                    $averages = [];
+                    foreach ($totals as $metric => $total) {
+                        $averages[$metric] = $counts[$metric] > 0 ? $total / $counts[$metric] : 0;
+                    }
+
+                    $averages_json = json_encode(array_values(array: $averages));
+
+
+                    // Close statement and database connection
+                    $stmt->close();
+                    $mysqli->close();
+
+                //END OF AVERAGES
 
                 $adjectives = ["good", "great", "excellent", "amazing", "fantastic", "bad", "poor", 
                 "horrible", "terrible", "awesome", "boring", "thanks", "thank you", "appreciate",
@@ -230,9 +286,6 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
         }
     }
 
-    // Close statement
-    $stmt->close();
-    $mysqli->close();
 } else {
     header("location: error.php");
     exit();
@@ -327,61 +380,6 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
       <h2 style="text-align:center">EVENT SURVEY RESULT</h2>
         <h1 style="text-align:center"><?php echo $event_name; ?></h1>
 
-
-
-         <br>
-        <br>
-        <h1>Event Feedback for "<?php echo htmlspecialchars($feedback_data[0]['event_name']); ?>"</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Feedback ID</th>
-                <th>Surname</th>
-                <th>First Name</th>
-                <th>Middle Initial</th>
-                <th>Student Number</th>
-                <th>Year Level</th>
-                <th>Program</th>
-                <th>College</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Program Flow</th>
-                <th>Time Management</th>
-                <th>Venue</th>
-                <th>Speaker</th>
-                <th>Topic</th>
-                <th>Facilitator</th>
-                <th>Overall Rating</th>
-                <th>Comments (Speaker)</th>
-                <th>Comments (Organizer)</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($feedback_data as $feedback): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($feedback['feedback_id']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['surname']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['first_name']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['middle_initial']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['student_number']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['year_level']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['program']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['college']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['age']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['sex']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['program_flow']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['time_management']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['venue']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['speaker']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['topic']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['facilitator']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['overall_rating']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['comments_speaker']); ?></td>
-                    <td><?php echo htmlspecialchars($feedback['comments_organizer']); ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table> 
     
     <div class="row">
             <!-- Attendees Card -->
@@ -412,20 +410,25 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
             <div class="col">
               <div class="card info-card revenue-card">
 
-                <div class="card-body">
-                  <h5 class="card-title">Last Updated <span>| Today</span></h5>
+              <div class="card-body">
+                    <h5 class="card-title">Last Updated <span>| Today</span></h5>
 
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="ri-time-line"></i>
-                    </div>
-                    <div class="ps-3">
-                    <h6 id="currentDay"></h6>
-                      <span class="text-muted small pt-2 ps-1">As of </span>
-                      <span class="text-success small pt-1 fw-bold" id="currentDateTime"></span>                    
+                    <div class="d-flex align-items-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="ri-time-line"></i>
+                      </div>
+                      <div class="ps-3">
+                        <h6>
+                          <?php echo $last_updated_time ? date('F j, Y', strtotime($last_updated_time)) : 'No updates yet'; ?>
+                        </h6>
+                        <span class="text-muted small pt-2 ps-1">As of </span>
+                        <span class="text-success small pt-1 fw-bold">
+                          <?php echo $last_updated_time ? date('h:i:s A', strtotime($last_updated_time)) : '--'; ?>
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
+
 
               </div>
             </div><!-- End Revenue Card -->
@@ -437,61 +440,53 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                   <!-- 1st col -->
                   <div class="col">
                                   <!-- Table with stripped rows -->
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Metric</th>
-                    <th scope="col">Average Rating</th>
+                          <table class="table table-striped">
+                              <thead>
+                                  <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">Metric</th>
+                                      <th scope="col">Average Rating</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <th scope="row">1</th>
+                                      <td>Program Flow</td>
+                                      <td><?php echo number_format($averages['program_flow'], 2); ?></td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row">2</th>
+                                      <td>Time Management</td>
+                                      <td><?php echo number_format($averages['time_management'], 2); ?></td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row">3</th>
+                                      <td>Venue and Facilities</td>
+                                      <td><?php echo number_format($averages['venue'], 2); ?></td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row">4</th>
+                                      <td>Speakers/Performers</td>
+                                      <td><?php echo number_format($averages['speaker'], 2); ?></td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row">5</th>
+                                      <td>Topics/Quality of Performances</td>
+                                      <td><?php echo number_format($averages['topic'], 2); ?></td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row">6</th>
+                                      <td>Facilitators/Event Organizers</td>
+                                      <td><?php echo number_format($averages['facilitator'], 2); ?></td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row">7</th>
+                                      <td>Overall Rating for the Activity</td>
+                                      <td><?php echo number_format($averages['overall_rating'], 2); ?></td>
+                                  </tr>
+                              </tbody>
+                          </table>
 
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Program Flow</td>
-                    <td>*insert program flow rating here*</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Time Management</td>
-                    <td>*insert time management rating here*</td>
-
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Venue and Facilities</td>
-                    <td>*insert program venue rating here*</td>
-
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Speakers/Performers</td>
-                    <td>*insert  speaker rating here*</td>
-
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Topics/Quality of Performances</td>
-                    <td>*insert topic rating here*</td>
-
-                  </tr>
-
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Facilitators/Event Organizers</td>
-                    <td>*insert facilitator rating here*</td>
-
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Overall Rating for the Activity</td>
-                    <td>*insert overall rating here*</td>
-
-                  </tr>
-                </tbody>
-              </table>
                   </div>
                   <!-- 2nd col -->
                    <div class="col">
@@ -501,6 +496,9 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
+
+                  const averages = <?php echo $averages_json; ?>;
+
                   echarts.init(document.querySelector("#verticalBarChart")).setOption({
                     title: {
                       text: 'Average Event Ratings'
@@ -527,8 +525,9 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                       data: ['Program Flow', 'Time Management', 'Venue and Facilities ', 'Speakers/Performers', 'Topics/Quality of Performances', 'Facilitators/Event Organizers', 'Overall Rating for the Activity	']
                     },
                     series: [{
-                        type: 'bar',
-                        data: [3.2, 4.2, 3.3, 4.3, 4.0, 3.2, 3.0]
+                    name: 'Average Ratings',
+                    type: 'bar',
+                    data: averages
                       },
                     ]
                   });
@@ -756,14 +755,18 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title" style="text-align: center;">Comments for Speakers</h5>
+                <!-- Dropdown to select number of records -->
+                <label for="recordLimit_cmspeaker">Show</label>
+                    <select id="recordLimit_cmspeaker" onchange="filterRecords_cmspeaker()">
+                      <option value="2" selected>2</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                      <option value="300">300</option>
+                      <option value="all">All</option>
+                    </select>
+                    <label>records</label>
                                   <!-- Table with stripped rows -->
-                                  <table class="table datatable">
-                                    <thead>
-                                      <tr>
-                                        <th>
-                                        </th>
-                                      </tr>
-                                    </thead>
+                                  <table class="table datatable" id="recordTable_cmspeaker">
                                     <tbody>
                                       <?php foreach ($feedback_data as $feedback): ?>
                                           <?php if (!empty($feedback['comments_speaker']) || !empty($feedback['comments_organizer'])): ?>
@@ -773,10 +776,8 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                                           <?php endif; ?>
                                       <?php endforeach; ?>
                                   </tbody>
-
                                   </table>
                                   <!-- End Table with stripped rows -->
-    
               </div>
             </div>
 
@@ -784,16 +785,18 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
           <div class="col">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title" style="text-align: center;">Comments and suggestions for Organizers</h5>
-    
+                <h5 class="card-title" style="text-align: center;">Comments and Suggestions for Organizers</h5>
+                <label for="recordLimit_cmorganizer">Show</label>
+                    <select id="recordLimit_cmorganizer" onchange="filterRecords_cmorganizer()">
+                      <option value="2" selected>2</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                      <option value="300">300</option>
+                      <option value="all">All</option>
+                    </select>
+                    <label>records</label>
                                   <!-- Table with stripped rows -->
-                                  <table class="table datatable">
-                                    <thead>
-                                      <tr>
-                                        <th>
-                                        </th>
-                                      </tr>
-                                    </thead>
+                                  <table class="table datatable" id="recordTable_cmorganizer">
                                     <tbody>
                                     <?php foreach ($feedback_data as $feedback): ?>
                                         <?php if (!empty($feedback['comments_speaker']) || !empty($feedback['comments_organizer'])): ?>
@@ -956,7 +959,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formattedDateTime = now.toLocaleString('en-PH', options);
     dateTimeElement.textContent = formattedDateTime;
   });
-
+//for student record
 function filterRecords() {
   var limit = document.getElementById('recordLimit').value;
   var table = document.getElementById('recordTable');
@@ -978,6 +981,70 @@ function filterRecords() {
     }
   }
 }
+
+//fikter for speaker comments
+
+    // Function to filter table rows
+    function filterRecords_cmspeaker() {
+        const limit = document.getElementById("recordLimit_cmspeaker").value; // Get selected option
+        const table = document.getElementById("recordTable_cmspeaker");
+        const tbody = table.querySelector("tbody"); // Access tbody directly
+        const rows = tbody.getElementsByTagName("tr"); // Get all table rows
+        
+        if (!rows.length) {
+            console.error("No rows found in table body."); // Debug log
+            return;
+        }
+
+        // Show or hide rows based on the selected limit
+        for (let i = 0; i < rows.length; i++) {
+            if (limit === "all") {
+                rows[i].style.display = ""; // Show all rows
+            } else if (i < parseInt(limit)) {
+                rows[i].style.display = ""; // Show rows within the limit
+            } else {
+                rows[i].style.display = "none"; // Hide rows outside the limit
+            }
+        }
+    }
+
+    // Call the filter function on page load
+    document.addEventListener("DOMContentLoaded", () => {
+        filterRecords_cmspeaker();
+    });
+
+
+
+//filter for comments organizer
+function filterRecords_cmorganizer() {
+        const limit = document.getElementById("recordLimit_cmorganizer").value; // Get selected option
+        const table = document.getElementById("recordTable_cmorganizer");
+        const tbody = table.querySelector("tbody"); // Access tbody directly
+        const rows = tbody.getElementsByTagName("tr"); // Get all table rows
+        
+        if (!rows.length) {
+            console.error("No rows found in table body."); // Debug log
+            return;
+        }
+
+        // Show or hide rows based on the selected limit
+        for (let i = 0; i < rows.length; i++) {
+            if (limit === "all") {
+                rows[i].style.display = ""; // Show all rows
+            } else if (i < parseInt(limit)) {
+                rows[i].style.display = ""; // Show rows within the limit
+            } else {
+                rows[i].style.display = "none"; // Hide rows outside the limit
+            }
+        }
+    }
+
+    // Call the filter function on page load
+    document.addEventListener("DOMContentLoaded", () => {
+        filterRecords_cmorganizer();
+    });
+
+
 
 // Set an initial limit when the page loads (e.g., 10 records)
 window.onload = function() {
