@@ -331,7 +331,7 @@ if ($last_updated_result && $last_updated_result->num_rows > 0) {
   <header id="header" class="header d-flex align-items-center light-background sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
       <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
-        <img src="scpeslogo.png" alt="">
+        <img src="scpes-logo1.png" alt="">
         <span class="d-none d-lg-block" style="color: #e4e4e4;">SCPES</span>
       </a>
     </div><!-- End Logo -->
@@ -339,18 +339,18 @@ if ($last_updated_result && $last_updated_result->num_rows > 0) {
     <nav class="header-nav ms-auto">
       <ul>
         <li><a href="index.php" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
-        <li><a href="results.html" class="zoom-link" style="color: #e4e4e4;">Results</a></li>
+        <li><a href="deleted-page.php" class="zoom-link" style="color: #e4e4e4;">Archive</a></li>
       </ul>
-    </nav>
+  </nav>
 
   <div>  
     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
       <img src="uelogo.png" alt="Profile" class="rounded-circle" style="max-height: 36px;">
-      <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #e4e4e4;">Admin</span>
+      <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #e4e4e4; margin-right: 10px;">Admin</span>
     </a><!-- End Profile Iamge Icon -->
 
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-      <a  href="pages-login.html" class="dropdown-item d-flex align-items-center" href="#">
+      <a  href="pages-login.php" class="dropdown-item d-flex align-items-center" href="#">
         <i class="bi bi-box-arrow-right"></i>
         <span>Sign Out</span>
       </a>
