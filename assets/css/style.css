@@ -160,7 +160,8 @@ h6 {
 }
 
 .dropdown-menu .dropdown-item:hover {
-  background-color: #f6f9ff;
+  text-decoration: none; /* No underline on hover */
+  background-color: transparent; /* No background change */
 }
 
 @media (min-width: 768px) {
@@ -168,7 +169,7 @@ h6 {
     content: "";
     width: 13px;
     height: 13px;
-    background: #fff;
+    background-color: transparent; /* No background change */
     position: absolute;
     top: -7px;
     right: 20px;
@@ -362,7 +363,7 @@ h6 {
   color: #4154f1;
 }
 
-.nav-tabs-bordered .nav-link.active {
+.nav-tabs-bordered {
   background-color: #fff;
   color: #4154f1;
   border-bottom: 2px solid #4154f1;
@@ -505,6 +506,10 @@ h6 {
   font-weight: 600;
 }
 
+.nav-profile:hover {
+  text-decoration: none; /* No underline on hover */
+  background-color: transparent; /* No background change */
+}
 
 .header-nav .profile {
   min-width: 240px;
@@ -532,7 +537,8 @@ h6 {
 }
 
 .header-nav .profile .dropdown-item:hover {
-  background-color: #f6f9ff;
+  text-decoration: none; /* No underline on hover */
+  background-color: transparent; /* No background change */
 }
 
 

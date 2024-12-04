@@ -170,15 +170,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <nav class="header-nav ms-auto">
       <ul>
-        <li><a href="index.php" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
-        <li><a href="deleted-page.php" class="zoom-link" style="color: #e4e4e4;">Archive</a></li>
+        <li><a href="index.php" class="zoom-link" style="color: #e4e4e4; margin-right: 18px;">Dashboard</a></li>
+        <li><a href="deleted-page.php" class="zoom-link" style="color: #e4e4e4; margin-right: 25px;">Archive</a></li>
       </ul>
   </nav>
 
   <div>  
-    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+    <a class="nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" style=" background-color: transparent;">
       <img src="uelogo.png" alt="Profile" class="rounded-circle" style="max-height: 36px;">
-      <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #e4e4e4; margin-right: 10px;">Admin</span>
+      <span class="d-none d-md-block dropdown-toggle ps-2 zoom-link" style="color: #e4e4e4; margin-right: 30px;">Admin</span>
     </a><!-- End Profile Iamge Icon -->
 
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -191,7 +191,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
 </header><!-- End Header -->
-
 
   <main id="main" class="main" style="margin: 10px;">
 
