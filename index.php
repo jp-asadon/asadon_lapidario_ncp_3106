@@ -145,7 +145,8 @@
 <!-- Left side columns -->
 <div class="col-sm-8" style="height: 410px;">
     <!-- Customers Card -->
-    <div class="card info-card customers-card" style="height: 410px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); overflow: hidden;">
+    <div class="card info-card customers-card" style="height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); overflow: hidden;">
+
         <!-- Card Header -->
         <div style="font-family: 'Poppins', sans-serif; position: sticky; top: 0; background-color: #ffffff; z-index: 1; padding: 15px 10px; border-bottom: 2px solid #e6e6e6; text-align: center;">
             <h6 style="margin: 0; font-size: 28px; color: #333; font-weight: 600;">List of Events</h6>
@@ -174,7 +175,7 @@
         </ul>
 
         <!-- Card Body -->
-        <div class="card-body" style="height: 340px; overflow-y: auto; padding: 20px; font-family: 'Montserrat', sans-serif; background-color: #fff;">
+        <div class="card-body d-flex flex-column" style="max-height: 340px; overflow-y: auto; padding: 20px; font-family: 'Montserrat', sans-serif; background-color: #fff;">
             <!-- PHP Code for Event Listing -->
             <?php
                 require_once("config.php");
@@ -204,77 +205,78 @@ if ($result = $mysqli->query($sql)) {
         while ($row = $result->fetch_assoc()) {
             ?>
 
-                        <div class="card info-card customers-card mb-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                            <div class="card-body" style="color: #555555; padding: 15px; border-radius: 10px;">
-                                <div class="row align-items-center">
-                                    <!-- Image Column -->
-                                    <div class="col-lg-2 d-flex justify-content-center" style="padding: 10px;">
-                                        <img src="assets/img/ardui.jpg" style="height: 120px; width: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd;">
-                                    </div>
-                                    
-                                    <!-- Event Information Column -->
-                                    <div class="col-lg-5" style="padding: 10px;">
-                                        <div class="form-group">
-                                            <label>Event Name</label>
-                                            <p style="margin-bottom: 5px; font-weight: bold;">
-                                              <a href="analytics-page.php?id=<?php echo $row['id']; ?>" 
-                                                style="font-size: 20px; text-decoration: none; display: flex; align-items: center;" 
-                                                target="_blank" 
-                                                data-toggle="tooltip" 
-                                                title="Show Event Survey Result">
-                                                  <?php echo htmlspecialchars($row['event_name']); ?> 
-                                                  <i class="fa" style="margin-left: 10px;">&#xf200;</i>
-                                              </a>
-                                            </p>
-                                        </div> 
-                                        <div class="form-group">
-                                            <label>Date</label>
-                                            <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_date']); ?></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Time</label>
-                                            <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_start_time']) . " - " . htmlspecialchars($row['event_end_time']); ?></p>
-                                        </div>
-                                    </div>
+<div class="card info-card customers-card mb-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    <div class="card-body" style="color: #555555; padding: 15px; border-radius: 10px;">
+        <div class="row align-items-center d-flex flex-wrap">
+            <!-- Image Column -->
+            <div class="col-lg-3 col-md-4 col-12 d-flex justify-content-center" style="padding: 10px;">
+                <img src="assets/img/ardui.jpg" style="height: 120px; width: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd;">
+            </div>
 
-                                    <div class="col-lg-5" style="padding: 10px;">
-                                        <div class="form-group">
-                                            <label>Event Venue</label>
-                                            <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_venue']); ?></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Event Speaker/s</label>
-                                            <p style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($row['event_speaker']); ?></p>
-                                        </div>
+            <!-- Event Information Column -->
+            <div class="col-lg-4 col-md-4 col-12" style="padding: 10px;">
+                <div class="form-group">
+                    <label>Event Name</label>
+                    <p style="margin-bottom: 5px; font-weight: bold;">
+                      <a href="analytics-page.php?id=<?php echo $row['id']; ?>" 
+                        style="font-size: 20px; text-decoration: none; display: flex; align-items: center;" 
+                        target="_blank" 
+                        data-toggle="tooltip" 
+                        title="Show Event Survey Result">
+                          <?php echo htmlspecialchars($row['event_name']); ?> 
+                          <i class="fa" style="margin-left: 10px;">&#xf200;</i>
+                      </a>
+                    </p>
+                </div> 
+                <div class="form-group">
+                    <label>Date</label>
+                    <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_date']); ?></p>
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_start_time']) . " - " . htmlspecialchars($row['event_end_time']); ?></p>
+                </div>
+            </div>
 
-                                        <!-- Buttons for View, Edit, Delete -->
-                                        <div class="mt-3 d-flex justify-content-start">
-                                            <!-- View Event Details -->
-                                            <a href="read.php?id=<?php echo $row['id']; ?>" 
-                                              class="btn btn-primary me-2 d-flex align-items-center px-3 py-2" 
-                                              title="View Event" 
-                                              style="white-space: nowrap; font-size: 14px;">
-                                                <i class="bi bi-eye me-1"></i> <span>View</span>
-                                            </a>
+            <!-- Event Venue and Speaker Column -->
+            <div class="col-lg-4 col-md-4 col-12" style="padding: 10px;">
+                <div class="form-group">
+                    <label>Event Venue</label>
+                    <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_venue']); ?></p>
+                </div>
+                <div class="form-group">
+                    <label>Event Speaker/s</label>
+                    <p style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($row['event_speaker']); ?></p>
+                </div>
 
-                                            <!-- Update Event Details -->
-                                            <a href="update.php?id=<?php echo $row['id']; ?>" 
-                                              class="btn btn-warning me-2 d-flex align-items-center px-3 py-2" 
-                                              title="Update Event" 
-                                              style="white-space: nowrap; font-size: 14px;">
-                                                <i class="bi bi-pencil me-1"></i> <span>Update</span>
-                                            </a>
+                <!-- Buttons for View, Edit, Delete -->
+                <div class="mt-3 d-flex justify-content-start" style="flex-wrap: nowrap;">
+                    <!-- View Event Details -->
+                    <a href="read.php?id=<?php echo $row['id']; ?>" 
+                      class="btn btn-primary me-2 d-flex align-items-center px-3 py-2" 
+                      title="View Event" 
+                      style="white-space: nowrap; font-size: 14px;">
+                        <i class="bi bi-eye me-1"></i> <span>View</span>
+                    </a>
 
-                                            <!-- Delete Event -->
-                                            <button class="btn btn-danger delete-btn d-flex align-items-center px-3 py-2" 
-                                                    title="Delete Event" 
-                                                    data-id="<?php echo $row['id']; ?>" 
-                                                    data-bs-toggle="modal" 
-                                                    data-bs-target="#exampleModal" 
-                                                    style="white-space: nowrap; font-size: 14px;">
-                                                <i class="bi bi-trash me-1"></i> <span>Delete</span>
-                                            </button>
-                                          </div>
+                    <!-- Update Event Details -->
+                    <a href="update.php?id=<?php echo $row['id']; ?>" 
+                      class="btn btn-warning me-2 d-flex align-items-center px-3 py-2" 
+                      title="Update Event" 
+                      style="white-space: nowrap; font-size: 14px;">
+                        <i class="bi bi-pencil me-1"></i> <span>Update</span>
+                    </a>
+
+                    <!-- Delete Event -->
+                    <button class="btn btn-danger delete-btn d-flex align-items-center px-3 py-2" 
+                            title="Delete Event" 
+                            data-id="<?php echo $row['id']; ?>" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#exampleModal" 
+                            style="white-space: nowrap; font-size: 14px;">
+                        <i class="bi bi-trash me-1"></i> <span>Delete</span>
+                    </button>
+                </div>
 
 
                                         
