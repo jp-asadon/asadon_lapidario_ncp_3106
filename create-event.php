@@ -224,8 +224,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div><!-- End Page Title -->
 
     <div class="container mt-3">
-    <div class="card shadow" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-        <div class="card-body" style="padding: 20px; font-family: 'Montserrat', sans-serif;">
+    <div class="card shadow" style="border-radius: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <div class="card-body" style="padding: 20px; font-family: 'Montserrat', sans-serif; background-color: #dae6ed; border-radius: 20px;">
             <!-- Vertical Form -->
             <form class="row g-3 needs-validation" id="eventForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="col-12">

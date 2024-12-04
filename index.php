@@ -156,19 +156,19 @@
         <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist" style="border-bottom: 1px solid #ddd;">
             <li class="nav-item flex-fill" role="presentation">
                 <button class="nav-link w-100" onclick="filterEvents('all')" type="button" 
-                    style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; transition: background-color 0.3s, color 0.3s;">
+                style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; padding: 10px 10px; background-color: #f8f9fa; border: 1px solid #ddd; margin-right: 10px; transition: all 0.3s ease;">
                     ALL
                 </button>
             </li>
             <li class="nav-item flex-fill" role="presentation">
                 <button class="nav-link w-100" onclick="filterEvents('upcoming')" type="button" 
-                    style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; transition: background-color 0.3s, color 0.3s;">
+                style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; padding: 10px 10px; background-color: #f8f9fa; border: 1px solid #ddd; margin-right: 10px; transition: all 0.3s ease;">
                     Current and Upcoming Events
                 </button>
             </li>
             <li class="nav-item flex-fill" role="presentation">
                 <button class="nav-link w-100" onclick="filterEvents('past')" type="button" 
-                    style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; transition: background-color 0.3s, color 0.3s;">
+                style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; padding: 10px 10px; background-color: #f8f9fa; border: 1px solid #ddd; margin-right: 0; transition: all 0.3s ease;">
                     Past Events
                 </button>
             </li>
@@ -205,7 +205,7 @@ if ($result = $mysqli->query($sql)) {
         while ($row = $result->fetch_assoc()) {
             ?>
 
-<div class="card info-card customers-card mb-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+<div class="card info-card customers-card mb-3" style="border-radius: 10px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 -6px 12px rgba(0, 0, 0, 0.1);">
     <div class="card-body" style="color: #555555; padding: 15px; border-radius: 10px;">
         <div class="row align-items-center d-flex flex-wrap">
             <!-- Image Column -->
@@ -325,7 +325,7 @@ if ($result = $mysqli->query($sql)) {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">DELETE RECORD</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Record</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -349,7 +349,7 @@ if ($result = $mysqli->query($sql)) {
     <div class="modal-body">
         <div class="alert alert-danger d-flex justify-content-center align-items-center">
             <input type="hidden" name="id" />
-            <p class="m-0">Are you sure you want to delete this event record?</p>
+            <p class="m-0" style="font-family: 'Nunito', sans-serif;">Are you sure you want to DELETE this event record?</p>
         </div>
     </div>
     <div class="modal-footer">

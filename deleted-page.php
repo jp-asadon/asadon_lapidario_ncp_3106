@@ -108,7 +108,7 @@
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         ?>
-                        <div class="card info-card customers-card mb-3">
+                        <div class="card info-card customers-card mb-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 -6px 12px rgba(0, 0, 0, 0.1);">
                             <div class="card-body" style="color: #555555; padding: 10px; border-radius: 10px;">
                                 <div class="row">
                                     <div class="col-lg-2 d-flex align-items-center justify-content-center" style="padding: 10px;">
@@ -202,7 +202,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">DELETE RECORD</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Restore Record</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -224,9 +224,9 @@
     </div>
 <form method="POST" action="restore.php">
     <div class="modal-body">
-        <div class="alert alert-danger">
+        <div class="alert alert-danger d-flex justify-content-center align-items-center">
             <input type="hidden" name="id" />
-            <p>Are you sure you want to RESTORE this event record?</p>
+            <p class="m-0" style="font-family: 'Nunito', sans-serif;">Are you sure you want to RESTORE this event record?</p>
         </div>
     </div>
     <div class="modal-footer">
