@@ -54,7 +54,7 @@
     <nav class="header-nav ms-auto">
       <ul>
         <li><a href="index.php" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
-        <li><a href="deleted-page.php" class="zoom-link" style="color: #e4e4e4;">Archive</a></li>
+        <li><a href="results.html" class="zoom-link" style="color: #e4e4e4;">Results</a></li>
       </ul>
   </nav>
 
@@ -79,7 +79,7 @@
 
 
     <div class="pagetitle">
-      <h1 style="font-weight: bold; font-size: 30px; color: #2a2a2a;">Dashboard</h1>
+      <h1 style="font-weight: bold; font-size: 30px; color: #2a2a2a;">Deleted Events</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php" style="color: #555555;">Dashboard</a></li>
@@ -90,61 +90,7 @@
     <!-- End Page Title -->
 
     <section class="section dashboard">
-      <div class="row">
 
-        <!-- Right side columns -->
-        <div class="col-lg-4">
-
-          <div class="card info-card customers-card" style="border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); transition: box-shadow 0.3s ease;" onmouseover="this.style.boxShadow='0 12px 24px rgba(0, 0, 0, 0.3)'" 
-          onmouseout="this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.2)'">
-
-            <div class="card-body">  <a href="create-event.php">
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-calendar-plus"></i>
-                </div>
-                <div class="ps-3">
-                  <h6 style="color: #2a2a2a;">
-                  Create New Event</h6>
-                </div>
-              </div>
-            </a>
-            </div>
-          </div>
-
-          <!-- Recent Activity -->
-          <div class="card" style="height: 300px; overflow-y: auto;">
-  <div class="filter" style="background-color: #2a2a2a">
-    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-      <li class="dropdown-header text-start">
-        <h6>Filter</h6>
-      </li>
-      <li><a class="dropdown-item filter-option" href="#" data-filter="all">All</a></li>
-      <li><a class="dropdown-item filter-option" href="#" data-filter="today">Today</a></li>
-      <li><a class="dropdown-item filter-option" href="#" data-filter="week">This Week</a></li>
-      <li><a class="dropdown-item filter-option" href="#" data-filter="month">This Month</a></li>
-    </ul>
-  </div>
-
-  <div class="card-body">
-    <h5 class="card-title sticky-title">Upcoming Events</h5>
-    <div class="activity" id="activity-list">
-    <p>Loading events...</p>
-
-</div>
-
-
-
-            </div>
-          </div><!-- End Recent Activity -->
-
-        </div><!-- End Right side columns -->
-
-
-        <!-- Left side columns -->
-        <div class="col-sm-8" style="height: 410px;">
-    <!-- Customers Card -->
     <div class="card info-card customers-card" style="height: 410px;">
         <!-- Card Header -->
         <div style="position: sticky; top: 0; background-color: white; z-index: 1; padding: 15px; border-bottom: 1px solid #ddd;">
@@ -156,7 +102,7 @@
             <?php
             require_once("config.php");
 
-            $sql = "SELECT * FROM create_event WHERE delete_event = 0";
+            $sql = "SELECT * FROM create_event WHERE delete_event = 1";
 
             if ($result = $mysqli->query($sql)) {
                 if ($result->num_rows > 0) {
@@ -201,24 +147,9 @@
 
                                         <!-- Buttons for View, Edit, Delete -->
                                         <div class="mt-3 d-flex justify-content-start">
-                                            <!-- View Event Details -->
-                                            <a href="read.php?id=<?php echo $row['id']; ?>" class="btn btn-primary me-2" title="View Event"> <i class="bi bi-eye"></i> View
-                                          </a>
-                                            <!-- Update Event Details -->
-                                            <!-- <button class="btn btn-warning me-2" title="Edit Event">
-                                                <i class="bi bi-pencil"></i> Update
-                                            </button> -->
-                                            <a href="update.php?id=<?php echo $row['id']; ?>" class="btn btn-warning me-2" title="Update Event"> <i class="bi bi-eye"></i> Update
-                                            </a>
-                                            <!-- Delete Event -->
-                                            <!-- <button class="btn btn-danger" title="Delete Event" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                <i class="bi bi-trash"></i> Delete
-                                            </button>
-                                            <a href="archive.php?id=<?php echo $row['id']; ?>"class="btn btn-danger" title="Delete Event" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="bi bi-trash"></i> Delete
-                                            </a> -->
+
                                             <button class="btn btn-danger delete-btn" title="Delete Event" data-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    <i class="bi bi-trash"></i> Delete
+    <i class="bi bi-trash"></i> Restore
 </button>
 
 
@@ -239,10 +170,8 @@
 
             
         </div>
-    </div>
-</div>
 
-<!-- Modal -->
+        <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -267,11 +196,11 @@
             </div>
         </div>
     </div>
-<form method="POST" action="archive.php">
+<form method="POST" action="restore.php">
     <div class="modal-body">
         <div class="alert alert-danger">
             <input type="hidden" name="id" />
-            <p>Are you sure you want to delete this event record?</p>
+            <p>Are you sure you want to RESTORE this event record?</p>
         </div>
     </div>
     <div class="modal-footer">
@@ -283,10 +212,7 @@
     </div>
   </div>
 </div>
-
-
-
-      </div>
+    </div>
     </section>
 
   </main><!-- End #main -->
