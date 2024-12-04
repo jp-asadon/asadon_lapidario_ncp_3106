@@ -489,7 +489,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <!-- Navigation Buttons -->
                   <div class="text-center mt-4">
                     <button type="button" id="prevBtn" onclick="changePage(-1)">Previous</button>
-                    <button type="button" id="nextBtn" onclick="changePage(1)">Next</button>
+                    <button type="button" id="nextBtn" onclick="changePage(1)" style="background-color: #007bff;">Next</button>
                 </div>
             </div>
         </div>

@@ -46,7 +46,7 @@
   <header id="header" class="header d-flex align-items-center light-background sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
       <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
-        <img src="scpeslogo.png" alt="">
+        <img src="scpes-logo1.png" alt="">
         <span class="d-none d-lg-block" style="color: #e4e4e4;">SCPES</span>
       </a>
     </div><!-- End Logo -->
@@ -61,7 +61,7 @@
   <div>  
     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
       <img src="uelogo.png" alt="Profile" class="rounded-circle" style="max-height: 36px;">
-      <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #e4e4e4;">Admin</span>
+      <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #e4e4e4; margin-right: 10px;">Admin</span>
     </a><!-- End Profile Iamge Icon -->
 
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -142,30 +142,44 @@
         </div><!-- End Right side columns -->
 
 
-        <!-- Left side columns -->
-        <div class="col-sm-8" style="height: 410px;">
+<!-- Left side columns -->
+<div class="col-sm-8" style="height: 410px;">
     <!-- Customers Card -->
-    <div class="card info-card customers-card" style="height: 410px;">
+    <div class="card info-card customers-card" style="height: 410px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); overflow: hidden;">
         <!-- Card Header -->
-        <div style="position: sticky; top: 0; background-color: white; z-index: 1; padding: 15px; border-bottom: 1px solid #ddd;">
-            <h1 style="margin: 0;">EVENT LIST</h1>
+        <div style="font-family: 'Poppins', sans-serif; position: sticky; top: 0; background-color: #ffffff; z-index: 1; padding: 15px 10px; border-bottom: 2px solid #e6e6e6; text-align: center;">
+            <h6 style="margin: 0; font-size: 28px; color: #333; font-weight: 600;">List of Events</h6>
         </div>
-<!-- Tabs for Filtering -->
-<ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
-        <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100 active" onclick="filterEvents('all')" type="button">ALL</button>
-        </li>
-        <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100" onclick="filterEvents('upcoming')" type="button">Current and Upcoming Events</button>
-        </li>
-        <li class="nav-item flex-fill" role="presentation">
-            <button class="nav-link w-100" onclick="filterEvents('past')" type="button">Past Events</button>
-        </li>
-    </ul>
+
+        <!-- Tabs for Filtering -->
+        <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist" style="border-bottom: 1px solid #ddd;">
+            <li class="nav-item flex-fill" role="presentation">
+                <button class="nav-link w-100" onclick="filterEvents('all')" type="button" 
+                    style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; transition: background-color 0.3s, color 0.3s;">
+                    ALL
+                </button>
+            </li>
+            <li class="nav-item flex-fill" role="presentation">
+                <button class="nav-link w-100" onclick="filterEvents('upcoming')" type="button" 
+                    style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; transition: background-color 0.3s, color 0.3s;">
+                    Current and Upcoming Events
+                </button>
+            </li>
+            <li class="nav-item flex-fill" role="presentation">
+                <button class="nav-link w-100" onclick="filterEvents('past')" type="button" 
+                    style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; transition: background-color 0.3s, color 0.3s;">
+                    Past Events
+                </button>
+            </li>
+        </ul>
+
         <!-- Card Body -->
-        <div class="card-body" style="height: 410px; overflow-y: auto; padding: 15px;">
-        <?php
-require_once("config.php");
+        <div class="card-body" style="height: 340px; overflow-y: auto; padding: 20px; font-family: 'Montserrat', sans-serif; background-color: #fff;">
+            <!-- PHP Code for Event Listing -->
+            <?php
+                require_once("config.php");
+
+
 
 // Determine the filter type based on the URL parameter
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
@@ -189,22 +203,29 @@ if ($result = $mysqli->query($sql)) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             ?>
-                        <div class="card info-card customers-card mb-3">
-                            <div class="card-body" style="color: #555555; padding: 10px; border-radius: 10px;">
-                                <div class="row">
-                                    <div class="col-lg-2 d-flex align-items-center justify-content-center" style="background-color: aqua; padding: 10px;">
-                                        <img src="assets/img/ardui.jpg" style="height: 120px; width: 120px; object-fit: scale-down;">
+
+                        <div class="card info-card customers-card mb-3" style="border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                            <div class="card-body" style="color: #555555; padding: 15px; border-radius: 10px;">
+                                <div class="row align-items-center">
+                                    <!-- Image Column -->
+                                    <div class="col-lg-2 d-flex justify-content-center" style="padding: 10px;">
+                                        <img src="assets/img/ardui.jpg" style="height: 120px; width: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd;">
                                     </div>
                                     
+                                    <!-- Event Information Column -->
                                     <div class="col-lg-5" style="padding: 10px;">
                                         <div class="form-group">
                                             <label>Event Name</label>
                                             <p style="margin-bottom: 5px; font-weight: bold;">
+                                              <a href="analytics-page.php?id=<?php echo $row['id']; ?>" 
+                                                style="font-size: 20px; text-decoration: none; display: flex; align-items: center;" 
+                                                target="_blank" 
+                                                data-toggle="tooltip" 
+                                                title="Show Event Survey Result">
                                                   <?php echo htmlspecialchars($row['event_name']); ?> 
-                                                  <a href="analytics-page.php?id=<?php echo $row['id']; ?>" style="font-size: 20px; text-decoration: none;" target="_blank" data-toggle="tooltip" title="Show Event Survey Result">
-                                                      <i class="fa">&#xf200;</i>
-                                                  </a>
-                                              </p>
+                                                  <i class="fa" style="margin-left: 10px;">&#xf200;</i>
+                                              </a>
+                                            </p>
                                         </div> 
                                         <div class="form-group">
                                             <label>Date</label>
@@ -229,27 +250,34 @@ if ($result = $mysqli->query($sql)) {
                                         <!-- Buttons for View, Edit, Delete -->
                                         <div class="mt-3 d-flex justify-content-start">
                                             <!-- View Event Details -->
-                                            <a href="read.php?id=<?php echo $row['id']; ?>" class="btn btn-primary me-2" title="View Event"> <i class="bi bi-eye"></i> View
-                                          </a>
-                                            <!-- Update Event Details -->
-                                            <!-- <button class="btn btn-warning me-2" title="Edit Event">
-                                                <i class="bi bi-pencil"></i> Update
-                                            </button> -->
-                                            <a href="update.php?id=<?php echo $row['id']; ?>" class="btn btn-warning me-2" title="Update Event"> <i class="bi bi-eye"></i> Update
+                                            <a href="read.php?id=<?php echo $row['id']; ?>" 
+                                              class="btn btn-primary me-2 d-flex align-items-center px-3 py-2" 
+                                              title="View Event" 
+                                              style="white-space: nowrap; font-size: 14px;">
+                                                <i class="bi bi-eye me-1"></i> <span>View</span>
                                             </a>
+
+                                            <!-- Update Event Details -->
+                                            <a href="update.php?id=<?php echo $row['id']; ?>" 
+                                              class="btn btn-warning me-2 d-flex align-items-center px-3 py-2" 
+                                              title="Update Event" 
+                                              style="white-space: nowrap; font-size: 14px;">
+                                                <i class="bi bi-pencil me-1"></i> <span>Update</span>
+                                            </a>
+
                                             <!-- Delete Event -->
-                                            <!-- <button class="btn btn-danger" title="Delete Event" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                <i class="bi bi-trash"></i> Delete
+                                            <button class="btn btn-danger delete-btn d-flex align-items-center px-3 py-2" 
+                                                    title="Delete Event" 
+                                                    data-id="<?php echo $row['id']; ?>" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#exampleModal" 
+                                                    style="white-space: nowrap; font-size: 14px;">
+                                                <i class="bi bi-trash me-1"></i> <span>Delete</span>
                                             </button>
-                                            <a href="archive.php?id=<?php echo $row['id']; ?>"class="btn btn-danger" title="Delete Event" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="bi bi-trash"></i> Delete
-                                            </a> -->
-                                            <button class="btn btn-danger delete-btn" title="Delete Event" data-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    <i class="bi bi-trash"></i> Delete
-</button>
+                                          </div>
 
 
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -397,6 +425,26 @@ fetch('filter_events.php?filter=all')
   })
   .catch(err => console.error('Error loading default events:', err));
 </script>
+
+<style>
+    /* Hover effect for the tabs */
+    .nav-link {
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        font-weight: 500;
+        color: #555;
+    }
+
+    .nav-link:hover {
+        background-color: #f0f0f0; /* Light background on hover */
+        color: #333; /* Darker text on hover */
+    }
+
+    .nav-link.active {
+        background-color: #e6e6e6; /* Light background for active tab */
+        color: #333; /* Darker text for active tab */
+    }
+</style>
+
 </body>
 
 </html>

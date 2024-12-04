@@ -251,7 +251,7 @@ p[contenteditable="true"]:focus {
   }
   
   button {
-    background-color: #04AA6D;
+    background-color: #007bff;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -284,7 +284,7 @@ p[contenteditable="true"]:focus {
     opacity: 1;
   }
   
-  /* Mark the steps that are finished and valid: */
+  /* Mark the steps that #04AA6Dare finished and valid: */
   .step.finish {
     background-color: #04AA6D;
   }

@@ -163,26 +163,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <header id="header" class="header d-flex align-items-center light-background sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
       <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
-        <img src="scpeslogo.png" alt="">
+        <img src="scpes-logo1.png" alt="">
         <span class="d-none d-lg-block" style="color: #e4e4e4;">SCPES</span>
       </a>
     </div><!-- End Logo -->
 
     <nav class="header-nav ms-auto">
       <ul>
-        <li><a href="index.html" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
-        <li><a href="results.html" class="zoom-link" style="color: #e4e4e4;">Results</a></li>
+        <li><a href="index.php" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
+        <li><a href="deleted-page.php" class="zoom-link" style="color: #e4e4e4;">Archive</a></li>
       </ul>
-    </nav>
+  </nav>
 
   <div>  
     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
       <img src="uelogo.png" alt="Profile" class="rounded-circle" style="max-height: 36px;">
-      <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #e4e4e4;">Admin</span>
+      <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #e4e4e4; margin-right: 10px;">Admin</span>
     </a><!-- End Profile Iamge Icon -->
 
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-      <a  href="pages-login.html" class="dropdown-item d-flex align-items-center" href="#">
+      <a  href="pages-login.php" class="dropdown-item d-flex align-items-center" href="#">
         <i class="bi bi-box-arrow-right"></i>
         <span>Sign Out</span>
       </a>
@@ -203,11 +203,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <li class="breadcrumb-item active" style="color: #555555;">Update event</li>
         </ol>
       </nav>
-      <p>Please edit the input values and submit to update the event record.</p>
+      <p style="margin-bottom: 0; padding-bottom: 0;">Please edit the input values and submit to update the event record.</p>
+</div><!-- End Page Title -->
 
-    </div><!-- End Page Title -->
-
-    <!-- Vertical Form -->
+<div class="container mt-3">
+  <div class="card shadow" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+    <div class="card-body" style="padding: 20px; font-family: 'Montserrat', sans-serif;">
+      <!-- Vertical Form -->
     <form class="row g-3 needs-validation" id="eventForm" action="<?php echo htmlspecialchars(basename($_SERVER["REQUEST_URI"])); ?>" method="post">
     <input type="hidden" name="id" value="<?php echo $id; ?>">
     <div class="col-12">
@@ -261,6 +263,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="index.php" class="btn btn-secondary">Cancel</a>
       </div>
     </form>
+    </div>
+  </div>
+</div>
 
   </main><!-- End #main -->
 

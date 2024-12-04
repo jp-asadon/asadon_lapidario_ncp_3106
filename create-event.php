@@ -181,26 +181,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <header id="header" class="header d-flex align-items-center light-background sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
       <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">
-        <img src="scpeslogo.png" alt="">
-        <span class="d-none d-lg-block">SCPES</span>
+        <img src="scpes-logo1.png" alt="">
+        <span class="d-none d-lg-block" style="color: #e4e4e4;">SCPES</span>
       </a>
     </div><!-- End Logo -->
 
     <nav class="header-nav ms-auto">
       <ul>
-        <li><a href="index.php" class="active">Dashboard</a></li>
-        <li><a href="results.html">Results</a></li>
+        <li><a href="index.php" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
+        <li><a href="deleted-page.php" class="zoom-link" style="color: #e4e4e4;">Archive</a></li>
       </ul>
   </nav>
 
   <div>  
     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
       <img src="uelogo.png" alt="Profile" class="rounded-circle" style="max-height: 36px;">
-      <span class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
+      <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #e4e4e4; margin-right: 10px;">Admin</span>
     </a><!-- End Profile Iamge Icon -->
 
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-      <a  href="pages-login.html" class="dropdown-item d-flex align-items-center" href="#">
+      <a  href="pages-login.php" class="dropdown-item d-flex align-items-center" href="#">
         <i class="bi bi-box-arrow-right"></i>
         <span>Sign Out</span>
       </a>
@@ -216,66 +216,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="pagetitle">
       <h1 style="font-size: 35px;">Create New Event</h1>
       <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-          <li class="breadcrumb-item active">Create event</li>
+        <ol class="breadcrumb" style="margin-bottom: 0px; color: #2a2a2a;">
+          <li class="breadcrumb-item"><a href="index.php" style="color: #555555;">Dashboard</a></li>
+          <li class="breadcrumb-item active" style="color: #555555;">Create event</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
-    <!-- Vertical Form -->
-    <form class="row g-3 needs-validation" id="eventForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <div class="col-12">
-        <label for="id_event_name" class="form-label">Event Name</label>
-        <input type="text" class="form-control <?php echo (!empty($event_name_err)) ? 'is-invalid' : ''; ?>" name="id_event_name" style="text-transform: capitalize" value="<?php echo $event_name; ?>" required>
-        <div class="invalid-feedback">
-          <?php echo $event_name_err; ?>
+    <div class="container mt-3">
+    <div class="card shadow" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <div class="card-body" style="padding: 20px; font-family: 'Montserrat', sans-serif;">
+            <!-- Vertical Form -->
+            <form class="row g-3 needs-validation" id="eventForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div class="col-12">
+                    <label for="id_event_name" class="form-label">Event Name</label>
+                    <input type="text" class="form-control <?php echo (!empty($event_name_err)) ? 'is-invalid' : ''; ?>" name="id_event_name" style="text-transform: capitalize" value="<?php echo $event_name; ?>" required>
+                    <div class="invalid-feedback">
+                        <?php echo $event_name_err; ?>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="id_event_date" class="form-label">Event Date</label>
+                    <input type="date" class="form-control <?php echo (!empty($event_date_err)) ? 'is-invalid' : ''; ?>" name="id_event_date" value="<?php echo $event_date; ?>" required>
+                    <div class="invalid-feedback">
+                        <?php echo $event_date_err; ?>
+                    </div>
+                </div>
+                <div class="row" style="margin: 0px; padding: 0px;">
+                    <div class="col">
+                        <label for="id_event_start_time" class="form-label">Start Time</label>
+                        <input type="time" class="form-control <?php echo (!empty($event_start_time_err)) ? 'is-invalid' : ''; ?>" name="id_event_start_time" value="<?php echo $event_start_time; ?>" required>
+                        <div class="invalid-feedback">
+                            <?php echo $event_start_time_err; ?>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="id_event_end_time" class="form-label">End Time</label>
+                        <input type="time" class="form-control <?php echo (!empty($event_end_time_err)) ? 'is-invalid' : ''; ?>" name="id_event_end_time" value="<?php echo $event_end_time; ?>" required>
+                        <div class="invalid-feedback">
+                            <?php echo $event_end_time_err; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="id_event_venue" class="form-label">Event Venue</label>
+                    <input type="text" class="form-control <?php echo (!empty($event_venue_err)) ? 'is-invalid' : ''; ?>" name="id_event_venue" style="text-transform: capitalize" value="<?php echo $event_venue; ?>" required>
+                    <div class="invalid-feedback">
+                        <?php echo $event_venue_err; ?>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="id_event_speaker" class="form-label">Event Speaker/s</label>
+                    <input type="text" class="form-control <?php echo (!empty($event_speaker_err)) ? 'is-invalid' : ''; ?>" name="id_event_speaker" style="text-transform: capitalize" value="<?php echo $event_speaker; ?>" required>
+                    <div class="invalid-feedback">
+                        <?php echo $event_speaker_err; ?>
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 40px;">
+                    <button type="submit" class="btn btn-primary" style="margin: 5px;" data-toggle="modal" data-target="#createEventModal" name="btn_createSubmit">Submit</button>
+                    <button type="reset" class="btn btn-secondary" style="margin: 5px;">Reset</button>
+                    <a href="index.php" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
         </div>
-      </div>
-      <div class="col-12">
-        <label for="id_event_date" class="form-label">Event Date</label>
-        <input type="date" class="form-control <?php echo (!empty($event_date_err)) ? 'is-invalid' : ''; ?>" name="id_event_date" value="<?php echo $event_date; ?>" required>
-        <div class="invalid-feedback">
-        <?php echo $event_date_err; ?>
-        </div>
-      </div>
-      <div class="row" style="margin: 0px; padding: 0px;">
-        <div class="col">
-          <label for="id_event_start_time" class="form-label">Start Time</label>
-          <input type="time" class="form-control <?php echo (!empty($event_start_time_err)) ? 'is-invalid' : ''; ?>" name="id_event_start_time" value="<?php echo $event_start_time; ?>" required>
-          <div class="invalid-feedback">
-          <?php echo $event_start_time_err; ?>
-          </div>
-        </div>
-        <div class="col">
-          <label for="id_event_end_time" class="form-label">End Time</label>
-          <input type="time" class="form-control <?php echo (!empty($event_end_time_err)) ? 'is-invalid' : ''; ?>" name="id_event_end_time" value="<?php echo $event_end_time; ?>" required>
-          <div class="invalid-feedback">
-          <?php echo $event_end_time_err; ?>
-        </div>
-        </div>
-      </div>
+    </div>
+</div>
 
-      <div class="col-12">
-        <label for="id_event_venue" class="form-label">Event Venue</label>
-        <input type="text" class="form-control <?php echo (!empty($event_venue_err)) ? 'is-invalid' : ''; ?>" name="id_event_venue" style="text-transform: capitalize" value="<?php echo $event_venue; ?>" required>
-        <div class="invalid-feedback">
-        <?php echo $event_venue_err; ?>
-      </div>
-      </div>
-      <div class="col-12">
-        <label for="id_event_speaker" class="form-label">Event Speaker/s</label>
-        <input type="text" class="form-control <?php echo (!empty($event_speaker_err)) ? 'is-invalid' : ''; ?>" name="id_event_speaker" style="text-transform: capitalize" value="<?php echo $event_speaker; ?>" required>
-        <div class="invalid-feedback">
-        <?php echo $event_speaker_err; ?>
-        </div>
-      </div>
-      <div class="text-center" style="margin-top: 40px;">
-        <button type="submit" class="btn btn-primary" style="margin: 5px;" data-toggle="modal" data-target="#createEventModal" name="btn_createSubmit">Submit</button>
-        <button type="reset" class="btn btn-secondary" style="margin: 5px;">Reset</button>
-        <a href="index.php" class="btn btn-secondary">Cancel</a>
-      </div>
-    </form>
 
 
 
@@ -378,6 +384,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     }
   </script>
+
+  
 
 
 </body>
