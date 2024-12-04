@@ -150,18 +150,45 @@
         <div style="position: sticky; top: 0; background-color: white; z-index: 1; padding: 15px; border-bottom: 1px solid #ddd;">
             <h1 style="margin: 0;">EVENT LIST</h1>
         </div>
-        
+<!-- Tabs for Filtering -->
+<ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+        <li class="nav-item flex-fill" role="presentation">
+            <button class="nav-link w-100 active" onclick="filterEvents('all')" type="button">ALL</button>
+        </li>
+        <li class="nav-item flex-fill" role="presentation">
+            <button class="nav-link w-100" onclick="filterEvents('upcoming')" type="button">Current and Upcoming Events</button>
+        </li>
+        <li class="nav-item flex-fill" role="presentation">
+            <button class="nav-link w-100" onclick="filterEvents('past')" type="button">Past Events</button>
+        </li>
+    </ul>
         <!-- Card Body -->
         <div class="card-body" style="height: 410px; overflow-y: auto; padding: 15px;">
-            <?php
-            require_once("config.php");
+        <?php
+require_once("config.php");
 
-            $sql = "SELECT * FROM create_event WHERE delete_event = 0";
+// Determine the filter type based on the URL parameter
+$filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
+$currentDateTime = date('Y-m-d H:i:s'); // Get the current date and time
 
-            if ($result = $mysqli->query($sql)) {
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        ?>
+// Base SQL query
+$sql = "SELECT * FROM create_event WHERE delete_event = 0";
+
+// Add conditions for filtering
+if ($filter === 'upcoming') {
+    $sql .= " AND CONCAT(event_date, ' ', event_start_time) >= '$currentDateTime'";
+} elseif ($filter === 'past') {
+    $sql .= " AND CONCAT(event_date, ' ', event_start_time) < '$currentDateTime'";
+}
+
+// Add sorting for events
+$sql .= " ORDER BY event_date ASC, event_start_time ASC";
+
+// Execute the query
+if ($result = $mysqli->query($sql)) {
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            ?>
                         <div class="card info-card customers-card mb-3">
                             <div class="card-body" style="color: #555555; padding: 10px; border-radius: 10px;">
                                 <div class="row">
@@ -238,7 +265,7 @@
             ?>
 
             
-        </div>
+        </div>''
     </div>
 </div>
 
@@ -322,6 +349,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
   <script>
+
+function filterEvents(filter) {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('filter', filter);
+    window.location.search = urlParams.toString();
+}
+
 
       // Enable Bootstrap tooltips
       $(document).ready(function() {
