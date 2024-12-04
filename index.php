@@ -11,7 +11,7 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
+  <link href="scpeslogo.png" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -53,15 +53,15 @@
 
     <nav class="header-nav ms-auto">
       <ul>
-        <li><a href="index.php" class="zoom-link" style="color: #e4e4e4;">Dashboard</a></li>
-        <li><a href="deleted-page.php" class="zoom-link" style="color: #e4e4e4;">Archive</a></li>
+        <li><a href="index.php" class="zoom-link" style="color: #e4e4e4; margin-right: 18px;">Dashboard</a></li>
+        <li><a href="deleted-page.php" class="zoom-link" style="color: #e4e4e4; margin-right: 25px;">Archive</a></li>
       </ul>
   </nav>
 
   <div>  
-    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+    <a class="nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" style=" background-color: transparent;">
       <img src="uelogo.png" alt="Profile" class="rounded-circle" style="max-height: 36px;">
-      <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #e4e4e4; margin-right: 10px;">Admin</span>
+      <span class="d-none d-md-block dropdown-toggle ps-2 zoom-link" style="color: #e4e4e4; margin-right: 30px;">Admin</span>
     </a><!-- End Profile Iamge Icon -->
 
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -149,7 +149,7 @@
 
         <!-- Card Header -->
         <div style="font-family: 'Poppins', sans-serif; position: sticky; top: 0; background-color: #ffffff; z-index: 1; padding: 15px 10px; border-bottom: 2px solid #e6e6e6; text-align: center;">
-            <h6 style="margin: 0; font-size: 28px; color: #333; font-weight: 600;">List of Events</h6>
+            <h6 style="margin: 0; font-size: 28px; color: #333; font-weight: bold;">List of Events</h6>
         </div>
 
         <!-- Tabs for Filtering -->
@@ -219,22 +219,44 @@ if ($result = $mysqli->query($sql)) {
                     <label>Event Name</label>
                     <p style="margin-bottom: 5px; font-weight: bold;">
                       <a href="analytics-page.php?id=<?php echo $row['id']; ?>" 
-                        style="font-size: 20px; text-decoration: none; display: flex; align-items: center;" 
+                        style="font-size: 17px; text-decoration: none; display: flex; align-items: center; color:#555555" 
                         target="_blank" 
                         data-toggle="tooltip" 
                         title="Show Event Survey Result">
-                          <?php echo htmlspecialchars($row['event_name']); ?> 
+                          <?php echo ucwords(htmlspecialchars($row['event_name'])); ?> 
                           <i class="fa" style="margin-left: 10px;">&#xf200;</i>
                       </a>
                     </p>
                 </div> 
                 <div class="form-group">
                     <label>Date</label>
-                    <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_date']); ?></p>
+                    <p style="margin-bottom: 5px; font-weight: bold;">
+                    <?php 
+                      // Attempt to parse the date in different formats
+                      $date = DateTime::createFromFormat('m-d-y', $row['event_date']);
+                      if (!$date) {
+                          // If it fails, try another format (for example, Y-m-d)
+                          $date = DateTime::createFromFormat('Y-m-d', $row['event_date']);
+                      }
+                      if (!$date) {
+                          // If it still fails, try d-m-Y format
+                          $date = DateTime::createFromFormat('d-m-Y', $row['event_date']);
+                      }
+                      // If the date is successfully parsed, format it; otherwise, show the raw value
+                      echo $date ? $date->format('M d, Y') : htmlspecialchars($row['event_date']);?>
+                    </p>
                 </div>
                 <div class="form-group">
                     <label>Time</label>
-                    <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_start_time']) . " - " . htmlspecialchars($row['event_end_time']); ?></p>
+                    <p style="margin-bottom: 5px; font-weight: bold;">
+                    <?php 
+                        // Convert the time format from HH:MM:SS to 12-hour format with AM/PM
+                        $start_time = DateTime::createFromFormat('H:i:s', $row['event_start_time']);
+                        $end_time = DateTime::createFromFormat('H:i:s', $row['event_end_time']);
+                        
+                        // Display time in 12-hour format
+                        echo $start_time->format('g:i A') . " - " . $end_time->format('g:i A');?>
+                    </p>
                 </div>
             </div>
 
@@ -242,11 +264,10 @@ if ($result = $mysqli->query($sql)) {
             <div class="col-lg-4 col-md-4 col-12" style="padding: 10px;">
                 <div class="form-group">
                     <label>Event Venue</label>
-                    <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_venue']); ?></p>
                 </div>
                 <div class="form-group">
                     <label>Event Speaker/s</label>
-                    <p style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($row['event_speaker']); ?></p>
+                    <p style="margin: 0; font-weight: bold;"><?php echo ucwords(htmlspecialchars($row['event_speaker'])); ?></p>
                 </div>
 
                 <!-- Buttons for View, Edit, Delete -->
@@ -295,7 +316,7 @@ if ($result = $mysqli->query($sql)) {
             ?>
 
             
-        </div>''
+        </div>
     </div>
 </div>
 
@@ -326,9 +347,9 @@ if ($result = $mysqli->query($sql)) {
     </div>
 <form method="POST" action="archive.php">
     <div class="modal-body">
-        <div class="alert alert-danger">
+        <div class="alert alert-danger d-flex justify-content-center align-items-center">
             <input type="hidden" name="id" />
-            <p>Are you sure you want to delete this event record?</p>
+            <p class="m-0">Are you sure you want to delete this event record?</p>
         </div>
     </div>
     <div class="modal-footer">
