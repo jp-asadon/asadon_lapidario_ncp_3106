@@ -21,6 +21,7 @@ body {
 
 a {
   color: #4154f1;
+  
   text-decoration: none;
 }
 
@@ -347,7 +348,7 @@ h6 {
   font-weight: 600;
 }
 
-/* Bordered Tabs */
+/* Bordered Tabs
 .nav-tabs-bordered {
   border-bottom: 2px solid #ebeef4;
 }
@@ -367,7 +368,7 @@ h6 {
   background-color: #fff;
   color: #4154f1;
   border-bottom: 2px solid #4154f1;
-}
+} */
 
 /*--------------------------------------------------------------
 # Header
@@ -1296,6 +1297,6 @@ h6 {
 }
 
 .btn-download:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+  background-color: #0056b3
+  #c8dbe7; /* Darker shade on hover */
 }
-

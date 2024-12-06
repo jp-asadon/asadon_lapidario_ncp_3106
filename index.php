@@ -112,32 +112,33 @@
             </div>
           </div>
 
-          <!-- Recent Activity -->
-          <div class="card" style="height: 300px; overflow-y: auto;">
-  <div class="filter" style="background-color: #2a2a2a">
-    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-      <li class="dropdown-header text-start">
-        <h6>Filter</h6>
-      </li>
-      <li><a class="dropdown-item filter-option" href="#" data-filter="all">All</a></li>
-      <li><a class="dropdown-item filter-option" href="#" data-filter="today">Today</a></li>
-      <li><a class="dropdown-item filter-option" href="#" data-filter="week">This Week</a></li>
-      <li><a class="dropdown-item filter-option" href="#" data-filter="month">This Month</a></li>
-    </ul>
+<!-- Recent Activity -->
+<div class="card" style="height: 300px; overflow-y: auto;">
+  <!-- Filter Dropdown -->
+  <div class="d-flex justify-content-between align-items-center p-2" style="background-color: #c8dbe7;">
+    <h5 class="card-title sticky-title mb-0" style="background: transparent; color: black;">Upcoming Events</h5>
+    <div class="filter">
+      <a class="icon" href="#" data-bs-toggle="dropdown" style="color: #fff;"><i class="bi bi-three-dots"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+        <li class="dropdown-header text-start">
+          <h6>Filter</h6>
+        </li>
+        <li><a class="dropdown-item filter-option" href="#" data-filter="all">All</a></li>
+        <li><a class="dropdown-item filter-option" href="#" data-filter="today">Today</a></li>
+        <li><a class="dropdown-item filter-option" href="#" data-filter="week">This Week</a></li>
+        <li><a class="dropdown-item filter-option" href="#" data-filter="month">This Month</a></li>
+      </ul>
+    </div>
   </div>
 
+  <!-- Card Body -->
   <div class="card-body">
-    <h5 class="card-title sticky-title">Upcoming Events</h5>
     <div class="activity" id="activity-list">
-    <p>Loading events...</p>
-
+      <p>Loading events...</p>
+    </div>
+  </div>
 </div>
-
-
-
-            </div>
-          </div><!-- End Recent Activity -->
+<!-- End Recent Activity -->
 
         </div><!-- End Right side columns -->
 
@@ -148,27 +149,30 @@
     <div class="card info-card customers-card" style="height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); overflow: hidden;">
 
         <!-- Card Header -->
-        <div style="font-family: 'Poppins', sans-serif; position: sticky; top: 0; background-color: #ffffff; z-index: 1; padding: 15px 10px; border-bottom: 2px solid #e6e6e6; text-align: center;">
+        <div style="font-family: 'Poppins', sans-serif; position: sticky; top: 0; background-color: #c8dbe7; z-index: 1; padding: 15px 10px; text-align: center;">
             <h6 style="margin: 0; font-size: 28px; color: #333; font-weight: bold;">List of Events</h6>
         </div>
 
         <!-- Tabs for Filtering -->
-        <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist" style="border-bottom: 1px solid #ddd;">
+        <ul class="nav nav-tabs d-flex" id="borderedTabJustified" role="tablist" style="border-radius: 8px; padding: 3px;">
             <li class="nav-item flex-fill" role="presentation">
                 <button class="nav-link w-100" onclick="filterEvents('all')" type="button" 
-                style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; padding: 10px 10px; background-color: #f8f9fa; border: 1px solid #ddd; margin-right: 10px; transition: all 0.3s ease;">
+                style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; padding: 10px 10px; 
+                background-color: #f8f9fa; border: 1px solid #888; margin-right: 10px; transition: all 0.3s ease;">
                     ALL
                 </button>
             </li>
             <li class="nav-item flex-fill" role="presentation">
                 <button class="nav-link w-100" onclick="filterEvents('upcoming')" type="button" 
-                style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; padding: 10px 10px; background-color: #f8f9fa; border: 1px solid #ddd; margin-right: 10px; transition: all 0.3s ease;">
+                style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; padding: 10px 10px; 
+                background-color: #f8f9fa; border: 1px solid #888; margin-right: 10px; transition: all 0.3s ease;">
                     Current and Upcoming Events
                 </button>
             </li>
             <li class="nav-item flex-fill" role="presentation">
                 <button class="nav-link w-100" onclick="filterEvents('past')" type="button" 
-                style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; padding: 10px 10px; background-color: #f8f9fa; border: 1px solid #ddd; margin-right: 0; transition: all 0.3s ease;">
+                style="border-radius: 5px; font-size: 14px; font-weight: 500; color: #555; padding: 10px 10px; 
+                background-color: #f8f9fa; border: 1px solid #888; margin-right: 0; transition: all 0.3s ease;">
                     Past Events
                 </button>
             </li>
@@ -179,7 +183,6 @@
             <!-- PHP Code for Event Listing -->
             <?php
                 require_once("config.php");
-
 
 
 // Determine the filter type based on the URL parameter
@@ -199,18 +202,31 @@ if ($filter === 'upcoming') {
 // Add sorting for events
 $sql .= " ORDER BY event_date ASC, event_start_time ASC";
 
+// Define an array of image paths
+$imagePaths = [
+  "assets/img/ardui.jpg",
+  "assets/img/genassem.jpg",
+  "assets/img/goingbeyond.jpg",
+  "assets/img/lovelang.jpg",
+  "assets/img/techcon.jpg",
+  "assets/img/tekken.jpg",
+  "assets/img/yearend.jpg"
+];
+
 // Execute the query
 if ($result = $mysqli->query($sql)) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            ?>
+          // Select a random image for this event
+          $randomImage = $imagePaths[array_rand($imagePaths)];
+          ?>
 
 <div class="card info-card customers-card mb-3" style="border-radius: 10px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 -6px 12px rgba(0, 0, 0, 0.1);">
     <div class="card-body" style="color: #555555; padding: 15px; border-radius: 10px;">
         <div class="row align-items-center d-flex flex-wrap">
             <!-- Image Column -->
             <div class="col-lg-3 col-md-4 col-12 d-flex justify-content-center" style="padding: 10px;">
-                <img src="assets/img/ardui.jpg" style="height: 120px; width: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd;">
+                <img src="<?php echo $randomImage; ?>" style="height: 120px; width: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd;">
             </div>
 
             <!-- Event Information Column -->
@@ -264,6 +280,7 @@ if ($result = $mysqli->query($sql)) {
             <div class="col-lg-4 col-md-4 col-12" style="padding: 10px;">
                 <div class="form-group">
                     <label>Event Venue</label>
+                    <p style="margin-bottom: 5px; font-weight: bold;"><?php echo htmlspecialchars($row['event_venue']); ?></p>
                 </div>
                 <div class="form-group">
                     <label>Event Speaker/s</label>
@@ -447,6 +464,18 @@ fetch('filter_events.php?filter=all')
     document.getElementById('activity-list').innerHTML = data;
   })
   .catch(err => console.error('Error loading default events:', err));
+
+
+// JavaScript to toggle active class
+const tabs = document.querySelectorAll('.tab-btn');
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+        tabs.forEach(t => t.classList.remove('active')); // Remove active class from all tabs
+        this.classList.add('active'); // Add active class to clicked tab
+    });
+});
+
 </script>
 
 <style>

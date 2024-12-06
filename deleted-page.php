@@ -93,7 +93,7 @@
 
     <div class="card info-card customers-card" style="height: 410px;">
         <!-- Card Header -->
-        <div style="font-family: 'Poppins', sans-serif; position: sticky; top: 0; background-color: #ffffff; z-index: 1; padding: 15px 10px; border-bottom: 2px solid #e6e6e6; text-align: center;">
+        <div style="font-family: 'Poppins', sans-serif; position: sticky; top: 0; background-color: #c8dbe7; z-index: 1; padding: 15px 10px; border-bottom: 2px solid #e6e6e6; text-align: center;">
             <h1 style="margin: 0; font-size: 28px; color: #333; font-weight: bold;">List of Events</h1>
         </div>
         
