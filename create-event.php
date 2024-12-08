@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $last_id = $mysqli->insert_id;
 
                 // Generate the QR code text and image using the new ID
-                $qrtext = "http://192.168.181.131:8080//project-wolfgang/student-form.php?id=" . $last_id;
+                $qrtext = "http://192.168.152.131:8080//project-wolfgang/student-form.php?id=" . $last_id;
                 $qrimage_name = time() . ".png";
                 $qrimage_path = 'images/' . $qrimage_name;
                 QRcode::png($qrtext, $qrimage_path, 'H', 4, 4);

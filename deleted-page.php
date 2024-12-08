@@ -83,7 +83,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php" style="color: #555555;">Dashboard</a></li>
-          <li class="breadcrumb-item active"></li>
+          <li class="breadcrumb-item active" style="color: #555555;">Archive</li>
         </ol>
       </nav>
     </div>
