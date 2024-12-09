@@ -403,6 +403,9 @@ if ($result = $mysqli->query($sql)) {
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
+   <br>
+   <br>
+   <br>
   <footer id="footer" class="footer">
     <div class="copyright">
       &copy; Copyright <strong><span>Project-Wolfgang Developers</span></strong>. All Rights Reserved
