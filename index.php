@@ -178,8 +178,24 @@
             </li>
         </ul>
 
+        <div class="search-container" style="display: flex; justify-content: center; width: 100%; padding: 10px;">
+            <input 
+                type="text" 
+                id="searchEvent" 
+                placeholder="   Search for events..." 
+                onkeydown="handleSearchEvent(event)" 
+                style="
+                    width: 90%; 
+                    padding: 8px 10px; 
+                    border: 1px solid #ccc; 
+                    border-radius: 5px; 
+                    font-size: 16px; 
+                    box-sizing: border-box; 
+                ">
+        </div>
+
         <!-- Card Body -->
-        <div class="card-body d-flex flex-column" style="max-height: 340px; overflow-y: auto; padding: 20px; font-family: 'Montserrat', sans-serif; background-color: #fff;">
+        <div class="card-body d-flex flex-column" style="max-height: 340px; overflow-y: auto; padding: 20px; padding-top: 5px; font-family: 'Montserrat', sans-serif; background-color: #fff;">
             <!-- PHP Code for Event Listing -->
             <?php
                 require_once("config.php");
@@ -476,6 +492,26 @@ tabs.forEach(tab => {
     });
 });
 
+function handleSearchEvent(event) {
+        if (event.key === "Enter") {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Perform your search logic here
+            const query = document.getElementById("searchEvent").value.toLowerCase();
+            
+            // Example logic to filter events
+            const events = document.querySelectorAll(".card.info-card.customers-card.mb-3");
+            events.forEach(eventCard => {
+                const eventName = eventCard.querySelector("p a").innerText.toLowerCase();
+                if (eventName.includes(query)) {
+                    eventCard.style.display = "block"; // Show matching events
+                } else {
+                    eventCard.style.display = "none"; // Hide non-matching events
+                }
+            });
+        }
+    }
 </script>
 
 <style>
