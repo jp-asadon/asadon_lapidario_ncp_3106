@@ -364,20 +364,19 @@ if ($last_updated_result && $last_updated_result->num_rows > 0) {
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Data Analytics</h1>
+      <h1>EVENT SURVEY RESULT</h1>
       <nav>
-        <ol class="breadcrumb">
+        <ol class="breadcrumb" style="margin-bottom: 0px;">
           <li class="breadcrumb-item"><a href="index.php" style="color: #555555;">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="results.html" style="color: #555555;">Results</a></li>
-          <li class="breadcrumb-item active" style="color: #555555;">Data Analytics</li>
+          <li class="breadcrumb-item"><a href="results.html" style="color: #555555;">Event Survey Results</a></li>
+          <li class="breadcrumb-item active" style="color: #555555;"><?php echo $event_name; ?></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
     
 
     <section class="section dashboard">
-      <h2 style="text-align:center">EVENT SURVEY RESULT</h2>
-        <h1 style="text-align:center"><?php echo $event_name; ?></h1>
+        <h1 style="text-align: center; text-transform: uppercase; font-weight: bold;">"<?php echo $event_name; ?>"</h1>
 
     
     <div class="row">
@@ -386,7 +385,7 @@ if ($last_updated_result && $last_updated_result->num_rows > 0) {
               <div class="card info-card sales-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Attendees <span>| Today</span></h5>
+                  <h5 class="card-title">Attendees</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -410,7 +409,7 @@ if ($last_updated_result && $last_updated_result->num_rows > 0) {
               <div class="card info-card revenue-card">
 
               <div class="card-body">
-                    <h5 class="card-title">Last Updated <span>| Today</span></h5>
+                    <h5 class="card-title">Last Updated</h5>
 
                     <div class="d-flex align-items-center">
                       <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -500,7 +499,14 @@ if ($last_updated_result && $last_updated_result->num_rows > 0) {
 
                   echarts.init(document.querySelector("#verticalBarChart")).setOption({
                     title: {
-                      text: 'Average Event Ratings'
+                      text: 'Average Event Ratings',
+                    textStyle: {
+                      fontFamily: 'Open Sans',
+                      fontWeight: 'bold',
+                      fontSize: 16,
+                      color: 'black'
+                      },
+                      top: '2%',
                     },
                     tooltip: {
                       trigger: 'axis',
