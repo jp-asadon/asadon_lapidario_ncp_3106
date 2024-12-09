@@ -368,7 +368,6 @@ if ($last_updated_result && $last_updated_result->num_rows > 0) {
       <nav>
         <ol class="breadcrumb" style="margin-bottom: 0px;">
           <li class="breadcrumb-item"><a href="index.php" style="color: #555555;">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="results.html" style="color: #555555;">Event Survey Results</a></li>
           <li class="breadcrumb-item active" style="color: #555555;"><?php echo $event_name; ?></li>
         </ol>
       </nav>
