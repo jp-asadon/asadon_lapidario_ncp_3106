@@ -96,6 +96,22 @@
         <div style="font-family: 'Poppins', sans-serif; position: sticky; top: 0; background-color: #c8dbe7; z-index: 1; padding: 15px 10px; border-bottom: 2px solid #e6e6e6; text-align: center;">
             <h1 style="margin: 0; font-size: 28px; color: #333; font-weight: bold;">List of Events</h1>
         </div>
+
+        <div class="search-container" style="display: flex; justify-content: center; width: 100%; padding: 10px;">
+            <input 
+                type="text" 
+                id="searchDeletedEvent" 
+                placeholder="   Search for deleted events..." 
+                onkeydown="handleSearchDeletedEvent(event)" 
+                style="
+                    width: 90%; 
+                    padding: 8px 10px; 
+                    border: 1px solid #ccc; 
+                    border-radius: 5px; 
+                    font-size: 16px; 
+                    box-sizing: border-box;">
+        </div>
+
         
         <!-- Card Body -->
         <div class="card-body" style="height: 410px; overflow-y: auto; padding: 15px;">
@@ -314,6 +330,25 @@ fetch('filter_events.php?filter=all')
     document.getElementById('activity-list').innerHTML = data;
   })
   .catch(err => console.error('Error loading default events:', err));
+
+  function handleSearchDeletedEvent(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+
+        const query = document.getElementById("searchDeletedEvent").value.toLowerCase();
+
+        const deletedEvents = document.querySelectorAll(".card.info-card.customers-card.mb-3");
+        deletedEvents.forEach(deletedEventCard => {
+            const eventName = deletedEventCard.querySelector("p a").innerText.toLowerCase();
+            if (eventName.includes(query)) {
+                deletedEventCard.style.display = "block";
+            } else {
+                deletedEventCard.style.display = "none";
+            }
+        });
+    }
+}
+
 </script>
 </body>
 
