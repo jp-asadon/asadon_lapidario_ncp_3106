@@ -711,7 +711,6 @@ if ($last_updated_result && $last_updated_result->num_rows > 0) {
                   <table class="table datatable" id="recordTable">
                     <thead>
                       <tr>
-                      <th>Feedback ID</th>
 
                         <th>
                           <b>Surname</b>
@@ -729,7 +728,7 @@ if ($last_updated_result && $last_updated_result->num_rows > 0) {
                     <tbody>
             <?php foreach ($feedback_data as $feedback): ?>
                 <tr>
-                <td><?php echo htmlspecialchars($feedback['feedback_id']); ?></td>
+                
                     <td><?php echo htmlspecialchars($feedback['surname']); ?></td>
                     <td><?php echo htmlspecialchars($feedback['first_name']); ?></td>
                     <td><?php echo htmlspecialchars($feedback['middle_initial']); ?></td>
